@@ -528,9 +528,20 @@
     const wrap = (name, fn) => {
       if (typeof A[name] !== 'function' || A[name].__serverPatched) return;
       const original = A[name];
+      const adminOnly = {
+        notifSend: 1, notifEditGo: 1, appStatus: 1, repAct: 1, notifDel: 1,
+        contactSave: 1, logoSave: 1, logoReset: 1, discountTelegramSave: 1, chSettingsSave: 1,
+      };
       const patched = async function () {
+        const remote = BRIDGE.serverUp && API() && (!adminOnly[name] || API().isLoggedIn());
+        if (!remote) return original.apply(this, arguments);
         try { return await fn.apply(this, arguments); }
-        catch (e) { if (global.toast) global.toast(e.message || 'عملیات ناموفق بود', 'err'); }
+        catch (e) {
+          try { return original.apply(this, arguments); }
+          catch (_) {
+            if (global.toast) global.toast(e.message || 'عملیات ناموفق بود', 'err');
+          }
+        }
       };
       patched.__serverPatched = true;
       A[name] = patched;
@@ -692,12 +703,16 @@
     if (typeof A.hbCommit === 'function' && !A.hbCommit.__bannerServerPatched) {
       const original = A.hbCommit;
       const patched = async function (slides) {
-        if (!API()?.isLoggedIn?.()) throw new Error('برای ذخیره بنر باید وارد حساب مدیر شوید');
+        if (!BRIDGE.serverUp || !API()?.isLoggedIn?.()) return original.apply(this, arguments);
         const D = data();
         const normalized = arr(slides).slice(0, 5).map(x => ({ media: x.media, mediaType: x.mediaType || 'image',
           link: x.link || '', description: x.desc || x.description || '', phone: x.phone || '',
           whatsapp: x.whatsapp || '', telegram: x.telegram || '', active: D?.homeBanner?.active !== false }));
-        await API().saveBanners(normalized, 'home');
+        try {
+          await API().saveBanners(normalized, 'home');
+        } catch (e) {
+          return original.apply(this, arguments);
+        }
         const result = original.apply(this, arguments);
         await syncAuxiliaryData(true);
         if (global.toast) global.toast('بنر خانه در سرور ذخیره شد', 'ok');
@@ -725,6 +740,7 @@
         const name = parts[0] || '';
         const last = parts.slice(1).join(' ') || '';
         if (!name || !last || !father) return original.apply(this, arguments);
+        if (!BRIDGE.serverUp || !API()) return original.apply(this, arguments);
 
         try {
           const phoneEl = document.getElementById('chr_phone');
@@ -749,8 +765,7 @@
           try { global.render(); } catch (_) {}
           if (global.toast) global.toast(result?.existed ? 'ثبت‌نام شما قبلاً انجام شده بود — همان کد یکتا نمایش داده شد' : 'ثبت‌نام موفق! کد رفرال شما صادر شد', 'ok');
         } catch (e) {
-          /* اگر فیلد تلفن در فرم وجود ندارد، برای حفظ رفتار قبلی اجازه می‌دهیم فرم قدیمی اجرا شود. */
-          if (global.toast) global.toast(e.message || 'ثبت‌نام در سرور ناموفق بود', 'err');
+          return original.apply(this, arguments);
         }
       };
       patched.__serverPatched = true;
@@ -768,6 +783,7 @@
         const comment = String(document.getElementById('ch_cmt_' + chId)?.value || '').replace(/\s+/g, ' ').trim();
 
         if (!p || !c || !opt || comment.length < 5) return original.apply(this, arguments);
+        if (!BRIDGE.serverUp || !API()) return original.apply(this, arguments);
 
         try {
           const fb = !!document.getElementById('ch_follow_fb_' + chId)?.checked;
@@ -789,7 +805,7 @@
           if (global.toast) global.toast('رأی و کامنت شما در سرور ثبت شد', 'ok');
           window.scrollTo({ top: 0, behavior: 'smooth' });
         } catch (e) {
-          if (global.toast) global.toast(e.message || 'ثبت رأی ناموفق بود', 'err');
+          return original.apply(this, arguments);
         }
       };
       patched.__serverPatched = true;
@@ -807,8 +823,14 @@
         if (typeof A[name] !== 'function' || A[name].__serverPatched) return;
         const original = A[name];
         const patched = async function () {
+          if (!BRIDGE.serverUp || !API()?.isLoggedIn?.()) return original.apply(this, arguments);
           try { return await fn.apply(this, arguments); }
-          catch (e) { if (global.toast) global.toast(e.message || 'عملیات ناموفق بود', 'err'); }
+          catch (e) {
+            try { return original.apply(this, arguments); }
+            catch (_) {
+              if (global.toast) global.toast(e.message || 'عملیات ناموفق بود', 'err');
+            }
+          }
         };
         patched.__serverPatched = true;
         A[name] = patched;

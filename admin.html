@@ -193,6 +193,11 @@
       let loadFrom = "";
 
       const $ = (id) => document.getElementById(id);
+      const esc = (s) => String(s ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
       const toast = (msg) => {
         const el = $("toast");
         el.textContent = msg;
@@ -304,8 +309,8 @@
         list.innerHTML = items
           .map(
             (c, i) => `<div class="co">
-              <b>${c.name || "بدون نام"}</b>
-              <span>${c.city || "هرات"} · ${c.phone || "بدون شماره"}</span>
+              <b>${esc(c.name || "بدون نام")}</b>
+              <span>${esc(c.city || "هرات")} · ${esc(c.phone || "بدون شماره")}</span>
               <div class="co-actions">
                 <button class="btn sec" data-edit="${i}">ویرایش</button>
                 <button class="btn danger" data-del="${i}">حذف</button>

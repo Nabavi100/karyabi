@@ -4,7 +4,7 @@
  *  - API: network-first با fallback به کش (برنامه آفلاین هم کار می‌کند)
  *  - لینک‌های تلگرام: هرگز کش نمی‌شوند تا همیشه تازه باشند
  */
-const VERSION = 'karjo-v1.0.2';
+const VERSION = 'karjo-v1.0.3';
 const SHELL = `${VERSION}-shell`;
 const DATA = `${VERSION}-data`;
 

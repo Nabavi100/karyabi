@@ -22,10 +22,16 @@ def read_db():
 
 
 def write_db(obj):
-    DB_FILE.write_text(
-        json.dumps(obj, ensure_ascii=False, indent=2),
-        encoding="utf-8",
-    )
+    text = json.dumps(obj, ensure_ascii=False, indent=2)
+    if DB_FILE.exists():
+        bak = ROOT / "karjo-db.json.bak"
+        try:
+            bak.write_bytes(DB_FILE.read_bytes())
+        except Exception:
+            pass
+    tmp = ROOT / "karjo-db.json.tmp"
+    tmp.write_text(text, encoding="utf-8")
+    tmp.replace(DB_FILE)
 
 
 class Handler(SimpleHTTPRequestHandler):
