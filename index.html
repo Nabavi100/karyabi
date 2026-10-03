@@ -4978,16 +4978,12 @@ netWatch();
       }catch(_){}
     }
     if(parsed){
-      const keys=['companies','jobs','professionals','discounts','places','challenges','categories','homeBanner','appLogo','contact','users'];
-      const full=keys.some(k=>k!=='companies'&&parsed[k]!=null);
-      if(full){
-        LS.setItem(DB_KEY, raw);
-        loadDB();
-      }else{
-        keys.forEach(k=>{ if(parsed[k]!=null) D[k]=parsed[k]; });
-        LS.setItem(DB_KEY, serializeDB());
-        loadDB();
-      }
+      Object.keys(parsed).forEach(k=>{
+        if(k==='_replace' || parsed[k]==null) return;
+        D[k]=parsed[k];
+      });
+      LS.setItem(DB_KEY, serializeDB());
+      loadDB();
     }
   }catch(_){}
   render();
