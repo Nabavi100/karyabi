@@ -1,113 +1,90 @@
 (function () {
   const page = document.body.dataset.page || "home";
-  const listing = page === "home" || page === "jobs";
+  const listing = page === "home";
 
-  const links = [
-    { href: "index.html", id: "home", label: "خانه" },
-    { href: "agahi.html", id: "jobs", label: "آگهی‌ها" },
-    { href: "categories.html", id: "categories", label: "دسته‌بندی‌ها" },
-    { href: "companies.html", id: "companies", label: "شرکت‌ها" },
-    { href: "post.html", id: "post", label: "ثبت آگهی" },
-    { href: "cv.html", id: "cv", label: "رزومه" },
-    { href: "about.html", id: "about", label: "درباره ما" },
-    { href: "contact.html", id: "contact", label: "تماس با ما" },
+  const tabs = [
+    {
+      href: "index.html",
+      id: "home",
+      label: "خانه",
+      icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1z"/></svg>',
+    },
+    {
+      href: "takhfif.html",
+      id: "takhfif",
+      label: "تخفیف",
+      icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8h8l10-10-8-8L4 12z"/><circle cx="8.5" cy="15.5" r="1.3"/></svg>',
+    },
+    {
+      href: "specialists.html",
+      id: "specialists",
+      label: "متخصصین",
+      icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><circle cx="16" cy="9" r="2.4"/><path d="M3.5 19c.6-3 2.8-5 5.5-5s4.9 2 5.5 5"/><path d="M14 14.2c2 .2 3.8 1.6 4.5 4.3"/></svg>',
+    },
+    {
+      href: "address.html",
+      id: "address",
+      label: "آدرس‌ها",
+      icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.3"/></svg>',
+    },
+    {
+      href: "tools.html",
+      id: "tools",
+      label: "ابزارها",
+      icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',
+    },
   ];
 
-  const navHtml = links
-    .map(
-      (l) =>
-        `<a href="${l.href}" class="${page === l.id ? "active" : ""}">${l.label}</a>`
-    )
-    .join("");
-
-  const search = listing
-    ? `<div class="search">
-        <span class="ico-search" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="7" /><path d="M20 20l-3-3" />
-          </svg>
-        </span>
-        <input data-search type="search" placeholder="جستجوی شغل، شرکت یا مهارت…" aria-label="جستجو" />
-        <button class="ico-clear" data-clear type="button" title="پاک کردن جستجو">✕</button>
-      </div>`
-    : `<div class="search-spacer"></div>`;
+  const titles = {
+    home: "کارجوی هرات",
+    takhfif: "تخفیف‌ها",
+    specialists: "متخصصین",
+    address: "آدرس‌ها",
+    tools: "ابزارها",
+  };
 
   document.body.insertAdjacentHTML(
     "afterbegin",
     `
     <header class="app-header">
-      <button class="hamburger" id="btn-menu" type="button" aria-label="منو">
-        <span></span><span></span><span></span>
-      </button>
       <a class="brand" href="index.html">
-        <img src="assets/logo.png" alt="لوگوی کارجوی هرات" />
+        <img src="assets/logo.png" alt="" />
         <span class="brand-text">
-          <strong>کارجوی هرات</strong>
+          <strong>${titles[page] || "کارجوی هرات"}</strong>
           <span>کاریابی ولایت هرات</span>
         </span>
       </a>
-      ${search}
       <div class="header-actions">
-        <a class="icon-btn ghost-link" href="login.html">ورود</a>
-        <button class="icon-btn" id="btn-saved" type="button">
-          ذخیره‌ها
-          <span class="badge" id="saved-count">۰</span>
-        </button>
-        ${listing ? `<button class="filter-btn" id="btn-filter" type="button">فیلتر</button>` : `<a class="filter-btn" href="post.html">ثبت آگهی</a>`}
+        ${
+          listing
+            ? `<button class="icon-btn" id="btn-saved" type="button" aria-label="ذخیره‌ها">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4h10a1 1 0 0 1 1 1v16l-6-3.5L6 21V5a1 1 0 0 1 1-1z"/></svg>
+                <span class="badge" id="saved-count">۰</span>
+              </button>
+              <button class="filter-btn" id="btn-filter" type="button">فیلتر</button>`
+            : `<button class="icon-btn" id="btn-saved" type="button" aria-label="ذخیره‌ها">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4h10a1 1 0 0 1 1 1v16l-6-3.5L6 21V5a1 1 0 0 1 1-1z"/></svg>
+                <span class="badge" id="saved-count">۰</span>
+              </button>`
+        }
       </div>
     </header>
-    <nav class="subnav">${navHtml}</nav>
     `
   );
 
   document.body.insertAdjacentHTML(
     "beforeend",
     `
-    <footer class="site-footer">
-      <div class="footer-grid">
-        <div>
-          <h3>کارجوی هرات</h3>
-          <p>پلتفرم کاریابی ولایت هرات برای اتصال کارجو و کارفرما. آگهی ببینید، رزومه بسازید و مستقیم تماس بگیرید.</p>
-        </div>
-        <div>
-          <h3>منوها</h3>
-          <ul>
-            ${links.map((l) => `<li><a href="${l.href}">${l.label}</a></li>`).join("")}
-          </ul>
-        </div>
-        <div>
-          <h3>تماس با ما</h3>
-          <ul>
-            <li>تلگرام: @karjoy_herat</li>
-            <li>واتساپ: ۰۷۹۰۰۰۰۰۰</li>
-            <li>هرات، افغانستان</li>
-          </ul>
-        </div>
-      </div>
-      <div class="copy">۱۴۰۵ — کارجوی هرات. همه حقوق محفوظ است.</div>
-    </footer>
-
-    <nav class="bottom-nav">
-      <a href="index.html" class="${page === "home" ? "active" : ""}">خانه</a>
-      <a href="agahi.html" class="${page === "jobs" ? "active" : ""}">آگهی‌ها</a>
-      <a href="post.html" class="${page === "post" ? "active" : ""}">ثبت آگهی</a>
-      <a href="cv.html" class="${page === "cv" ? "active" : ""}">رزومه</a>
-      <a href="login.html" class="${page === "login" || page === "register" ? "active" : ""}">حساب</a>
+    <nav class="bottom-nav" aria-label="منوی اصلی">
+      ${tabs
+        .map(
+          (t) =>
+            `<a href="${t.href}" class="${page === t.id ? "active" : ""}">${t.icon}<span>${t.label}</span></a>`
+        )
+        .join("")}
     </nav>
 
     <div class="drawer-bg" id="drawer-bg"></div>
-    <aside class="menu-drawer" id="menu-drawer" aria-label="منوی سایت">
-      <header>
-        <strong>منوی کارجوی هرات</strong>
-        <button class="close-x" id="close-menu" type="button" aria-label="بستن">×</button>
-      </header>
-      <div class="body menu-links">
-        ${links.map((l) => `<a href="${l.href}" class="${page === l.id ? "active" : ""}">${l.label}</a>`).join("")}
-        <a href="login.html">ورود</a>
-        <a href="register.html">ثبت‌نام</a>
-      </div>
-    </aside>
-
     <aside class="drawer" id="drawer" aria-label="فیلتر">
       <header>
         <strong>فیلتر آگهی‌ها</strong>
@@ -143,25 +120,5 @@
     `
   );
 
-  const bg = document.getElementById("drawer-bg");
-  const menu = document.getElementById("menu-drawer");
-  function closeAll() {
-    menu.classList.remove("open");
-    document.getElementById("drawer")?.classList.remove("open");
-    document.getElementById("saved-panel")?.classList.remove("open");
-    bg.classList.remove("show");
-    document.body.style.overflow = "";
-  }
-  document.getElementById("btn-menu").addEventListener("click", () => {
-    menu.classList.add("open");
-    bg.classList.add("show");
-  });
-  document.getElementById("close-menu").addEventListener("click", closeAll);
-  bg.addEventListener("click", closeAll);
-
-  window.KarjoyLayout = {
-    closeAll,
-    page,
-    listing,
-  };
+  window.KarjoyLayout = { page, listing };
 })();

@@ -2,21 +2,25 @@
 <html lang="fa" dir="rtl">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>دسته‌بندی‌ها | کارجوی هرات</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0c3d2c" />
+    <title>آدرس‌ها | کارجوی هرات</title>
     <link rel="icon" href="assets/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body data-page="categories">
+  <body data-page="address">
     <main class="wrap">
       <div class="page-hero">
-        <h1>دسته‌بندی شغل‌ها</h1>
-        <p>آگهی‌ها را بر اساس رشته و حوزه کاری ببینید.</p>
+        <h1>آدرس‌های مهم هرات</h1>
+        <p>شفاخانه، اداره، مکتب، مارکیت و جاهای عمومی شهر.</p>
       </div>
-      <div class="card-grid" id="category-grid"></div>
+      <div class="mobile-search">
+        <input id="page-search" type="search" placeholder="جستجوی مکان…" />
+      </div>
+      <div id="place-list"></div>
     </main>
     <script src="js/data.js"></script>
     <script src="js/layout.js"></script>

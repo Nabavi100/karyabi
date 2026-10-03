@@ -259,7 +259,7 @@
       const o = e.target.closest("[data-open]");
       if (o) {
         if (!$("#feed")) {
-          location.href = "agahi.html?open=" + encodeURIComponent(o.dataset.open);
+          location.href = "index.html?open=" + encodeURIComponent(o.dataset.open);
           return;
         }
         state.openId = o.dataset.open;
