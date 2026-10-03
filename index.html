@@ -585,6 +585,20 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
 .ch-det-inner p{margin:0 0 8px}
 .ch-det-inner ul{margin:0;padding-inline-start:20px}
 .ch-det-inner li{margin-bottom:5px}
+
+.age-grid,.bmi-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.bmi-grid{grid-template-columns:1fr 1fr}
+.health-out{margin-top:12px;padding:14px 12px;border-radius:16px;background:linear-gradient(180deg,#e8faf2,#f4fbf8);border:1px solid #cdeedf;text-align:center}
+.health-out b.big{display:block;font-size:26px;color:var(--p);margin:4px 0}
+.health-out .sub{color:var(--mut);font-size:12px;line-height:1.8}
+.bmi-track{height:8px;border-radius:99px;margin:12px 8px 4px;background:linear-gradient(90deg,#60a5fa 0%,#22c55e 30%,#eab308 62%,#ef4444 100%);position:relative}
+.bmi-dot{position:absolute;top:-5px;width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid var(--pd);transform:translateX(50%);box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.cv-wrap{display:flex;flex-direction:column;gap:10px}
+.cv-sec{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:13px 12px;box-shadow:0 4px 14px rgba(15,31,46,.04)}
+.cv-sec h4{margin:0 0 10px;font-size:13px;font-weight:800;color:var(--pd);display:flex;align-items:center;gap:7px}
+.cv-sec h4 span{width:22px;height:22px;border-radius:8px;background:var(--pl);color:var(--p);display:inline-flex;align-items:center;justify-content:center;font-size:11px}
+.cv-tip{font-size:11px;color:var(--mut);line-height:1.7;margin:-4px 0 10px}
+
 </style>
 </head>
 <body>
@@ -1883,7 +1897,7 @@ function cvDynFieldHTML(key,label,hint){
 function cvDynRead(key){try{return [...document.querySelectorAll('input[data-cv="'+key+'"]')].map(i=>i.value.trim()).filter(Boolean).join('\n');}catch(e){return '';}}
 function cvDynReadItems(key){try{return [...document.querySelectorAll('input[data-cv="'+key+'"]')].map(i=>i.value.trim());}catch(e){return [];}}
 function cvDynRenderBox(key,items){const el=document.getElementById('cvdyn_'+key);if(!el)return;const list=items.length?items:[''];el.innerHTML=cvDynBoxesHTML(key,list);}
-function cvFormHTML(){const c=cvEnsureOwner();return `<div class="cv-photo-row"><label class="cv-photo-btn" for="cv_photo" title="انتخاب عکس"><span class="cv-photo-preview" id="cv_photo_preview">${cvPhotoPreview(c)}</span><span class="cv-photo-cam">${icon('cam',13)}</span><input id="cv_photo" type="file" accept="image/*" onchange="A.cvPhoto(this)"></label><div style="flex:1;min-width:0"><b style="font-size:12px">عکس پروفایل سی وی <span class="mut">(اختیاری)</span></b><span class="photo-hint">${c.photo?'برای تغییر عکس روی دایره بزنید':'برای انتخاب عکس روی دایره بزنید'} · JPG یا PNG · حداکثر ۸ مگابایت</span></div></div><div class="fg"><label>نام انگلیسی <span class="mut">(اختیاری)</span></label><input class="inp" id="cv_name_en" dir="ltr" style="text-align:left" value="${esc(c.nameEn||'')}" placeholder="مثلاً: Ahmad Ahmadi"></div><div class="fg"><label>نام فارسی *</label><input class="inp" id="cv_name_fa" value="${esc(c.nameFa||'')}" placeholder="مثلاً: احمد احمدی"></div><div class="f2"><div class="fg"><label>شغل / عنوان تخصصی *</label><input class="inp" id="cv_job" value="${esc(c.job)}" placeholder="مثلاً: حسابدار ارشد"></div><div class="fg"><label>سن</label><input class="inp" id="cv_age" type="number" min="10" max="90" value="${esc(c.age)}" placeholder="۲۵"></div></div><div class="fg"><label>اطلاعات شخصی <span class="mut">(اختیاری)</span></label><input class="inp" id="cv_personal" value="${esc(c.personal)}" placeholder="جنسیت: مرد | تأهل: متأهل | تولد: ۱۳۸۰/۰۱/۱۰"></div><div class="f2"><div class="fg"><label>شماره تماس</label><input class="inp" id="cv_phone" inputmode="numeric" dir="ltr" style="text-align:left" value="${esc(c.phone||'')}" placeholder="07XXXXXXXX"></div><div class="fg"><label>ایمیل</label><input class="inp" id="cv_email" type="email" dir="ltr" style="text-align:left" value="${esc(c.email||'')}" placeholder="mail@example.com"></div></div><div class="f2"><div class="fg"><label>شماره تلگرام <span class="mut">(اختیاری)</span></label><input class="inp" id="cv_telegram" inputmode="numeric" dir="ltr" style="text-align:left" value="${esc(c.telegram||'')}" placeholder="07XXXXXXXX"></div><div class="fg"><label>شماره واتساپ <span class="mut">(اختیاری)</span></label><input class="inp" id="cv_whatsapp" inputmode="numeric" dir="ltr" style="text-align:left" value="${esc(c.whatsapp||'')}" placeholder="07XXXXXXXX"></div></div><div class="fg"><label>آدرس <span class="mut">(اختیاری)</span></label><input class="inp" id="cv_address" value="${esc(c.address||'')}" placeholder="مثلاً: هرات، شهرک جدید"></div>${cvDynFieldHTML('skills','مهارت‌ها','سطح هر مهارت اختیاری؛ هر مهارت در یک باکس جداگانه: نام مهارت: ۸۰')}${cvDynFieldHTML('languages','زبان‌ها و میزان بلدیت','هر زبان در یک باکس جداگانه؛ چهار درصد به ترتیب خواندن، نوشتن، شنیداری، گفتاری؛ یا فقط سطح')}<div class="fg"><label>چند سال تجربه کاری</label><input class="inp" id="cv_exp" type="number" min="0" max="60" value="${esc(c.expYears)}" placeholder="۵"></div>${cvDynFieldHTML('education','تحصیلات','هر مقطع در یک باکس جداگانه: مدرک | دانشگاه و آموزشگاه | معدل | سال ورود | سال فراغت')}${cvDynFieldHTML('history','تجربه‌های کاری','هر تجربه در یک باکس جداگانه: عنوان شغل | نام شرکت | سال‌ها | شرح کوتاه')}<button class="btn btn-pri btn-block" onclick="A.cvGenerate()">${icon('download',16)} دانلود سی وی PDF</button><div id="cv_result" class="cv-result">${c.pdfBlob?cvResultCard(c):`<div class="tool-result"><b>دانلود سی وی PDF حرفه‌ای</b><p class="mut" style="margin-top:4px">معلومات خود را کامل کنید و دکمه دانلود را بزنید؛ فایل PDF با همهٔ معلومات مستقیم در گوشی شما ذخیره می‌شود.</p></div>`}</div>`;}
+function cvFormHTML(){const c=cvEnsureOwner();return `<div class="cv-wrap"><div class="cv-sec"><h4><span>۱</span> هویت و عکس</h4><p class="cv-tip">عکس واضح و نام کامل، اولین چیزی است که کارفرما می‌بیند.</p><div class="cv-photo-row"><label class="cv-photo-btn" for="cv_photo" title="انتخاب عکس"><span class="cv-photo-preview" id="cv_photo_preview">${cvPhotoPreview(c)}</span><span class="cv-photo-cam">${icon('cam',13)}</span><input id="cv_photo" type="file" accept="image/*" onchange="A.cvPhoto(this)"></label><div style="flex:1;min-width:0"><b style="font-size:12px">عکس پروفایل سی وی <span class="mut">(اختیاری)</span></b><span class="photo-hint">${c.photo?'برای تغییر عکس روی دایره بزنید':'برای انتخاب عکس روی دایره بزنید'} · JPG یا PNG · حداکثر ۸ مگابایت</span></div></div><div class="fg"><label>نام انگلیسی <span class="mut">(اختیاری)</span></label><input class="inp" id="cv_name_en" dir="ltr" style="text-align:left" value="${esc(c.nameEn||'')}" placeholder="مثلاً: Ahmad Ahmadi"></div><div class="fg"><label>نام فارسی *</label><input class="inp" id="cv_name_fa" value="${esc(c.nameFa||'')}" placeholder="مثلاً: احمد احمدی"></div><div class="f2"><div class="fg"><label>شغل / عنوان تخصصی *</label><input class="inp" id="cv_job" value="${esc(c.job)}" placeholder="مثلاً: حسابدار ارشد"></div><div class="fg"><label>سن</label><input class="inp" id="cv_age" type="number" min="10" max="90" value="${esc(c.age)}" placeholder="۲۵"></div></div><div class="fg"><label>اطلاعات شخصی <span class="mut">(اختیاری)</span></label><input class="inp" id="cv_personal" value="${esc(c.personal)}" placeholder="جنسیت: مرد | تأهل: متأهل | تولد: ۱۳۸۰/۰۱/۱۰"></div></div><div class="cv-sec"><h4><span>۲</span> راه‌های ارتباطی</h4><p class="cv-tip">شماره، ایمیل و شبکه‌های اجتماعی را وارد کنید تا تماس آسان باشد.</p><div class="f2"><div class="fg"><label>شماره تماس</label><input class="inp" id="cv_phone" inputmode="numeric" dir="ltr" style="text-align:left" value="${esc(c.phone||'')}" placeholder="07XXXXXXXX"></div><div class="fg"><label>ایمیل</label><input class="inp" id="cv_email" type="email" dir="ltr" style="text-align:left" value="${esc(c.email||'')}" placeholder="mail@example.com"></div></div><div class="f2"><div class="fg"><label>شماره تلگرام <span class="mut">(اختیاری)</span></label><input class="inp" id="cv_telegram" inputmode="numeric" dir="ltr" style="text-align:left" value="${esc(c.telegram||'')}" placeholder="07XXXXXXXX"></div><div class="fg"><label>شماره واتساپ <span class="mut">(اختیاری)</span></label><input class="inp" id="cv_whatsapp" inputmode="numeric" dir="ltr" style="text-align:left" value="${esc(c.whatsapp||'')}" placeholder="07XXXXXXXX"></div></div><div class="fg"><label>آدرس <span class="mut">(اختیاری)</span></label><input class="inp" id="cv_address" value="${esc(c.address||'')}" placeholder="مثلاً: هرات، شهرک جدید"></div></div><div class="cv-sec"><h4><span>۳</span> مهارت و زبان</h4><p class="cv-tip">هر مهارت را جدا بنویسید؛ سطح اختیاری است.</p>${cvDynFieldHTML('skills','مهارت‌ها','سطح هر مهارت اختیاری؛ هر مهارت در یک باکس جداگانه: نام مهارت: ۸۰')}${cvDynFieldHTML('languages','زبان‌ها و میزان بلدیت','هر زبان در یک باکس جداگانه؛ چهار درصد به ترتیب خواندن، نوشتن، شنیداری، گفتاری؛ یا فقط سطح')}<div class="fg"><label>چند سال تجربه کاری</label><input class="inp" id="cv_exp" type="number" min="0" max="60" value="${esc(c.expYears)}" placeholder="۵"></div></div><div class="cv-sec"><h4><span>۴</span> تحصیلات و تجربه</h4><p class="cv-tip">مقاطع تحصیلی و سوابق کاری را مرحله‌به‌مرحله اضافه کنید.</p>${cvDynFieldHTML('education','تحصیلات','هر مقطع در یک باکس جداگانه: مدرک | دانشگاه و آموزشگاه | معدل | سال ورود | سال فراغت')}${cvDynFieldHTML('history','تجربه‌های کاری','هر تجربه در یک باکس جداگانه: عنوان شغل | نام شرکت | سال‌ها | شرح کوتاه')}</div><div class="cv-sec"><h4><span>۵</span> ساخت و دانلود</h4><p class="cv-tip">پس از تکمیل معلومات، سی‌وی یک‌صفحه‌ای حرفه‌ای به‌صورت PDF ذخیره می‌شود.</p><button class="btn btn-pri btn-block" onclick="A.cvGenerate()">${icon('download',16)} دانلود سی وی PDF حرفه‌ای</button><div id="cv_result" class="cv-result">${c.pdfBlob?cvResultCard(c):`<div class="tool-result"><b>سی‌وی شما آماده ساخت است</b><p class="mut" style="margin-top:4px">بخش‌ها را کامل کنید و دانلود را بزنید؛ فایل PDF یک‌صفحه‌ای روی گوشی ذخیره می‌شود.</p></div>`}</div></div></div>`;}
 /* -------- Professional one-page PDF renderer (no external library required) -------- */
 const CV_PDF_W=1240,CV_PDF_H=1754;
 function cvRoundRect(ctx,x,y,w,h,r){const rr=Math.min(r,w/2,h/2);ctx.beginPath();ctx.moveTo(x+rr,y);ctx.arcTo(x+w,y,x+w,y+h,rr);ctx.arcTo(x+w,y+h,x,y+h,rr);ctx.arcTo(x,y+h,x,y,rr);ctx.arcTo(x,y,x+w,y,rr);ctx.closePath();}
@@ -2066,6 +2080,31 @@ function dcStep(dir){
  else DC_PICK.yStart=Math.max(1,(DC_PICK.yStart||DC_PICK.date.y-7)+dir*15);
  dcRenderPicker();
 }
+
+function ageToolHTML(){
+ const p=calParts(new Date(),'persian')||[1405,7,11];
+ return `<p class="mut" style="line-height:1.85;margin-bottom:10px">سال تولد را شمسی یا میلادی وارد کنید؛ سن دقیق به سال، ماه و روز حساب می‌شود.</p>
+ <div class="fg"><label>نوع تقویم</label>
+  <select class="inp" id="ag_type"><option value="persian">شمسی افغانستان</option><option value="gregory">میلادی</option></select>
+ </div>
+ <div class="age-grid">
+  <div class="fg"><label>روز</label><input class="inp" id="ag_d" inputmode="numeric" dir="ltr" style="text-align:center" value="1"></div>
+  <div class="fg"><label>ماه</label><input class="inp" id="ag_m" inputmode="numeric" dir="ltr" style="text-align:center" value="1"></div>
+  <div class="fg"><label>سال</label><input class="inp" id="ag_y" inputmode="numeric" dir="ltr" style="text-align:center" value="${p[0]-25}"></div>
+ </div>
+ <button class="btn btn-pri btn-block" onclick="A.ageCalc()">${icon('users',16)} محاسبه سن</button>
+ <div id="ag_out"></div>`;
+}
+function bmiToolHTML(){
+ return `<p class="mut" style="line-height:1.85;margin-bottom:10px">قد به سانتی‌متر و وزن به کیلوگرام را وارد کنید تا شاخص توده بدنی (BMI) محاسبه شود.</p>
+ <div class="bmi-grid">
+  <div class="fg"><label>قد (سانتی‌متر)</label><input class="inp" id="bmi_h" inputmode="decimal" dir="ltr" style="text-align:center" placeholder="۱۷۰"></div>
+  <div class="fg"><label>وزن (کیلوگرام)</label><input class="inp" id="bmi_w" inputmode="decimal" dir="ltr" style="text-align:center" placeholder="۶۸"></div>
+ </div>
+ <button class="btn btn-pri btn-block" onclick="A.bmiCalc()">${icon('heart',16)} محاسبه BMI</button>
+ <div id="bmi_out"></div>`;
+}
+
 function vTools(){
  const exSource=exTelegramSources()[0]||EX_REFERENCE_CHANNEL;
  const rates=`<p class="mut" style="line-height:1.9;margin-bottom:10px"><b style="color:var(--p)">نرخ مرجع: ${esc(exSource.name)}.</b><br>فقط قیمت خرید و فروشِ آخرین پست منبع نمایش داده می‌شود؛ نرخ تخمینی، میانگین و نرخ جهانی در این بخش استفاده نمی‌شود.</p><div class="row-btns" style="margin-top:10px"><button class="btn btn-pri btn-sm btn-block" onclick="A.exLoadRates()">${icon('refresh',15)} دریافت آخرین نرخ مرجع</button></div><div id="ex_rates">${exRatesHTML()}</div><div class="divider">تبدیل اسعار بر اساس نرخ خرید / فروش</div><div class="fg"><label>ارز</label><select class="inp" id="ex_cur" onchange="A.exConvert()">${exOptionsHTML('USD')}</select></div><div class="fg" style="margin-bottom:6px"><label>مبلغ</label></div><div class="ex-bs-pair"><div class="fg"><label>خرید</label><input class="inp" id="ex_buy" inputmode="decimal" dir="ltr" style="text-align:center;font-size:17px;font-weight:900" placeholder="0" oninput="A.exConvert()"><div class="ex-bs-out" id="ex_buy_out">—</div></div><div class="fg"><label>فروش</label><input class="inp" id="ex_sell" inputmode="decimal" dir="ltr" style="text-align:center;font-size:17px;font-weight:900" placeholder="0" oninput="A.exConvert()"><div class="ex-bs-out" id="ex_sell_out">—</div></div></div><div class="ex-status">دالر/یورو/کلدار و تومان دقیقاً با نرخ خرید یا فروشِ اعلام‌شده در منبع محاسبه می‌شود. دریافت خودکار هر ۳۰ ثانیه انجام می‌شود.</div>`;
@@ -2079,7 +2118,7 @@ function vTools(){
   <div class="date-result-row"><span>شمسی افغانستان</span><b id="tc_p">${todayCal('fa-AF-u-ca-persian')}</b></div>
   <div class="date-result-row"><span>قمری</span><b id="tc_h">${todayCal('fa-AF-u-ca-islamic')}</b></div>
  </div>`;
- return `<div class="cov"><h2 style="font-size:19px">ابزارهای کاربردی</h2><p style="opacity:.95;font-size:13.5px;font-weight:800;margin-top:6px">تبدیل تاریخ و ارز، سی‌وی‌ساز و چالش با جایزه</p></div>${todayDates}${toolAccordion('rates','نرخ اسعار خراسان مارکت هرات','wallet',rates)}${toolAccordion('date','تبدیل تاریخ','cal',dates)}${toolAccordion('challenges','چالش‌ها و جایزه‌ها','award',chUserHTML())}${toolAccordion('cv','سی وی ساز حرفه‌ای','zap',cvFormHTML())}`;
+ return `<div class="cov"><h2 style="font-size:19px">ابزارهای کاربردی</h2><p style="opacity:.95;font-size:13.5px;font-weight:800;margin-top:6px">تبدیل تاریخ و ارز، سن و BMI، سی‌وی‌ساز و چالش با جایزه</p></div>${todayDates}${toolAccordion('rates','نرخ اسعار خراسان مارکت هرات','wallet',rates)}${toolAccordion('date','تبدیل تاریخ','cal',dates)}${toolAccordion('challenges','چالش‌ها و جایزه‌ها','award',chUserHTML())}${toolAccordion('age','محاسبه سن','users',ageToolHTML())}${toolAccordion('bmi','محاسبه BMI','heart',bmiToolHTML())}${toolAccordion('cv','سی وی ساز حرفه‌ای','zap',cvFormHTML())}`;
 }
 function vMenu(){
  const me=ME();const isAdm=me&&me.role==='admin';
@@ -2097,7 +2136,7 @@ function vMenu(){
   <div class="stat" onclick="A.adRequest('کاریابی')"><span>ثبت آگهی</span><b style="font-size:12px">پیام به مدیر</b></div>
  </div>
  <div class="card" style="padding:15px;margin-bottom:14px">
-  <b style="font-size:13.5px;display:flex;align-items:center;gap:7px" onclick="A.secretTap()">${icon('gear',16)} تنظیمات شخصی‌سازی</b>
+  <b style="font-size:13.5px;display:flex;align-items:center;gap:7px">${icon('gear',16)} تنظیمات شخصی‌سازی</b>
   <p class="mut" style="font-size:11px;margin:4px 0 11px">ظاهر و خوانایی برنامه را به دلخواه خود تنظیم کنید.</p>
   <div class="fg"><label>پوستهٔ برنامه</label>
    <div class="seg">
@@ -3130,6 +3169,38 @@ const A={
  applyQuick:k=>applyQuick(k),
  /* --- Collapsible tools and AI CV builder --- */
  toolToggle:key=>{S.toolOpen=S.toolOpen===key?null:key;render();window.scrollTo({top:0});},
+ ageCalc:()=>{
+  const type=$('#ag_type')?.value||'persian';
+  const y=Number(faToEnglish($('#ag_y')?.value||''));
+  const m=Number(faToEnglish($('#ag_m')?.value||''));
+  const d=Number(faToEnglish($('#ag_d')?.value||''));
+  const out=$('#ag_out');
+  if(!y||!m||!d){if(out)out.innerHTML='<div class="tool-result" style="color:var(--red)">روز، ماه و سال تولد را کامل وارد کنید.</div>';return;}
+  const birth=typeof findCalendarDate==='function'?findCalendarDate(type,y,m,d):new Date(type==='gregory'?Date.UTC(y,m-1,d,12):calEstimate(type,y,m,d));
+  if(!birth||isNaN(+birth)){if(out)out.innerHTML='<div class="tool-result" style="color:var(--red)">تاریخ تولد نامعتبر است.</div>';return;}
+  const now=new Date();
+  if(birth>now){if(out)out.innerHTML='<div class="tool-result" style="color:var(--red)">تاریخ تولد نمی‌تواند در آینده باشد.</div>';return;}
+  let yy=now.getFullYear()-birth.getFullYear(), mm=now.getMonth()-birth.getMonth(), dd=now.getDate()-birth.getDate();
+  if(dd<0){mm--;dd+=new Date(now.getFullYear(),now.getMonth(),0).getDate();}
+  if(mm<0){yy--;mm+=12;}
+  const calName=type==='persian'?'شمسی':'میلادی';
+  if(out)out.innerHTML=`<div class="health-out"><span class="sub">سن شما بر اساس تاریخ ${calName}</span><b class="big">${fa(yy)} سال</b><div class="sub">${fa(mm)} ماه و ${fa(dd)} روز · متولد ${fa(y)}/${fa(m)}/${fa(d)}</div></div>`;
+ },
+ bmiCalc:()=>{
+  const h=Number(faToEnglish($('#bmi_h')?.value||''));
+  const w=Number(faToEnglish($('#bmi_w')?.value||''));
+  const out=$('#bmi_out');
+  if(!h||!w||h<50||h>250||w<15||w>400){if(out)out.innerHTML='<div class="tool-result" style="color:var(--red)">قد و وزن را درست وارد کنید.</div>';return;}
+  const bmi=w/((h/100)*(h/100));
+  let label='طبیعی', color='#16a34a';
+  if(bmi<18.5){label='کم‌وزن';color='#2563eb';}
+  else if(bmi<25){label='وزن مناسب';color='#16a34a';}
+  else if(bmi<30){label='اضافه‌وزن';color='#d97706';}
+  else {label='چاقی';color='#dc2626';}
+  const pct=Math.max(0,Math.min(100,((bmi-12)/28)*100));
+  if(out)out.innerHTML=`<div class="health-out"><span class="sub">شاخص توده بدنی</span><b class="big" style="color:${color}">${fa(bmi.toFixed(1))}</b><div class="sub">${label} · قد ${fa(h)} سم · وزن ${fa(w)} کیلو</div><div class="bmi-track"><i class="bmi-dot" style="left:${pct}%"></i></div></div>`;
+ },
+
  cvDynAdd:key=>{const items=cvDynReadItems(key);items.push('');cvDynRenderBox(key,items);setTimeout(()=>{const el=document.getElementById('cvdyn_'+key);if(!el)return;const ins=el.querySelectorAll('input');if(ins.length)ins[ins.length-1].focus();},40);},
  cvDynDel:(key,idx)=>{const items=cvDynReadItems(key);items.splice(idx,1);while(items.length>1&&items[items.length-1]==='')items.pop();cvDynRenderBox(key,items);},
  cvPhoto:inp=>{const file=inp?.files?.[0];if(!file)return;if(!/^image\//.test(file.type)){toast('فقط فایل عکس انتخاب کنید','err');return;}if(file.size>8*1024*1024){toast('حجم عکس باید کمتر از ۸ مگابایت باشد','err');return;}const reader=new FileReader();reader.onload=()=>{const img=new Image();img.onload=()=>{const max=700,scale=Math.min(1,max/Math.max(img.width,img.height)),canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(img.width*scale));canvas.height=Math.max(1,Math.round(img.height*scale));canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);const c=cvEnsureOwner();c.photo=canvas.toDataURL('image/jpeg',0.9);const preview=$('#cv_photo_preview');if(preview)preview.innerHTML=`<img src="${c.photo}" alt="عکس سی وی">`;toast('عکس برای سی وی آماده شد','ok');};img.onerror=()=>toast('خواندن عکس ممکن نشد','err');img.src=reader.result;};reader.readAsDataURL(file);},
@@ -4804,32 +4875,39 @@ function render(){
  closeLayer();
 }
 loadDB();
-(async function hydrateFromJsonFile(){
-  try{
-    const r=await fetch('/api/db?t='+Date.now(),{cache:'no-store'});
-    if(!r.ok)return;
-    const raw=await r.text();
-    if(!raw||!raw.trim()||raw.trim()==='{}')return;
-    const parsed=JSON.parse(raw);
-    if(!parsed||typeof parsed!=='object')return;
-    if(Array.isArray(parsed.companies)&&parsed.companies.length){
-      if(parsed.jobs||parsed.users||parsed.places){
-        LS.setItem(DB_KEY, raw);
-        loadDB();
-      }else{
-        D.companies=parsed.companies;
-        LS.setItem(DB_KEY,serializeDB());
-        loadDB();
-      }
-      render();
-    }
-  }catch(_){}
-})();
+try{const v=$('#view');if(v)v.innerHTML='<div class="empty"><p class="mut">در حال بارگذاری داده‌ها…</p></div>';}catch(_){}
 setTheme(LS.getItem('karjo_theme')||'light');
 setFontSize(LS.getItem('karjo_fontsize'));
 if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').addEventListener&&LS.getItem('karjo_theme')==='auto')window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>setTheme('auto'));
 netWatch();
-render();
+(async function hydrateFromJsonFile(){
+  try{
+    let parsed=null, raw='';
+    for(const u of ['/api/db','./karjo-db.json']){
+      try{
+        const r=await fetch(u+(u.includes('?')?'&':'?')+'t='+Date.now(),{cache:'no-store'});
+        if(!r.ok) continue;
+        raw=await r.text();
+        if(!raw||!raw.trim()||raw.trim()==='{}') continue;
+        const j=JSON.parse(raw);
+        if(j&&typeof j==='object'){parsed=j;break;}
+      }catch(_){}
+    }
+    if(parsed){
+      const keys=['companies','jobs','professionals','discounts','places','challenges','categories','homeBanner','appLogo','contact','users'];
+      const full=keys.some(k=>k!=='companies'&&parsed[k]!=null);
+      if(full){
+        LS.setItem(DB_KEY, raw);
+        loadDB();
+      }else{
+        keys.forEach(k=>{ if(parsed[k]!=null) D[k]=parsed[k]; });
+        LS.setItem(DB_KEY, serializeDB());
+        loadDB();
+      }
+    }
+  }catch(_){}
+  render();
+})();
 
 </script>
 <!-- اتصال به بک‌اند: هیچ تغییری در دیزاین برنامه ایجاد نمی‌کند -->
