@@ -6,9 +6,7 @@
     <meta name="theme-color" content="#0e8a63" />
     <title>تنظیمات مدیریت | کارجوی هرات</title>
     <link rel="icon" href="assets/icons/icon-192.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="fonts/vazirmatn.css" />
     <style>
       :root {
         --bg: #eef3f8;
@@ -85,6 +83,18 @@
       .check { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 13px; font-weight: 700; }
       .check input { width: auto; }
       .note { font-size: 12px; color: var(--mut); line-height: 1.8; margin: 0 0 8px; }
+      .nav {
+        display: flex; gap: 6px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 4px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .nav button {
+        flex: none; height: 36px; margin: 0; width: auto; padding: 0 12px;
+        border-radius: 999px; background: #fff; border: 1px solid var(--line);
+        font-weight: 800; font-size: 12px; color: var(--mut); cursor: pointer; font-family: inherit;
+      }
+      .nav button.on { background: var(--p); color: #fff; border-color: var(--p); }
+      .st { font-size: 11px; font-weight: 800; color: var(--p); }
+      .st.off { color: #b91c1c; }
     </style>
   </head>
   <body>
@@ -116,11 +126,20 @@
         <section id="app-view" class="hidden">
           <div class="hero">
             <h1>مدیریت داده‌ها</h1>
-            <p>هر ذخیره روی <b>karjo-db.json</b> نوشته می‌شود. برنامهٔ اصلی همان فایل را هنگام باز شدن می‌خواند؛ بقیهٔ داده‌ها پاک نمی‌شوند.</p>
+            <p>هر ذخیره روی <b>karjo-db.json</b> نوشته می‌شود. برنامهٔ اصلی همان فایل را می‌خواند؛ بقیهٔ داده‌ها پاک نمی‌شوند.</p>
             <p id="load-status" style="margin:10px 0 0;font-size:12px;opacity:.95"></p>
           </div>
 
-          <div class="card">
+          <nav class="nav" id="sec-nav">
+            <button type="button" class="on" data-sec="contact">تماس</button>
+            <button type="button" data-sec="cos">کارفرما</button>
+            <button type="button" data-sec="jobs">آگهی</button>
+            <button type="button" data-sec="places">آدرس</button>
+            <button type="button" data-sec="pass">رمز</button>
+            <button type="button" data-sec="backup">بکاپ</button>
+          </nav>
+
+          <div class="card sec-panel" id="sec-contact">
             <h2>راه‌های ارتباطی مدیر</h2>
             <p class="note">شماره تماس، واتساپ و تلگرام. کاربران این فرم را نمی‌بینند.</p>
             <label>شماره تماس</label>
@@ -132,9 +151,9 @@
             <button class="btn pri" type="button" id="btn-save-contact">ذخیره تماس‌ها در JSON</button>
           </div>
 
-          <div class="card">
+          <div class="card sec-panel hidden" id="sec-cos">
             <h2>لیست کارفرمایان / شرکت‌ها</h2>
-            <p class="note">افزودن یا ویرایش شرکت. آگهی‌ها و بقیهٔ بخش‌های برنامه سر جایشان می‌مانند.</p>
+            <p class="note">افزودن یا ویرایش شرکت. آگهی‌ها سر جایشان می‌مانند.</p>
             <div id="co-list"></div>
             <button class="btn ghost" type="button" id="btn-new-co">+ کارفرمای جدید</button>
             <div id="co-form" class="hidden" style="margin-top:12px;border-top:1px dashed var(--line);padding-top:10px">
@@ -173,9 +192,132 @@
             </div>
           </div>
 
-          <div class="card">
+          <div class="card sec-panel hidden" id="sec-jobs">
+            <h2>آگهی‌های کار</h2>
+            <p class="note">افزودن، ویرایش یا حذف آگهی. بعد از ذخیره در برنامهٔ اصلی دیده می‌شود.</p>
+            <div id="job-list"></div>
+            <button class="btn ghost" type="button" id="btn-new-job">+ آگهی جدید</button>
+            <div id="job-form" class="hidden" style="margin-top:12px;border-top:1px dashed var(--line);padding-top:10px">
+              <input type="hidden" id="jb_id" />
+              <label>عنوان آگهی *</label>
+              <input id="jb_title" />
+              <div class="row">
+                <div>
+                  <label>شرکت</label>
+                  <select id="jb_company"></select>
+                </div>
+                <div>
+                  <label>دسته</label>
+                  <select id="jb_cat"></select>
+                </div>
+              </div>
+              <div class="row">
+                <div>
+                  <label>وضعیت</label>
+                  <select id="jb_status">
+                    <option value="active">فعال</option>
+                    <option value="pending">در انتظار</option>
+                    <option value="expired">منقضی</option>
+                    <option value="disabled">غیرفعال</option>
+                  </select>
+                </div>
+                <div>
+                  <label>نوع</label>
+                  <select id="jb_type">
+                    <option>تمام‌وقت</option>
+                    <option>پاره‌وقت</option>
+                    <option>قراردادی</option>
+                    <option>پروژه‌ای</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div>
+                  <label>سطح</label>
+                  <select id="jb_level">
+                    <option>مبتدی</option>
+                    <option>متوسط</option>
+                    <option>عالی</option>
+                  </select>
+                </div>
+                <div>
+                  <label>جنسیت</label>
+                  <select id="jb_gender">
+                    <option>هر دو</option>
+                    <option>مرد</option>
+                    <option>زن</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div>
+                  <label>حداقل معاش</label>
+                  <input id="jb_smin" type="number" dir="ltr" style="text-align:left" />
+                </div>
+                <div>
+                  <label>حداکثر معاش</label>
+                  <input id="jb_smax" type="number" dir="ltr" style="text-align:left" />
+                </div>
+              </div>
+              <label>تلفن</label>
+              <input id="jb_phone" dir="ltr" style="text-align:left" />
+              <label>آدرس</label>
+              <input id="jb_address" />
+              <label>شرح کار</label>
+              <textarea id="jb_desc"></textarea>
+              <label>وظایف (هر خط یکی)</label>
+              <textarea id="jb_duties"></textarea>
+              <label>شرایط (هر خط یکی)</label>
+              <textarea id="jb_req"></textarea>
+              <button class="btn pri" type="button" id="btn-save-job">ذخیره آگهی در JSON</button>
+              <button class="btn sec" type="button" id="btn-cancel-job">انصراف</button>
+            </div>
+          </div>
+
+          <div class="card sec-panel hidden" id="sec-places">
+            <h2>آدرس‌های مهم</h2>
+            <p class="note">شفاخانه، بانک، آموزشگاه، شرکت، رستوران و تکت‌فروشی.</p>
+            <div id="pl-list"></div>
+            <button class="btn ghost" type="button" id="btn-new-pl">+ آدرس جدید</button>
+            <div id="pl-form" class="hidden" style="margin-top:12px;border-top:1px dashed var(--line);padding-top:10px">
+              <input type="hidden" id="pl_id" />
+              <label>نام مرکز *</label>
+              <input id="pl_name" />
+              <label>دسته</label>
+              <select id="pl_cat">
+                <option value="hospital">شفاخانه‌ها</option>
+                <option value="bank">بانک و صرافی</option>
+                <option value="edu">پوهنتون و آموزشگاه‌ها</option>
+                <option value="transport">تکت فروشی</option>
+                <option value="company">شرکت‌ها و فروشگاه‌ها</option>
+                <option value="restaurant">رستورانت‌ها و تالارها</option>
+              </select>
+              <label>آدرس *</label>
+              <input id="pl_address" />
+              <label>تلفن</label>
+              <input id="pl_phone" dir="ltr" style="text-align:left" />
+              <label>توضیح</label>
+              <textarea id="pl_desc"></textarea>
+              <button class="btn pri" type="button" id="btn-save-pl">ذخیره آدرس در JSON</button>
+              <button class="btn sec" type="button" id="btn-cancel-pl">انصراف</button>
+            </div>
+          </div>
+
+          <div class="card sec-panel hidden" id="sec-pass">
+            <h2>تغییر رمز مدیر</h2>
+            <p class="note">همین رمز برای صفحهٔ مدیریت جدا و ورود مخفی داخل برنامه (نگه‌داشتن ⋮) استفاده می‌شود.</p>
+            <label>رمز فعلی</label>
+            <input id="pw_old" type="password" />
+            <label>رمز جدید</label>
+            <input id="pw_new" type="password" />
+            <label>تکرار رمز جدید</label>
+            <input id="pw_new2" type="password" />
+            <button class="btn pri" type="button" id="btn-save-pass">ذخیره رمز در JSON</button>
+          </div>
+
+          <div class="card sec-panel hidden" id="sec-backup">
             <h2>بکاپ JSON</h2>
-            <p class="note">دانلود کل فایل، یا ورود فایل بکاپ. ورود کامل فقط وقتی است که فایل کامل برنامه باشد.</p>
+            <p class="note">دانلود کل فایل، یا ورود فایل بکاپ.</p>
             <button class="btn pri" type="button" id="btn-save-all">ذخیره وضعیت فعلی در karjo-db.json</button>
             <button class="btn sec" type="button" id="btn-download">دانلود بکاپ JSON</button>
             <label class="btn ghost" style="display:flex;align-items:center;justify-content:center;cursor:pointer">
@@ -188,22 +330,37 @@
     </div>
     <div class="toast" id="toast"></div>
     <script>
-      const PASS = "nabavi";
+      const DEFAULT_PASS = "nabavi";
+      const PLACE_NAMES = {
+        hospital: "شفاخانه",
+        bank: "بانک",
+        edu: "آموزش",
+        transport: "تکت",
+        company: "شرکت",
+        restaurant: "رستوران",
+      };
+      const STATUS_FA = { active: "فعال", pending: "در انتظار", expired: "منقضی", disabled: "غیرفعال" };
       let db = {};
       let loadFrom = "";
 
       const $ = (id) => document.getElementById(id);
-      const esc = (s) => String(s ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;");
+      const esc = (s) =>
+        String(s ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
       const toast = (msg) => {
         const el = $("toast");
         el.textContent = msg;
         el.classList.add("show");
         setTimeout(() => el.classList.remove("show"), 2400);
       };
+      const lines = (s) =>
+        String(s || "")
+          .split(/\n+/)
+          .map((x) => x.trim())
+          .filter(Boolean);
 
       function setStatus(ok, text) {
         const st = $("load-status");
@@ -218,9 +375,50 @@
         }
       }
 
+      function adminUser() {
+        const users = Array.isArray(db.users) ? db.users : [];
+        return users.find((u) => u && u.role === "admin") || null;
+      }
+      function adminPass() {
+        const u = adminUser();
+        const p = u && String(u.pass || "").trim();
+        return p || DEFAULT_PASS;
+      }
+      function ensureUsers() {
+        if (!Array.isArray(db.users) || !db.users.length) {
+          db.users = [
+            {
+              id: "u_admin",
+              name: "مدیر سیستم",
+              email: "nabavi",
+              phone: "nabavi",
+              pass: DEFAULT_PASS,
+              role: "admin",
+              city: "هرات",
+              avatar: 2,
+              verified: true,
+              joined: Date.now(),
+            },
+          ];
+        } else if (!adminUser()) {
+          db.users.unshift({
+            id: "u_admin",
+            name: "مدیر سیستم",
+            pass: DEFAULT_PASS,
+            role: "admin",
+            city: "هرات",
+          });
+        }
+        return db.users;
+      }
+
       function normalizeDb(obj) {
         const next = obj && typeof obj === "object" && !Array.isArray(obj) ? obj : {};
         if (!Array.isArray(next.companies)) next.companies = [];
+        if (!Array.isArray(next.jobs)) next.jobs = [];
+        if (!Array.isArray(next.places)) next.places = [];
+        if (!Array.isArray(next.categories)) next.categories = [];
+        if (!Array.isArray(next.users)) next.users = [];
         if (!next.contact || typeof next.contact !== "object") {
           next.contact = { phone: "", whatsapp: "", telegram: "" };
         }
@@ -230,33 +428,35 @@
       async function fetchJson(url) {
         const r = await fetch(url, { cache: "no-store" });
         if (!r.ok) throw new Error("http " + r.status);
-        const ct = (r.headers.get("content-type") || "").toLowerCase();
         const text = await r.text();
         if (!text || !text.trim() || text.trim().charAt(0) === "<") throw new Error("not json");
         const j = JSON.parse(text);
         if (!j || typeof j !== "object" || Array.isArray(j)) throw new Error("bad json");
-        if (ct.includes("html")) throw new Error("html");
         return j;
       }
 
       async function loadDb() {
-        const urls = ["karjo-db.json?t=" + Date.now(), "./karjo-db.json?t=" + Date.now(), "/api/db?t=" + Date.now(), "api/db?t=" + Date.now()];
-        let lastErr = null;
+        const urls = [
+          "karjo-db.json?t=" + Date.now(),
+          "./karjo-db.json?t=" + Date.now(),
+          "/api/db?t=" + Date.now(),
+          "api/db?t=" + Date.now(),
+        ];
         for (const u of urls) {
           try {
             const j = await fetchJson(u);
             db = normalizeDb(j);
+            ensureUsers();
             loadFrom = u.split("?")[0];
             setStatus(true, "فایل JSON خوانده شد از " + loadFrom);
             return true;
-          } catch (e) {
-            lastErr = e;
-          }
+          } catch (e) {}
         }
         db = normalizeDb(db);
+        ensureUsers();
         setStatus(
           false,
-          "فایل JSON بارگذاری نشد. صفحه را با python3 server.py باز کنید (نه با دابل‌کلیک روی فایل)، یا از دکمهٔ «ورود از JSON» همان karjo-db.json را انتخاب کنید."
+          "فایل JSON بارگذاری نشد. صفحه را با python3 server.py باز کنید، یا از دکمهٔ «ورود از JSON» همان karjo-db.json را انتخاب کنید."
         );
         return false;
       }
@@ -264,10 +464,10 @@
       async function saveMerge(patch, replace) {
         if (replace) db = normalizeDb(patch);
         else db = normalizeDb(Object.assign({}, db, patch));
+        ensureUsers();
         const body = replace ? Object.assign({ _replace: true }, patch) : patch;
         const raw = JSON.stringify(body);
-        const posts = ["/api/db", "api/db"];
-        for (const u of posts) {
+        for (const u of ["/api/db", "api/db"]) {
           try {
             const r = await fetch(u, {
               method: "POST",
@@ -290,6 +490,13 @@
         a.href = URL.createObjectURL(blob);
         a.download = name || "karjo-db.json";
         a.click();
+      }
+
+      function showSec(id) {
+        document.querySelectorAll(".sec-panel").forEach((el) => el.classList.add("hidden"));
+        document.querySelectorAll("#sec-nav button").forEach((b) => b.classList.toggle("on", b.dataset.sec === id));
+        const panel = $("sec-" + id);
+        if (panel) panel.classList.remove("hidden");
       }
 
       function fillContact() {
@@ -320,7 +527,7 @@
           .join("");
       }
 
-      function showForm(c) {
+      function showCoForm(c) {
         $("co-form").classList.remove("hidden");
         $("co_id").value = c && c.id ? c.id : "";
         $("co_name").value = (c && c.name) || "";
@@ -335,18 +542,125 @@
         $("co_name").focus();
       }
 
+      function companyName(id) {
+        const c = (db.companies || []).find((x) => String(x.id) === String(id));
+        return c ? c.name : "بدون شرکت";
+      }
+
+      function fillJobSelects() {
+        const cos = db.companies || [];
+        $("jb_company").innerHTML =
+          '<option value="">—</option>' +
+          cos.map((c) => `<option value="${esc(c.id)}">${esc(c.name)}</option>`).join("");
+        const cats = db.categories || [];
+        $("jb_cat").innerHTML =
+          '<option value="">—</option>' +
+          cats.map((c) => `<option value="${esc(c.id)}">${esc(c.name)}</option>`).join("");
+      }
+
+      function renderJobs() {
+        const list = $("job-list");
+        const items = db.jobs || [];
+        if (!items.length) {
+          list.innerHTML = '<p class="note">هنوز آگهی‌ای ثبت نشده.</p>';
+          return;
+        }
+        list.innerHTML = items
+          .map((j, i) => {
+            const st = STATUS_FA[j.status] || j.status || "";
+            const off = j.status && j.status !== "active" ? " off" : "";
+            return `<div class="co">
+              <b>${esc(j.title || "بدون عنوان")}</b>
+              <span>${esc(companyName(j.companyId))} · <em class="st${off}">${esc(st)}</em></span>
+              <div class="co-actions">
+                <button class="btn sec" data-edit="${i}">ویرایش</button>
+                <button class="btn danger" data-del="${i}">حذف</button>
+              </div>
+            </div>`;
+          })
+          .join("");
+      }
+
+      function showJobForm(j) {
+        fillJobSelects();
+        $("job-form").classList.remove("hidden");
+        $("jb_id").value = (j && j.id) || "";
+        $("jb_title").value = (j && j.title) || "";
+        $("jb_company").value = (j && j.companyId) || "";
+        $("jb_cat").value = (j && j.categoryId) || "";
+        $("jb_status").value = (j && j.status) || "active";
+        $("jb_type").value = (j && j.type) || "تمام‌وقت";
+        $("jb_level").value = (j && j.level) || "متوسط";
+        $("jb_gender").value = (j && j.gender) || "هر دو";
+        $("jb_smin").value = j && j.salaryMin != null ? j.salaryMin : "";
+        $("jb_smax").value = j && j.salaryMax != null ? j.salaryMax : "";
+        $("jb_phone").value = (j && j.phone) || "";
+        $("jb_address").value = (j && j.address) || "هرات";
+        $("jb_desc").value = (j && (j.desc || j.description)) || "";
+        $("jb_duties").value = Array.isArray(j && j.duties) ? j.duties.join("\n") : "";
+        $("jb_req").value = Array.isArray(j && j.requirements) ? j.requirements.join("\n") : "";
+        $("jb_title").focus();
+      }
+
+      function renderPlaces() {
+        const list = $("pl-list");
+        const items = db.places || [];
+        if (!items.length) {
+          list.innerHTML = '<p class="note">هنوز آدرسی ثبت نشده.</p>';
+          return;
+        }
+        list.innerHTML = items
+          .map((p, i) => {
+            const pending = p.status === "pending";
+            return `<div class="co">
+              <b>${esc(p.name || "بدون نام")}</b>
+              <span>${esc(PLACE_NAMES[p.cat] || p.cat || "")} · ${esc(p.address || "")}${
+              pending ? ' · <em class="st off">در انتظار</em>' : ""
+            }</span>
+              <div class="co-actions">
+                <button class="btn sec" data-edit="${i}">ویرایش</button>
+                <button class="btn danger" data-del="${i}">حذف</button>
+              </div>
+            </div>`;
+          })
+          .join("");
+      }
+
+      function showPlForm(p) {
+        $("pl-form").classList.remove("hidden");
+        $("pl_id").value = (p && p.id) || "";
+        $("pl_name").value = (p && p.name) || "";
+        $("pl_cat").value = (p && p.cat) || "company";
+        $("pl_address").value = (p && p.address) || "";
+        $("pl_phone").value = (p && p.phone) || "";
+        $("pl_desc").value = (p && (p.desc || p.note)) || "";
+        $("pl_name").focus();
+      }
+
+      function refreshLists() {
+        fillContact();
+        renderCompanies();
+        renderJobs();
+        renderPlaces();
+      }
+
+      $("sec-nav").onclick = (e) => {
+        const b = e.target.closest("button[data-sec]");
+        if (b) showSec(b.dataset.sec);
+      };
+
       $("btn-login").onclick = async () => {
-        if (($("pass").value || "").trim() !== PASS) {
+        const okFile = await loadDb();
+        const typed = ($("pass").value || "").trim();
+        if (typed !== adminPass()) {
           toast("رمز اشتباه است");
           return;
         }
         sessionStorage.setItem("karjo_admin_ok", "1");
-        const ok = await loadDb();
         $("login-view").classList.add("hidden");
         $("app-view").classList.remove("hidden");
-        fillContact();
-        renderCompanies();
-        toast(ok ? "ورود شد" : "وارد شدید؛ JSON را از فایل وارد کنید");
+        refreshLists();
+        toast(okFile ? "ورود شد" : "وارد شدید؛ JSON را از فایل وارد کنید");
       };
 
       $("btn-save-contact").onclick = async () => {
@@ -364,17 +678,17 @@
         }
       };
 
-      $("btn-new-co").onclick = () => showForm(null);
+      $("btn-new-co").onclick = () => showCoForm(null);
       $("btn-cancel-co").onclick = () => $("co-form").classList.add("hidden");
 
       $("co-list").onclick = async (e) => {
         const ed = e.target.closest("[data-edit]");
         const del = e.target.closest("[data-del]");
-        if (ed) showForm(db.companies[Number(ed.dataset.edit)]);
+        if (ed) showCoForm(db.companies[Number(ed.dataset.edit)]);
         if (del) {
           const i = Number(del.dataset.del);
           const name = db.companies[i] && db.companies[i].name;
-          if (!confirm("حذف «" + name + "»؟ آگهی‌های برنامه پاک نمی‌شوند.")) return;
+          if (!confirm("حذف «" + name + "»؟ آگهی‌ها پاک نمی‌شوند.")) return;
           const companies = db.companies.filter((_, idx) => idx !== i);
           try {
             await saveMerge({ companies });
@@ -419,6 +733,165 @@
         }
       };
 
+      $("btn-new-job").onclick = () => showJobForm(null);
+      $("btn-cancel-job").onclick = () => $("job-form").classList.add("hidden");
+
+      $("job-list").onclick = async (e) => {
+        const ed = e.target.closest("[data-edit]");
+        const del = e.target.closest("[data-del]");
+        if (ed) showJobForm(db.jobs[Number(ed.dataset.edit)]);
+        if (del) {
+          const i = Number(del.dataset.del);
+          const title = db.jobs[i] && db.jobs[i].title;
+          if (!confirm("حذف آگهی «" + title + "»؟")) return;
+          const jobs = db.jobs.filter((_, idx) => idx !== i);
+          try {
+            await saveMerge({ jobs });
+            renderJobs();
+            toast("آگهی حذف شد");
+          } catch (err) {
+            toast("حذف ذخیره نشد");
+          }
+        }
+      };
+
+      $("btn-save-job").onclick = async () => {
+        const title = $("jb_title").value.trim();
+        if (!title) {
+          toast("عنوان آگهی لازم است");
+          return;
+        }
+        const id = $("jb_id").value || "j" + Date.now();
+        const jobs = (db.jobs || []).slice();
+        const idx = jobs.findIndex((x) => String(x.id) === String(id));
+        const prev = idx >= 0 ? jobs[idx] : {};
+        const phone = $("jb_phone").value.trim();
+        const rec = Object.assign({}, prev, {
+          id,
+          title,
+          companyId: $("jb_company").value || prev.companyId || "",
+          categoryId: $("jb_cat").value || prev.categoryId || "",
+          status: $("jb_status").value || "active",
+          type: $("jb_type").value || "تمام‌وقت",
+          level: $("jb_level").value || "متوسط",
+          gender: $("jb_gender").value || "هر دو",
+          salaryMin: $("jb_smin").value ? Number($("jb_smin").value) : null,
+          salaryMax: $("jb_smax").value ? Number($("jb_smax").value) : null,
+          phone,
+          telegram: prev.telegram || phone,
+          whatsapp: prev.whatsapp || phone,
+          address: $("jb_address").value.trim() || "هرات",
+          city: prev.city || "هرات",
+          desc: $("jb_desc").value.trim(),
+          description: $("jb_desc").value.trim(),
+          duties: lines($("jb_duties").value),
+          requirements: lines($("jb_req").value),
+          postedAt: prev.postedAt || Date.now(),
+          deadline: prev.deadline || Date.now() + 30 * 86400000,
+          views: prev.views || 0,
+          urgent: false,
+          remote: false,
+          lat: prev.lat || 34.34,
+          lng: prev.lng || 62.2,
+        });
+        if (idx >= 0) jobs[idx] = rec;
+        else jobs.unshift(rec);
+        try {
+          await saveMerge({ jobs });
+          $("job-form").classList.add("hidden");
+          renderJobs();
+          toast("آگهی در JSON ذخیره شد");
+        } catch (e) {
+          toast("ذخیره آگهی ناموفق بود");
+        }
+      };
+
+      $("btn-new-pl").onclick = () => showPlForm(null);
+      $("btn-cancel-pl").onclick = () => $("pl-form").classList.add("hidden");
+
+      $("pl-list").onclick = async (e) => {
+        const ed = e.target.closest("[data-edit]");
+        const del = e.target.closest("[data-del]");
+        if (ed) showPlForm(db.places[Number(ed.dataset.edit)]);
+        if (del) {
+          const i = Number(del.dataset.del);
+          const name = db.places[i] && db.places[i].name;
+          if (!confirm("حذف آدرس «" + name + "»؟")) return;
+          const places = db.places.filter((_, idx) => idx !== i);
+          try {
+            await saveMerge({ places });
+            renderPlaces();
+            toast("آدرس حذف شد");
+          } catch (err) {
+            toast("حذف ذخیره نشد");
+          }
+        }
+      };
+
+      $("btn-save-pl").onclick = async () => {
+        const name = $("pl_name").value.trim();
+        const address = $("pl_address").value.trim();
+        if (!name || !address) {
+          toast("نام و آدرس لازم است");
+          return;
+        }
+        const id = $("pl_id").value || "pl" + Date.now();
+        const places = (db.places || []).slice();
+        const idx = places.findIndex((x) => String(x.id) === String(id));
+        const prev = idx >= 0 ? places[idx] : {};
+        const rec = Object.assign({}, prev, {
+          id,
+          name,
+          cat: $("pl_cat").value || "company",
+          address,
+          phone: $("pl_phone").value.trim(),
+          desc: $("pl_desc").value.trim(),
+          lat: prev.lat || 34.34,
+          lng: prev.lng || 62.2,
+          status: "approved",
+        });
+        if (idx >= 0) places[idx] = rec;
+        else places.unshift(rec);
+        try {
+          await saveMerge({ places });
+          $("pl-form").classList.add("hidden");
+          renderPlaces();
+          toast("آدرس در JSON ذخیره شد");
+        } catch (e) {
+          toast("ذخیره آدرس ناموفق بود");
+        }
+      };
+
+      $("btn-save-pass").onclick = async () => {
+        const oldp = ($("pw_old").value || "").trim();
+        const n1 = ($("pw_new").value || "").trim();
+        const n2 = ($("pw_new2").value || "").trim();
+        if (oldp !== adminPass()) {
+          toast("رمز فعلی اشتباه است");
+          return;
+        }
+        if (n1.length < 4) {
+          toast("رمز جدید حداقل ۴ حرف باشد");
+          return;
+        }
+        if (n1 !== n2) {
+          toast("تکرار رمز یکسان نیست");
+          return;
+        }
+        const users = ensureUsers().map((u) => Object.assign({}, u));
+        const i = users.findIndex((u) => u.role === "admin");
+        if (i >= 0) users[i].pass = n1;
+        try {
+          await saveMerge({ users });
+          $("pw_old").value = "";
+          $("pw_new").value = "";
+          $("pw_new2").value = "";
+          toast("رمز جدید در JSON ذخیره شد");
+        } catch (e) {
+          toast("ذخیره رمز نشد");
+        }
+      };
+
       $("btn-save-all").onclick = async () => {
         try {
           await saveMerge(db);
@@ -442,11 +915,11 @@
           const full = !!(parsed.jobs || parsed.places || parsed.categories);
           try {
             await saveMerge(parsed, full);
-          } catch (e) {
+          } catch (err) {
             db = full ? normalizeDb(parsed) : normalizeDb(Object.assign({}, db, parsed));
+            ensureUsers();
           }
-          fillContact();
-          renderCompanies();
+          refreshLists();
           toast(full ? "بکاپ کامل وارد شد" : "اطلاعات وارد شد");
         } catch (err) {
           toast("فایل JSON نامعتبر است");
@@ -455,14 +928,11 @@
       };
 
       (async () => {
+        await loadDb();
         if (sessionStorage.getItem("karjo_admin_ok") === "1") {
-          try {
-            await loadDb();
-            $("login-view").classList.add("hidden");
-            $("app-view").classList.remove("hidden");
-            fillContact();
-            renderCompanies();
-          } catch (e) {}
+          $("login-view").classList.add("hidden");
+          $("app-view").classList.remove("hidden");
+          refreshLists();
         }
       })();
       $("pass").addEventListener("keydown", (e) => {

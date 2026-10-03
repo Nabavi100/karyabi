@@ -4,13 +4,18 @@
  *  - API: network-first با fallback به کش (برنامه آفلاین هم کار می‌کند)
  *  - لینک‌های تلگرام: هرگز کش نمی‌شوند تا همیشه تازه باشند
  */
-const VERSION = 'karjo-v1.0.3';
+const VERSION = 'karjo-v1.0.4';
 const SHELL = `${VERSION}-shell`;
 const DATA = `${VERSION}-data`;
 
 const SHELL_ASSETS = [
-  '/', '/index.html', '/manifest.webmanifest',
+  '/', '/index.html', '/admin.html', '/manifest.webmanifest',
   '/js/api.js', '/js/telegram-live.js', '/js/app-bridge.js',
+  '/fonts/vazirmatn.css',
+  '/fonts/Vazirmatn-Regular.woff2',
+  '/fonts/Vazirmatn-Medium.woff2',
+  '/fonts/Vazirmatn-Bold.woff2',
+  '/fonts/Vazirmatn-ExtraBold.woff2',
 ];
 
 self.addEventListener('install', (e) => {

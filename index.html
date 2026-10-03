@@ -9,9 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0e8a63">
 <title>کارجوی هرات | کاریابی ولایت هرات</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="fonts/vazirmatn.css">
 <style>
 /* ============ KARJO — Smart Job Platform for Afghanistan ============ */
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -3176,13 +3174,14 @@ const A={
   const inp=document.getElementById('adm_pass_inp');
   const ps=(inp?.value||'').trim();
   if(!ps){toast('لطفاً رمز عبور را وارد کنید','err');if(inp)inp.focus();return;}
-  const adm=D.users.find(u=>u.role==='admin'&&(u.pass===ps||ps==='nabavi'))||D.users.find(u=>u.role==='admin')||{id:'u_admin',pass:'nabavi'};
-  if(adm.pass!==ps&&ps!=='nabavi'){
+  const adm=(D.users||[]).find(u=>u&&u.role==='admin')||{id:'u_admin',pass:'nabavi'};
+  const expected=String(adm.pass||'nabavi');
+  if(ps!==expected){
    toast('رمز عبور مدیر اشتباه است','err');
    if(inp){inp.value='';inp.focus();}
    return;
   }
-  doLogin(adm.id);
+  doLogin(adm.id||'u_admin');
   closeLayer();
   toast('خوش آمدید مدیر!','ok');
   S.adminTab='backup';
