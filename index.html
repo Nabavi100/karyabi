@@ -2204,7 +2204,7 @@ function vAdmin(){
  const me=ME();
  if(!me||me.role!=='admin')return needAdmin();
  const t=S.adminTab;
- const tabs=[['dash','داشبورد','chart'],['jobs','آگهی‌ها','case'],['tgjobs','نرخ ارز','wallet'],['pros','متخصصین','users'],['disc','تخفیف‌ها','tag'],['places','آدرس‌های مهم','pin'],['contact','راه‌های ارتباطی','phone'],['banner','بنر خانه','cam'],['logo','لوگو','cam'],['cats','دسته‌ها','dots'],['cos','شرکت‌ها','bldg'],['notif','اعلان','send'],['challenges','چالش‌ها','award'],['reports','گزارش‌ها','flag'],['backup','بکاپ JSON','download']];
+ const tabs=[['dash','داشبورد','chart'],['backup','بکاپ JSON','download'],['jobs','آگهی‌ها','case'],['tgjobs','نرخ ارز','wallet'],['pros','متخصصین','users'],['disc','تخفیف‌ها','tag'],['places','آدرس‌های مهم','pin'],['contact','راه‌های ارتباطی','phone'],['banner','بنر خانه','cam'],['logo','لوگو','cam'],['cats','دسته‌ها','dots'],['cos','شرکت‌ها','bldg'],['notif','اعلان','send'],['challenges','چالش‌ها','award'],['reports','گزارش‌ها','flag']];
  let body='';
  if(t==='dash')body=admDash();
  if(t==='jobs')body=admJobs();
@@ -2274,6 +2274,16 @@ function admDash(){
  const searches={};D.searchLog.forEach(s=>searches[s.q]=(searches[s.q]||0)+1);
  const topS=Object.entries(searches).sort((a,b)=>b[1]-a[1]).slice(0,5);
  return `
+  <div class="card" style="padding:16px;margin-bottom:14px;border:2px solid var(--p)">
+  <b style="font-size:16px;display:flex;align-items:center;gap:8px">${icon('download',20)} بکاپ JSON</b>
+  <p class="mut" style="margin:8px 0 12px;line-height:1.8">ذخیرهٔ همه اطلاعات روی فایل karjo-db.json یا ورود فایل JSON.</p>
+  <button class="btn btn-pri btn-block" onclick="A.backupSaveFile()">${icon('check',17)} ذخیره در فایل JSON</button>
+  <button class="btn btn-sec btn-block mt" onclick="A.backupDownload()">${icon('download',17)} دانلود بکاپ</button>
+  <label class="btn btn-ghost btn-block mt" style="display:flex;justify-content:center;cursor:pointer">${icon('file',17)} ورود از JSON
+   <input type="file" accept="application/json,.json" style="display:none" onchange="A.backupImport(this)">
+  </label>
+  <button class="btn btn-ghost btn-block mt" onclick="A.adminGo('backup')">رفتن به صفحهٔ کامل بکاپ</button>
+ </div>
  <div class="stat-grid">
   <div class="stat"><div class="sic" style="background:${grad(4)}">${icon('tag',19)}</div><b>${fa((D.discounts||[]).length)}</b><span>پست‌های تخفیف</span></div>
   <div class="stat"><div class="sic" style="background:${grad(0)}">${icon('case',19)}</div><b>${fa(D.jobs.length)}</b><span>کل آگهی‌ها</span></div>
@@ -3174,6 +3184,7 @@ const A={
   doLogin(adm.id);
   closeLayer();
   toast('خوش آمدید مدیر!','ok');
+  S.adminTab='backup';
   go('admin');
  },
  dotsClick:e=>{
