@@ -1,174 +1,148 @@
 (function () {
-  const D = window.KARJOY || {};
-  const titles = {
-    home: "کارجوی هرات",
-    takhfif: "تخفیف",
-    specialists: "متخصصین",
-    address: "آدرس‌ها",
-    tools: "ابزارها",
+  const D = window.KARJOY;
+  const faInt = (n) => Number(n).toLocaleString("en-US").replace(/,/g, "٬").replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
+  const toast = (msg) => {
+    const el = document.getElementById("toast");
+    el.textContent = msg;
+    el.classList.add("show");
+    setTimeout(() => el.classList.remove("show"), 1800);
   };
 
   function showTab(id) {
     document.querySelectorAll(".screen").forEach((s) => s.classList.toggle("on", s.id === "screen-" + id));
-    document.querySelectorAll(".tabbar .tab").forEach((t) => t.classList.toggle("on", t.dataset.tab === id));
-    const title = document.getElementById("header-title");
-    if (title) title.textContent = titles[id] || "کارجوی هرات";
-    const filter = document.getElementById("btn-filter");
-    if (filter) filter.style.display = id === "home" ? "" : "none";
+    document.querySelectorAll(".tabbar button").forEach((b) => b.classList.toggle("on", b.dataset.tab === id));
     window.scrollTo(0, 0);
   }
-
-  document.querySelectorAll(".tabbar .tab").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
+  document.querySelectorAll(".tabbar button").forEach((b) => {
+    b.addEventListener("click", (e) => {
       e.preventDefault();
-      e.stopPropagation();
-      showTab(btn.dataset.tab);
+      showTab(b.dataset.tab);
     });
   });
 
-  const toast = (msg) => {
-    const el = document.getElementById("toast");
-    if (!el) return;
-    el.textContent = msg;
-    el.classList.add("show");
-    setTimeout(() => el.classList.remove("show"), 2200);
-  };
-
-  function wa(phone, text) {
-    const n = "93" + String(phone).replace(/^0/, "").replace(/\s/g, "");
-    return `https://wa.me/${n}?text=${encodeURIComponent(text || "")}`;
+  function tools(views, extra = "") {
+    return `<div class="card-tools">${extra}<button type="button" class="mini">⤴</button><span class="views">👁 ${faInt(views)}</span><button type="button" class="mini chev">⌄</button></div>`;
   }
 
   const dList = document.getElementById("discount-list");
-  if (dList) {
-    const render = (q = "") => {
-      dList.innerHTML = (D.discounts || [])
-        .filter((x) => (x.shop + x.title + x.cat).includes(q))
-        .map(
-          (x) => `<article class="list-card">
-            <span class="off-badge">${x.off}</span>
-            <h3>${x.title}</h3>
-            <p class="sub">${x.shop} · ${x.until}</p>
-            <p>${x.desc}</p>
-            <div class="actions">
-              <a class="btn-call" href="tel:${x.phone}">تماس</a>
-              <a class="btn-wa" target="_blank" rel="noopener" href="${wa(x.phone, x.title)}">واتساپ</a>
-            </div>
-          </article>`
-        )
-        .join("");
-    };
-    render();
-    document.getElementById("search-takhfif")?.addEventListener("input", (e) => render(e.target.value.trim()));
-  }
+  dList.innerHTML = D.discounts.map((x) => `
+    <article class="card disc-card">
+      <div class="disc-photo">
+        <img src="${x.image}" alt="${x.title}" />
+        <span class="off">${x.off} تخفیف</span>
+        <span class="when">${x.when}</span>
+      </div>
+      <div class="disc-body">
+        <h3 style="margin:0 0 8px;font-size:14.5px">${x.title}</h3>
+        ${tools(x.views)}
+        <div class="actions">
+          <a class="btn-call" href="tel:${x.phone}">تماس</a>
+          <a class="btn-wa" href="https://wa.me/93${x.phone.replace(/^0/, "")}">واتساپ</a>
+        </div>
+      </div>
+    </article>`).join("");
 
-  const sList = document.getElementById("spec-list");
-  if (sList) {
-    let cat = "";
-    const chips = document.getElementById("spec-chips");
-    const cats = ["", ...new Set((D.specialists || []).map((s) => s.cat))];
-    const paintChips = () => {
-      chips.innerHTML = cats
-        .map((c) => `<button type="button" class="chip ${cat === c ? "on" : ""}" data-sc="${c}">${c || "همه"}</button>`)
-        .join("");
-    };
-    const render = (q = "") => {
-      sList.innerHTML = (D.specialists || [])
-        .filter((s) => (!cat || s.cat === cat) && (s.name + s.job + s.area).includes(q))
-        .map(
-          (s) => `<article class="list-card">
-            <h3>${s.name}</h3>
-            <p class="sub">${s.job} · ${s.exp} · ${s.area}</p>
-            <div class="actions">
-              <a class="btn-call" href="tel:${s.phone}">تماس</a>
-              <a class="btn-wa" target="_blank" rel="noopener" href="${wa(s.phone, s.name)}">واتساپ</a>
-            </div>
-          </article>`
-        )
-        .join("");
-    };
-    paintChips();
-    render();
-    chips.addEventListener("click", (e) => {
-      const b = e.target.closest("[data-sc]");
-      if (!b) return;
-      cat = b.dataset.sc;
-      paintChips();
-      render(document.getElementById("search-spec").value.trim());
-    });
-    document.getElementById("search-spec")?.addEventListener("input", (e) => render(e.target.value.trim()));
+  function renderSpecs(q = "") {
+    const items = D.specialists.filter((s) => (s.name + s.job).includes(q));
+    document.getElementById("spec-count").textContent = `${items.length.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d])} متخصص یافت شد`;
+    document.getElementById("spec-list").innerHTML = items.map((s) => `
+      <article class="card spec">
+        <div class="spec-top">
+          <div>
+            <h3 style="margin:0;font-size:15px">${s.name}</h3>
+            <div class="muted">${s.job}</div>
+          </div>
+          <div class="stars">★★★★★ <span class="muted">${s.rating}</span></div>
+        </div>
+        ${tools(s.views, `<button type="button" class="mini">♡</button>`)}
+        <div class="spec-grid">
+          <div><span>تجربه</span><b>${s.exp}</b></div>
+          <div><span>معاش درخواستی</span><b>${s.salary}</b></div>
+          <div><span>شهر</span><b>${s.city}</b></div>
+        </div>
+        <button type="button" class="more-btn" data-sid="${s.id}">جزئیات</button>
+        <div class="details" id="sd-${s.id}">
+          <p>${s.about}</p>
+          <div class="actions">
+            <a class="btn-call" href="tel:${s.phone}">تماس</a>
+            <a class="btn-wa" href="https://wa.me/93${s.phone.replace(/^0/, "")}">واتساپ</a>
+          </div>
+        </div>
+      </article>`).join("");
   }
-
-  const pList = document.getElementById("place-list");
-  if (pList) {
-    const render = (q = "") => {
-      pList.innerHTML = (D.places || [])
-        .filter((p) => (p.name + p.type + p.address).includes(q))
-        .map(
-          (p) => `<article class="list-card">
-            <h3>${p.name}</h3>
-            <p class="sub">${p.type} · ${p.hours}</p>
-            <p>${p.address}</p>
-            <div class="actions">
-              ${p.phone !== "—" ? `<a class="btn-call" href="tel:${p.phone}">تماس</a>` : ""}
-            </div>
-          </article>`
-        )
-        .join("");
-    };
-    render();
-    document.getElementById("search-place")?.addEventListener("input", (e) => render(e.target.value.trim()));
-  }
-
-  const keys = document.getElementById("calc-keys");
-  if (keys && !keys.dataset.ready) {
-    keys.dataset.ready = "1";
-    const out = document.getElementById("calc-out");
-    let expr = "";
-    const fa = (s) => String(s).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
-    const en = (s) => String(s).replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
-    ["۷", "۸", "۹", "÷", "۴", "۵", "۶", "×", "۱", "۲", "۳", "-", "۰", ".", "C", "="].forEach((k) => {
-      const b = document.createElement("button");
-      b.type = "button";
-      b.textContent = k;
-      if (k === "=") b.className = "eq";
-      b.addEventListener("click", () => {
-        if (k === "C") expr = "";
-        else if (k === "=") {
-          try {
-            expr = String(Function(`"use strict"; return (${expr.replace(/÷/g, "/").replace(/×/g, "*")})`)());
-          } catch {
-            expr = "";
-          }
-        } else expr += en(k);
-        out.value = fa(expr || "۰");
-      });
-      keys.appendChild(b);
-    });
-  }
-
-  const afn = document.getElementById("afn");
-  const rate = document.getElementById("rate");
-  const fxOut = document.getElementById("fx-out");
-  function fx() {
-    if (!afn || !rate || !fxOut) return;
-    fxOut.textContent = `حدود ${(Number(afn.value) / Number(rate.value || 1)).toFixed(2)} دالر`;
-  }
-  afn?.addEventListener("input", fx);
-  rate?.addEventListener("input", fx);
-
-  document.querySelectorAll("[data-tool]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll(".tool-panel").forEach((p) => p.classList.remove("on"));
-      document.getElementById("tool-" + btn.dataset.tool)?.classList.add("on");
-    });
+  renderSpecs();
+  document.getElementById("search-spec").addEventListener("input", (e) => renderSpecs(e.target.value.trim()));
+  document.getElementById("spec-list").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-sid]");
+    if (!b) return;
+    const card = b.closest(".card");
+    card.classList.toggle("open");
   });
 
-  document.getElementById("post-form")?.addEventListener("submit", (e) => {
+  function renderPlaces(q = "") {
+    const items = D.places.filter((p) => (p.name + p.cat + p.address).includes(q));
+    const groups = {};
+    items.forEach((p) => { (groups[p.cat] ||= []).push(p); });
+    document.getElementById("place-list").innerHTML = Object.keys(groups).map((cat) => {
+      const list = groups[cat];
+      return `<div class="cat-box">
+        <div class="group-h"><span>${cat === "شفاخانه‌ها" ? "＋ " : "▣ "}${cat} (${String(list.length).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d])})</span></div>
+        ${list.map((p) => `
+          <article class="card">
+            <div class="place">
+              <button type="button" class="plus ${p.icon === "bank" ? "bank" : ""}">＋</button>
+              <div style="flex:1">
+                <b>${p.name}</b>
+                <div class="pin">📍 ${p.address}</div>
+              </div>
+              <div class="card-tools" style="margin:0">
+                <button type="button" class="mini">⤴</button>
+                <button type="button" class="mini">⌄</button>
+              </div>
+            </div>
+            <div class="details">
+              <a class="btn-call" href="tel:${p.phone}">تماس ${p.phone}</a>
+            </div>
+          </article>`).join("")}
+      </div>`;
+    }).join("");
+  }
+  renderPlaces();
+  document.getElementById("search-place").addEventListener("input", (e) => renderPlaces(e.target.value.trim()));
+  document.getElementById("place-list").addEventListener("click", (e) => {
+    const card = e.target.closest(".card");
+    if (card && (e.target.closest(".plus") || e.target.closest(".mini"))) card.classList.toggle("open");
+  });
+
+  document.getElementById("rates").innerHTML = D.rates.map((r) =>
+    `<div class="rate"><b>${r.name}</b><span>خرید ${r.buy} · فروش ${r.sell}</span></div>`
+  ).join("");
+
+  document.querySelectorAll(".acc-h").forEach((btn) => {
+    btn.addEventListener("click", () => btn.parentElement.classList.toggle("open"));
+  });
+
+  function tick() {
+    const now = new Date();
+    const h = now.getHours();
+    const m = String(now.getMinutes()).padStart(2, "0");
+    const s = String(now.getSeconds()).padStart(2, "0");
+    const ap = h >= 12 ? "ب.ظ" : "ق.ظ";
+    const hh = ((h + 11) % 12) + 1;
+    const fa = (n) => String(n).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
+    document.getElementById("clock").textContent = fa(`${hh}:${m}:${s} ${ap}`);
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  document.getElementById("y-in")?.addEventListener("input", (e) => {
+    const y = Number(e.target.value);
+    document.getElementById("y-out").textContent = Number.isFinite(y) ? `${String(y - 621).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d])} هجری شمسی (تقریبی)` : "";
+  });
+
+  document.getElementById("cv-form")?.addEventListener("submit", (e) => {
     e.preventDefault();
-    toast("آگهی ثبت شد.");
+    toast("رزومه ذخیره شد");
     e.target.reset();
   });
-
-  showTab("home");
 })();

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#0c3d2c" />
+    <meta name="theme-color" content="#eef2f6" />
     <title>کارجوی هرات | کاریابی ولایت هرات</title>
     <link rel="icon" href="assets/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -14,154 +14,168 @@
   <body>
     <header class="app-header">
       <div class="brand">
-        <img src="assets/logo.png" alt="" />
+        <div class="logo-mark" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="7" width="18" height="13" rx="2" />
+            <path d="M8 7V6a4 4 0 0 1 8 0v1" />
+          </svg>
+        </div>
         <span class="brand-text">
-          <strong id="header-title">کارجوی هرات</strong>
-          <span>ولایت هرات</span>
+          <strong>کارجوی هرات</strong>
+          <span>کاریابی ولایت هرات</span>
         </span>
       </div>
-      <div class="header-actions">
-        <button type="button" class="icon-btn" id="btn-saved" aria-label="ذخیره‌ها">ذخیره<span class="badge" id="saved-count">۰</span></button>
-        <button type="button" class="filter-btn" id="btn-filter">فیلتر</button>
+      <div class="head-btns">
+        <button type="button" id="btn-bell" aria-label="اعلان">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 17h5l-1.4-1.4A2 2 0 0 1 18 14.2V11a6 6 0 1 0-12 0v3.2c0 .5-.2 1-.6 1.4L4 17h5"/><path d="M9 17a3 3 0 0 0 6 0"/></svg>
+        </button>
+        <button type="button" id="btn-more" aria-label="بیشتر">⋯</button>
       </div>
     </header>
 
     <section class="screen on" id="screen-home">
       <div class="wrap">
-        <input class="search-bar" data-search type="search" placeholder="جستجوی شغل…" />
-        <section class="hero-banner">
-          <img id="banner-img" src="assets/banner-1.jpg" alt="" />
-          <div class="overlay">
-            <span class="kicker" id="banner-kicker">تبلیغات ویژه</span>
-            <h2 id="banner-title">فرصت‌های شغلی هرات</h2>
-            <p id="banner-text">تازه‌ترین آگهی‌های استخدام</p>
-          </div>
-          <div class="dots" id="dots"></div>
-        </section>
-        <div class="section-head">
-          <h1>تازه‌ترین آگهی‌ها <small id="result-count"></small></h1>
-          <button type="button" class="chip" data-clear>پاک کردن</button>
+        <div class="search-row">
+          <input data-search type="search" placeholder="عنوان شغل، شرکت، مهارت..." />
+          <button type="button" class="ico" id="btn-search" aria-label="جستجو">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg>
+          </button>
+          <button type="button" class="ico wide" id="btn-filter">فیلتر</button>
         </div>
-        <div class="chips" id="cat-chips"></div>
+        <div class="ad">
+          <img id="banner-img" src="assets/banner-home.jpg" alt="تبلیغات ویژه" />
+          <span class="ad-badge">★ تبلیغات ویژه</span>
+        </div>
+        <div class="ad-note" id="banner-note">
+          <span>توضیحات بنر تبلیغاتی</span>
+          <span>⌄</span>
+        </div>
+        <div class="section-title">تازه‌ترین آگهی‌ها</div>
         <div id="feed"></div>
       </div>
     </section>
 
     <section class="screen" id="screen-takhfif">
       <div class="wrap">
-        <input class="search-bar" id="search-takhfif" type="search" placeholder="جستجوی تخفیف…" />
+        <div class="hero">
+          <h1>تخفیف‌های ویژه</h1>
+          <p>۳ پیشنهاد ویژه فروشگاه‌ها</p>
+        </div>
         <div id="discount-list"></div>
       </div>
     </section>
 
     <section class="screen" id="screen-specialists">
       <div class="wrap">
-        <input class="search-bar" id="search-spec" type="search" placeholder="جستجوی متخصص…" />
-        <div class="chips" id="spec-chips"></div>
+        <div class="hero">
+          <h1>افراد حرفه‌ای و باتجربه</h1>
+          <p>نخبگان تأییدشده آماده همکاری با مشاغل مناسب</p>
+        </div>
+        <div class="search-row">
+          <input id="search-spec" type="search" placeholder="جستجوی متخصص، مهارت، تخصص..." />
+          <button type="button" class="ico" aria-label="جستجو">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg>
+          </button>
+        </div>
+        <p class="found" id="spec-count"></p>
         <div id="spec-list"></div>
       </div>
     </section>
 
     <section class="screen" id="screen-address">
       <div class="wrap">
-        <input class="search-bar" id="search-place" type="search" placeholder="جستجوی آدرس…" />
+        <div class="hero">
+          <h1>مکان موردنظرت را پیدا کن</h1>
+        </div>
+        <div class="search-row">
+          <input id="search-place" type="search" placeholder="جستجوی مرکز، آدرس یا خدمت..." />
+          <button type="button" class="ico" aria-label="جستجو">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg>
+          </button>
+          <button type="button" class="ico wide" id="btn-place-filter">فیلتر</button>
+        </div>
         <div id="place-list"></div>
       </div>
     </section>
 
     <section class="screen" id="screen-tools">
       <div class="wrap">
-        <div class="tool-grid">
-          <button type="button" class="tool-btn" data-tool="calc"><span>🧮</span>ماشین حساب</button>
-          <button type="button" class="tool-btn" data-tool="fx"><span>💱</span>نرخ اسعار</button>
-          <button type="button" class="tool-btn" data-tool="sos"><span>📞</span>اضطراری</button>
-          <button type="button" class="tool-btn" data-tool="post"><span>📝</span>ثبت آگهی</button>
+        <div class="hero">
+          <h1>ابزارهای کاربردی</h1>
+          <p>تبدیل تاریخ و ارز، سی‌وی‌ساز و چالش با جایزه</p>
         </div>
-        <div id="tool-calc" class="tool-panel">
-          <div class="calc">
-            <input id="calc-out" value="۰" readonly />
-            <div class="calc-keys" id="calc-keys"></div>
+        <div class="today">
+          <div class="row"><span class="muted">تاریخ امروز</span><b id="clock">—</b></div>
+          <div class="row"><span class="muted">میلادی</span><span id="g-date">شنبه ۳ اکتوبر ۲۰۲۶</span></div>
+          <div class="row"><span class="muted">شمسی افغانستان</span><span id="s-date">شنبه ۱۱ میزان ۱۴۰۵</span></div>
+          <div class="row"><span class="muted">قمری</span><span id="h-date">شنبه ۲۱ ربیع الثانی ۱۴۴۸</span></div>
+        </div>
+        <div class="acc" id="acc-rate">
+          <button type="button" class="acc-h"><span class="ic">▣</span> نرخ اسعار خراسان مارکت هرات <span class="ch">⌄</span></button>
+          <div class="acc-b" id="rates"></div>
+        </div>
+        <div class="acc" id="acc-cal">
+          <button type="button" class="acc-h"><span class="ic">▣</span> تبدیل تاریخ <span class="ch">⌄</span></button>
+          <div class="acc-b">تاریخ امروز در سه تقویم بالا آمده است. برای تبدیل، سال میلادی را وارد کنید.
+            <div class="field" style="margin-top:8px"><input id="y-in" type="number" value="2026" /></div>
+            <p id="y-out" class="muted">۱۴۰۵ هجری شمسی</p>
           </div>
         </div>
-        <div id="tool-fx" class="tool-panel">
-          <div class="form-card">
-            <label>مبلغ افغانی</label>
-            <input id="afn" type="number" value="1000" />
-            <label>نرخ دالر</label>
-            <input id="rate" type="number" value="68" />
-            <p id="fx-out">حدود ۱۴.۷۱ دالر</p>
+        <div class="acc">
+          <button type="button" class="acc-h"><span class="ic">▣</span> چالش‌ها و جایزه‌ها <span class="ch">⌄</span></button>
+          <div class="acc-b">این هفته: معرفی سه فرصت شغلی جدید و شرکت در قرعه‌کشی ۱۰ گیگ اینترنت.</div>
+        </div>
+        <div class="acc">
+          <button type="button" class="acc-h"><span class="ic">▣</span> سی وی ساز حرفه‌ای <span class="ch">⌄</span></button>
+          <div class="acc-b">
+            <form class="form-card" id="cv-form">
+              <label>نام</label><input name="name" required />
+              <label>تخصص</label><input name="job" required />
+              <label>شماره</label><input name="phone" required />
+              <button type="submit">ذخیره رزومه</button>
+            </form>
           </div>
-        </div>
-        <div id="tool-sos" class="tool-panel">
-          <div class="list-card"><b>امبولانس</b> ۱۱۲<br /><a class="btn-call" href="tel:112">تماس</a></div>
-          <div class="list-card"><b>پولیس</b> ۱۱۹<br /><a class="btn-call" href="tel:119">تماس</a></div>
-          <div class="list-card"><b>آتش‌نشانی</b> ۱۱۰<br /><a class="btn-call" href="tel:110">تماس</a></div>
-        </div>
-        <div id="tool-post" class="tool-panel">
-          <form class="form-card" id="post-form">
-            <label>عنوان</label>
-            <input name="title" required />
-            <label>شرکت</label>
-            <input name="company" required />
-            <label>شماره</label>
-            <input name="phone" required />
-            <button type="submit">ارسال</button>
-          </form>
         </div>
       </div>
     </section>
 
-    <nav class="tabbar" aria-label="منو">
-      <button type="button" class="tab on" data-tab="home">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11 12 4l8 7v9h-6v-5H10v5H4z"/></svg>
+    <nav class="tabbar">
+      <button type="button" class="on" data-tab="home">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11 12 4l8 7v9h-6v-5H10v5H4z"/></svg>
         خانه
       </button>
-      <button type="button" class="tab" data-tab="takhfif">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12v7h7L21 10l-7-7L5 12z"/><circle cx="8" cy="16" r="1.2"/></svg>
+      <button type="button" data-tab="takhfif">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.6 13.4 10.7 3.5H4v6.7l9.9 9.9a2 2 0 0 0 2.8 0l3.9-3.9a2 2 0 0 0 0-2.8z"/><circle cx="7.5" cy="7.5" r="1"/></svg>
         تخفیف
       </button>
-      <button type="button" class="tab" data-tab="specialists">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><path d="M4 19c.7-3 2.6-5 5-5s4.3 2 5 5"/><circle cx="16.5" cy="9" r="2.2"/><path d="M14.2 19c.4-2 1.8-3.4 3.8-3.8"/></svg>
+      <button type="button" data-tab="specialists">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><path d="M3.8 19c.6-3 2.7-5 5.2-5s4.6 2 5.2 5"/><circle cx="16.5" cy="9" r="2.2"/><path d="M14.4 19c.3-1.8 1.6-3.2 3.4-3.6"/></svg>
         متخصصین
       </button>
-      <button type="button" class="tab" data-tab="address">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.4 7-11a7 7 0 1 0-14 0c0 4.6 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></svg>
+      <button type="button" data-tab="address">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.4 7-11a7 7 0 1 0-14 0c0 4.6 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></svg>
         آدرس‌ها
       </button>
-      <button type="button" class="tab" data-tab="tools">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="6.5" height="6.5" rx="1"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1"/></svg>
+      <button type="button" data-tab="tools">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M8 3v4M16 3v4M4 11h16"/></svg>
         ابزارها
       </button>
     </nav>
 
     <div class="drawer-bg" id="drawer-bg"></div>
     <aside class="drawer" id="drawer">
-      <header>
-        <strong>فیلتر</strong>
-        <button type="button" class="close-x" id="close-drawer">×</button>
-      </header>
-      <div class="body">
-        <div class="field">
-          <label for="filter-cat">دسته‌بندی</label>
-          <select id="filter-cat"></select>
-        </div>
-        <div class="field">
-          <label for="filter-type">نوع قرارداد</label>
-          <select id="filter-type"></select>
-        </div>
-        <label class="field"><input id="filter-new" type="checkbox" /> فقط جدید</label>
-        <div class="drawer-actions">
-          <button type="button" class="reset" id="reset-filter">پاک کردن</button>
-          <button type="button" class="apply" id="apply-filter">اعمال</button>
-        </div>
+      <h3>فیلتر آگهی‌ها</h3>
+      <div class="field"><label>دسته‌بندی</label><select id="filter-cat"></select></div>
+      <div class="field"><label>نوع قرارداد</label><select id="filter-type"></select></div>
+      <label class="field"><input id="filter-new" type="checkbox" /> فقط جدید</label>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button type="button" class="reset" id="reset-filter">پاک کردن</button>
+        <button type="button" class="apply" id="apply-filter">اعمال</button>
       </div>
     </aside>
-    <aside class="saved-panel" id="saved-panel">
-      <header>
-        <strong>ذخیره‌شده</strong>
-        <button type="button" class="close-x" id="close-saved">×</button>
-      </header>
-      <div class="saved-list" id="saved-list"></div>
+    <aside class="sheet" id="saved-panel">
+      <h3>اعلان‌ها و ذخیره‌ها</h3>
+      <div id="saved-list"></div>
     </aside>
     <div class="toast" id="toast"></div>
 
