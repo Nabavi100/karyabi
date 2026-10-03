@@ -1,12 +1,1726 @@
 {
+  "categories": [
+    {
+      "id": "c1",
+      "name": "مدیریت",
+      "icon": "case",
+      "color": 0
+    },
+    {
+      "id": "c2",
+      "name": "حسابداری و مالی",
+      "icon": "wallet",
+      "color": 1
+    },
+    {
+      "id": "c3",
+      "name": "فروش و بازاریابی",
+      "icon": "trend",
+      "color": 3
+    },
+    {
+      "id": "c4",
+      "name": "IT و تکنولوژی",
+      "icon": "cpu",
+      "color": 1
+    },
+    {
+      "id": "c5",
+      "name": "برنامه‌نویسی",
+      "icon": "code",
+      "color": 2
+    },
+    {
+      "id": "c6",
+      "name": "طراحی گرافیک",
+      "icon": "pen",
+      "color": 5
+    },
+    {
+      "id": "c7",
+      "name": "مهندسی",
+      "icon": "gear",
+      "color": 7
+    },
+    {
+      "id": "c8",
+      "name": "پزشکی و صحت",
+      "icon": "med",
+      "color": 4
+    },
+    {
+      "id": "c9",
+      "name": "آموزش",
+      "icon": "grad",
+      "color": 3
+    },
+    {
+      "id": "c10",
+      "name": "منابع انسانی",
+      "icon": "users",
+      "color": 2
+    },
+    {
+      "id": "c11",
+      "name": "ساختمان و عمران",
+      "icon": "hammer",
+      "color": 7
+    },
+    {
+      "id": "c12",
+      "name": "رانندگی",
+      "icon": "car",
+      "color": 6
+    },
+    {
+      "id": "c13",
+      "name": "خدمات",
+      "icon": "bmark",
+      "color": 0
+    },
+    {
+      "id": "c14",
+      "name": "کارهای فنی",
+      "icon": "tool",
+      "color": 7
+    },
+    {
+      "id": "c15",
+      "name": "حقوقی",
+      "icon": "scale",
+      "color": 1
+    },
+    {
+      "id": "c16",
+      "name": "اداری",
+      "icon": "clip",
+      "color": 6
+    },
+    {
+      "id": "c17",
+      "name": "امنیت",
+      "icon": "shield",
+      "color": 4
+    },
+    {
+      "id": "c18",
+      "name": "رسانه و تولید محتوا",
+      "icon": "cam",
+      "color": 5
+    },
+    {
+      "id": "c19",
+      "name": "کار از راه دور",
+      "icon": "globe",
+      "color": 6
+    },
+    {
+      "id": "c20",
+      "name": "سایر",
+      "icon": "dots",
+      "color": 0
+    }
+  ],
   "companies": [
-    {"id":"co1","name":"گروپ تجارتی افغان‌پامیر","about":"از بزرگ‌ترین شرکت‌های تجارتی هرات در بخش واردات و توزیع مواد غذایی با بیش از ۱۵ سال سابقه.","city":"هرات","address":"هرات، شهرک صنعتی، فاز اول، نمبر ۱۲","phone":"0799123456","email":"info@pamir.af","verified":true,"color":0},
-    {"id":"co2","name":"تکنالوژی روشن","about":"شرکت نرم‌افزاری پیشرو در کابل؛ توسعه وب‌سایت، اپلیکیشن موبایل و سیستم‌های مدیریت.","city":"کابل","address":"کابل، شهر نو، سرک حاجی یعقوب، تعمیر ۴۵","phone":"0701234567","email":"jobs@roshan-tech.af","verified":true,"color":1},
-    {"id":"co3","name":"شفاخانه صحت‌مند","about":"شفاخانه خصوصی مجهز در هرات با بخش‌های داخله، جراحی و نسایی‌ولادی.","city":"هرات","address":"هرات، جاده لیلامی، نزدیک پارک ترقی","phone":"0799654321","email":"hr@sehhatmand.af","verified":true,"color":4},
-    {"id":"co4","name":"مکتب خصوصی معرفت","about":"مکتب خصوصی با کورس‌های زبان انگلیسی و آمادگی کانکور؛ محیط آموزشی مدرن.","city":"هرات","address":"هرات، جاده دانش، مقابل لیسه سلطان","phone":"0799111222","email":"info@marefat.edu.af","verified":true,"color":3},
-    {"id":"co5","name":"شرکت ساختمانی بهار","about":"مجری پروژه‌های ساختمانی و سرک‌سازی در شمال افغانستان.","city":"مزار شریف","address":"مزارشریف، سرک بلخ، گولایی حیرتان","phone":"0799333444","email":"hr@bahar.af","verified":false,"color":7},
-    {"id":"co6","name":"رستوران آریانا","about":"رستوران مجلل با غذاهای افغانی و بین‌المللی در قلب کابل.","city":"کابل","address":"کابل، وزیر اکبرخان، سرک ۱۳","phone":"0701555666","email":"info@ariana.af","verified":true,"color":3},
-    {"id":"co7","name":"آژانس تبلیغاتی نگار","about":"آژانس خلاقیت در تبلیغات، برندینگ و تولید محتوای دیجیتال.","city":"هرات","address":"هرات، جاده مرکزی، مارکیت تجارتی نور، منزل دوم","phone":"0799777888","email":"hello@negar.af","verified":false,"color":5},
-    {"id":"co8","name":"صرافی اعتماد کابل","about":"خدمات صرافی و حواله‌جات داخلی و خارجی با جواز رسمی.","city":"کابل","address":"کابل، سرای شهزاده، منزل اول، دکان ۲۱۰","phone":"0701999000","email":"career@etemad.af","verified":true,"color":1}
+    {
+      "id": "co1",
+      "name": "گروپ تجارتی افغان‌پامیر",
+      "about": "از بزرگ‌ترین شرکت‌های تجارتی هرات در بخش واردات و توزیع مواد غذایی با بیش از ۱۵ سال سابقه.",
+      "city": "هرات",
+      "address": "هرات، شهرک صنعتی، فاز اول، نمبر ۱۲",
+      "phone": "0799123456",
+      "email": "info@pamir.af",
+      "verified": true,
+      "color": 0,
+      "telegram": "0799123456",
+      "whatsapp": "0799123456"
+    },
+    {
+      "id": "co2",
+      "name": "تکنالوژی روشن",
+      "about": "شرکت نرم‌افزاری پیشرو در کابل؛ توسعه وب‌سایت، اپلیکیشن موبایل و سیستم‌های مدیریت.",
+      "city": "هرات",
+      "address": "هرات",
+      "phone": "0701234567",
+      "email": "jobs@roshan-tech.af",
+      "verified": true,
+      "color": 1,
+      "telegram": "0701234567",
+      "whatsapp": "0701234567"
+    },
+    {
+      "id": "co3",
+      "name": "شفاخانه صحت‌مند",
+      "about": "شفاخانه خصوصی مجهز در هرات با بخش‌های داخله، جراحی و نسایی‌ولادی.",
+      "city": "هرات",
+      "address": "هرات، جاده لیلامی، نزدیک پارک ترقی",
+      "phone": "0799654321",
+      "email": "hr@sehhatmand.af",
+      "verified": true,
+      "color": 4,
+      "telegram": "0799654321",
+      "whatsapp": "0799654321"
+    },
+    {
+      "id": "co4",
+      "name": "مکتب خصوصی معرفت",
+      "about": "مکتب خصوصی با کورس‌های زبان انگلیسی و آمادگی کانکور؛ محیط آموزشی مدرن.",
+      "city": "هرات",
+      "address": "هرات، جاده دانش، مقابل لیسه سلطان",
+      "phone": "0799111222",
+      "email": "info@marefat.edu.af",
+      "verified": true,
+      "color": 3,
+      "telegram": "0799111222",
+      "whatsapp": "0799111222"
+    },
+    {
+      "id": "co5",
+      "name": "شرکت ساختمانی بهار",
+      "about": "مجری پروژه‌های ساختمانی و سرک‌سازی در شمال افغانستان.",
+      "city": "هرات",
+      "address": "هرات",
+      "phone": "0799333444",
+      "email": "hr@bahar.af",
+      "verified": false,
+      "color": 7,
+      "telegram": "0799333444",
+      "whatsapp": "0799333444"
+    },
+    {
+      "id": "co6",
+      "name": "رستوران آریانا",
+      "about": "رستوران مجلل با غذاهای افغانی و بین‌المللی در قلب کابل.",
+      "city": "هرات",
+      "address": "هرات",
+      "phone": "0701555666",
+      "email": "info@ariana.af",
+      "verified": true,
+      "color": 3,
+      "telegram": "0701555666",
+      "whatsapp": "0701555666"
+    },
+    {
+      "id": "co7",
+      "name": "آژانس تبلیغاتی نگار",
+      "about": "آژانس خلاقیت در تبلیغات، برندینگ و تولید محتوای دیجیتال.",
+      "city": "هرات",
+      "address": "هرات، جاده مرکزی، مارکیت تجارتی نور، منزل دوم",
+      "phone": "0799777888",
+      "email": "hello@negar.af",
+      "verified": false,
+      "color": 5,
+      "telegram": "0799777888",
+      "whatsapp": "0799777888"
+    },
+    {
+      "id": "co8",
+      "name": "صرافی اعتماد کابل",
+      "about": "خدمات صرافی و حواله‌جات داخلی و خارجی با جواز رسمی.",
+      "city": "هرات",
+      "address": "هرات",
+      "phone": "0701999000",
+      "email": "career@etemad.af",
+      "verified": true,
+      "color": 1,
+      "telegram": "0701999000",
+      "whatsapp": "0701999000"
+    }
+  ],
+  "jobs": [
+    {
+      "views": 413,
+      "status": "active",
+      "urgent": false,
+      "remote": false,
+      "negotiable": false,
+      "gender": "هر دو",
+      "level": "عالی",
+      "benefits": "بیمه صحی، ترانسپورت، نان چاشت، پاداش سالانه",
+      "applyMethod": "app",
+      "id": "j1",
+      "title": "مدیر مالی (Finance Manager)",
+      "companyId": "co1",
+      "categoryId": "c2",
+      "type": "تمام‌وقت",
+      "salaryMin": 28000,
+      "salaryMax": 35000,
+      "expMin": 5,
+      "expMax": 10,
+      "city": "هرات",
+      "area": "شهرک صنعتی",
+      "address": "هرات، شهرک صنعتی، فاز اول، دفتر مرکزی افغان‌پامیر",
+      "lat": 34.34,
+      "lng": 62.2,
+      "phone": "0799123456",
+      "email": "hr@pamir.af",
+      "postedAt": 1791012484151,
+      "deadline": 1792056484151,
+      "duties": [
+        "مدیریت کامل امور مالی و حسابداری شرکت",
+        "تهیه صورت‌های مالی ماهانه و سالانه",
+        "کنترل بودجه و مدیریت جریان نقدینگی",
+        "سرپرستی تیم ۴ نفره حسابداری",
+        "گزارش‌دهی مستقیم به مدیرعامل"
+      ],
+      "requirements": [
+        "حداقل لیسانس حسابداری یا مدیریت مالی",
+        "۵ تا ۱۰ سال سابقه کار مرتبط",
+        "تسلط کامل به Excel و نرم‌افزارهای حسابداری",
+        "توانایی مدیریت تیم و تصمیم‌گیری",
+        "صداقت و دقت بالا در کار"
+      ],
+      "skills": [
+        "مدیریت مالی",
+        "حسابداری",
+        "Excel",
+        "بودجه‌بندی",
+        "QuickBooks"
+      ],
+      "telegram": "0799123456",
+      "whatsapp": "0799123456"
+    },
+    {
+      "views": 638,
+      "status": "active",
+      "urgent": false,
+      "remote": false,
+      "negotiable": false,
+      "gender": "هر دو",
+      "level": "متوسط",
+      "benefits": "معاش رقابتی، محیط کاری انعطاف‌پذیر، کورس‌های آموزشی رایگان",
+      "applyMethod": "app",
+      "id": "j2",
+      "title": "توسعه‌دهنده فرانت‌اند (React)",
+      "companyId": "co2",
+      "categoryId": "c5",
+      "type": "تمام‌وقت",
+      "salaryMin": 25000,
+      "salaryMax": 40000,
+      "expMin": 2,
+      "expMax": 5,
+      "city": "هرات",
+      "area": "",
+      "address": "هرات",
+      "lat": 34.34,
+      "lng": 62.2,
+      "phone": "0701234567",
+      "email": "jobs@roshan-tech.af",
+      "postedAt": 1791001684151,
+      "deadline": 1792747684151,
+      "duties": [
+        "توسعه رابط کاربری وب‌اپلیکیشن‌ها با React",
+        "همکاری با تیم بک‌اند و دیزاین",
+        "بهینه‌سازی سرعت و Performance",
+        "کدنویسی تمیز و قابل نگهداری"
+      ],
+      "requirements": [
+        "حداقل ۲ سال تجربه React",
+        "تسلط به JavaScript، HTML و CSS",
+        "آشنایی با Git و REST API",
+        "انگلیسی تخنیکی خوب"
+      ],
+      "skills": [
+        "React",
+        "JavaScript",
+        "CSS",
+        "Git",
+        "REST API"
+      ],
+      "telegram": "0701234567",
+      "whatsapp": "0701234567"
+    },
+    {
+      "views": 286,
+      "status": "active",
+      "urgent": false,
+      "remote": false,
+      "negotiable": false,
+      "gender": "هر دو",
+      "level": "متوسط",
+      "benefits": "پاداش ماهانه بر اساس عملکرد",
+      "applyMethod": "app",
+      "id": "j3",
+      "title": "حسابدار ارشد",
+      "companyId": "co8",
+      "categoryId": "c2",
+      "type": "تمام‌وقت",
+      "salaryMin": 18000,
+      "salaryMax": 25000,
+      "expMin": 3,
+      "expMax": 6,
+      "city": "هرات",
+      "area": "",
+      "address": "هرات",
+      "lat": 34.34,
+      "lng": 62.2,
+      "phone": "0701999000",
+      "email": "career@etemad.af",
+      "postedAt": 1790933284151,
+      "deadline": 1791797284151,
+      "duties": [
+        "ثبت معاملات روزانه صرافی و حواله‌جات",
+        "مطابقت حساب‌های بانکی",
+        "تهیه راپور هفتگی برای مدیریت"
+      ],
+      "requirements": [
+        "لیسانس حسابداری",
+        "۳ سال تجربه در صرافی یا بانک",
+        "تسلط به Excel"
+      ],
+      "skills": [
+        "حسابداری",
+        "Excel",
+        "حواله‌جات"
+      ],
+      "telegram": "0701999000",
+      "whatsapp": "0701999000"
+    },
+    {
+      "views": 341,
+      "status": "active",
+      "urgent": false,
+      "remote": false,
+      "negotiable": false,
+      "gender": "هر دو",
+      "level": "مبتدی",
+      "benefits": "محیط کاری جوان و خلاق، انترنت رایگان",
+      "applyMethod": "app",
+      "id": "j4",
+      "title": "گرافیک دیزاینر",
+      "companyId": "co7",
+      "categoryId": "c6",
+      "type": "تمام‌وقت",
+      "salaryMin": 15000,
+      "salaryMax": 22000,
+      "expMin": 2,
+      "expMax": 4,
+      "city": "هرات",
+      "area": "جاده مرکزی",
+      "address": "هرات، مارکیت تجارتی نور، منزل دوم",
+      "lat": 34.34,
+      "lng": 62.2,
+      "phone": "0799777888",
+      "email": "hello@negar.af",
+      "postedAt": 1790918884151,
+      "deadline": 1792315684151,
+      "duties": [
+        "طراحی پست‌های سوشیال میدیا",
+        "طراحی لوگو، بروشور و بنر",
+        "همکاری با تیم تولید محتوا"
+      ],
+      "requirements": [
+        "تسلط به Photoshop و Illustrator",
+        "نمونه‌کار قوی (Portfolio)",
+        "خلاقیت و به‌روز بودن"
+      ],
+      "skills": [
+        "Photoshop",
+        "Illustrator",
+        "برندینگ",
+        "سوشیال میدیا"
+      ],
+      "telegram": "0799777888",
+      "whatsapp": "0799777888"
+    },
+    {
+      "views": 198,
+      "status": "active",
+      "urgent": false,
+      "remote": false,
+      "negotiable": false,
+      "gender": "هر دو",
+      "level": "متوسط",
+      "benefits": "ساعات کاری منعطف، بورسیه کورس‌ها",
+      "applyMethod": "app",
+      "id": "j5",
+      "title": "استاد زبان انگلیسی (IELTS)",
+      "companyId": "co4",
+      "categoryId": "c9",
+      "type": "پاره‌وقت",
+      "salaryMin": 12000,
+      "salaryMax": 18000,
+      "expMin": 2,
+      "expMax": 8,
+      "city": "هرات",
+      "area": "جاده دانش",
+      "address": "هرات، جاده دانش، مقابل لیسه سلطان",
+      "lat": 34.34,
+      "lng": 62.2,
+      "phone": "0799111222",
+      "email": "info@marefat.edu.af",
+      "postedAt": 1790846884151,
+      "deadline": 1791624484151,
+      "duties": [
+        "تدریس صنف‌های IELTS و مکالمه",
+        "آماده‌سازی مواد درسی",
+        "ارزیابی شاگردان"
+      ],
+      "requirements": [
+        "نمره IELTS حداقل ۷",
+        "۲ سال تجربه تدریس",
+        "لهجه و تلفظ عالی"
+      ],
+      "skills": [
+        "IELTS",
+        "تدریس",
+        "مکالمه"
+      ],
+      "telegram": "0799111222",
+      "whatsapp": "0799111222"
+    },
+    {
+      "views": 264,
+      "status": "active",
+      "urgent": false,
+      "remote": false,
+      "negotiable": false,
+      "gender": "هر دو",
+      "level": "متوسط",
+      "benefits": "بیمه صحی، لباس و غذای شفاخانه",
+      "applyMethod": "app",
+      "id": "j6",
+      "title": "نرس / پرستار",
+      "companyId": "co3",
+      "categoryId": "c8",
+      "type": "تمام‌وقت",
+      "salaryMin": 15000,
+      "salaryMax": 20000,
+      "expMin": 1,
+      "expMax": 5,
+      "city": "هرات",
+      "area": "جاده لیلامی",
+      "address": "هرات، جاده لیلامی، شفاخانه صحت‌مند",
+      "lat": 34.34,
+      "lng": 62.2,
+      "phone": "0799654321",
+      "email": "hr@sehhatmand.af",
+      "postedAt": 1790760484151,
+      "deadline": 1791883684151,
+      "duties": [
+        "مراقبت از مریضان بخش داخله",
+        "اجرای هدایات داکتر",
+        "ثبت علایم حیاتی مریضان"
+      ],
+      "requirements": [
+        "سند نرسنگ یا قابلگی",
+        "حداقل ۱ سال تجربه شفاخانه",
+        "تعهد و دلسوزی"
+      ],
+      "skills": [
+        "نرسنگ",
+        "مراقبت مریض",
+        "تزریقات"
+      ],
+      "telegram": "0799654321",
+      "whatsapp": "0799654321"
+    },
+    {
+      "views": 389,
+      "status": "active",
+      "urgent": false,
+      "remote": false,
+      "negotiable": false,
+      "gender": "هر دو",
+      "level": "عالی",
+      "benefits": "لیلیه، ترانسپورت ساحه، معاش رقابتی",
+      "applyMethod": "app",
+      "id": "j7",
+      "title": "انجنیر ساختمان (Site Engineer)",
+      "companyId": "co5",
+      "categoryId": "c11",
+      "type": "قراردادی",
+      "salaryMin": 30000,
+      "salaryMax": 45000,
+      "expMin": 4,
+      "expMax": 10,
+      "city": "هرات",
+      "area": "",
+      "address": "هرات",
+      "lat": 34.34,
+      "lng": 62.2,
+      "phone": "0799333444",
+      "email": "hr@bahar.af",
+      "postedAt": 1790738884151,
+      "deadline": 1792574884151,
+      "duties": [
+        "نظارت بر اجرای پروژه سرک",
+        "کنترل کیفیت مواد ساختمانی",
+        "مدیریت تیم کاری ساحه",
+        "راپوردهی روزانه پیشرفت کار"
+      ],
+      "requirements": [
+        "لیسانس انجنیری سیول",
+        "۴ سال تجربه ساحوی",
+        "تسلط به AutoCAD"
+      ],
+      "skills": [
+        "AutoCAD",
+        "نظارت ساختمان",
+        "مدیریت پروژه"
+      ],
+      "telegram": "0799333444",
+      "whatsapp": "0799333444"
+    },
+    {
+      "views": 312,
+      "status": "active",
+      "urgent": false,
+      "remote": false,
+      "negotiable": false,
+      "gender": "هر دو",
+      "level": "عالی",
+      "benefits": "کمیشن فروش + معاش ثابت، موتر شرکت",
+      "applyMethod": "app",
+      "id": "j8",
+      "title": "مدیر فروش و بازاریابی",
+      "companyId": "co1",
+      "categoryId": "c3",
+      "type": "تمام‌وقت",
+      "salaryMin": 20000,
+      "salaryMax": 30000,
+      "expMin": 3,
+      "expMax": 8,
+      "city": "هرات",
+      "area": "شهرک صنعتی",
+      "address": "هرات، شهرک صنعتی، دفتر مرکزی",
+      "lat": 34.34,
+      "lng": 62.2,
+      "phone": "0799123456",
+      "email": "hr@pamir.af",
+      "postedAt": 1790674084151,
+      "deadline": 1791538084151,
+      "duties": [
+        "مدیریت تیم فروش ۱۰ نفره",
+        "طراحی استراتژی فروش",
+        "توسعه بازار در ولایات غرب"
+      ],
+      "requirements": [
+        "۳ سال تجربه مدیریت فروش",
+        "روابط عمومی قوی",
+        "آشنایی با بازار هرات"
+      ],
+      "skills": [
+        "مدیریت فروش",
+        "بازاریابی",
+        "مذاکره"
+      ],
+      "telegram": "0799123456",
+      "whatsapp": "0799123456"
+    },
+    {
+      "views": 445,
+      "status": "active",
+      "urgent": false,
+      "remote": false,
+      "negotiable": false,
+      "gender": "خانم",
+      "level": "مبتدی",
+      "benefits": "محیط کاری امن و حرفه‌ای",
+      "applyMethod": "app",
+      "id": "j9",
+      "title": "منشی اداری (خانم)",
+      "companyId": "co2",
+      "categoryId": "c16",
+      "type": "تمام‌وقت",
+      "salaryMin": 12000,
+      "salaryMax": 16000,
+      "expMin": 1,
+      "expMax": 3,
+      "city": "هرات",
+      "area": "",
+      "address": "هرات",
+      "lat": 34.34,
+      "lng": 62.2,
+      "phone": "0701234567",
+      "email": "jobs@roshan-tech.af",
+      "postedAt": 1790587684151,
+      "deadline": 1791970084151,
+      "duties": [
+        "جوابگویی تلفن و تنظیم ملاقات‌ها",
+        "مدیریت اسناد و فایلینگ",
+        "هماهنگی امور دفتر"
+      ],
+      "requirements": [
+        "حداقل بکلوریا",
+        "تسلط به Word و Excel",
+        "روابط عمومی خوب"
+      ],
+      "skills": [
+        "Word",
+        "Excel",
+        "امور دفتری"
+      ],
+      "telegram": "0701234567",
+      "whatsapp": "0701234567"
+    },
+    {
+      "views": 176,
+      "status": "active",
+      "urgent": false,
+      "remote": false,
+      "negotiable": false,
+      "gender": "هر دو",
+      "level": "متوسط",
+      "benefits": "غذا و چای، انعام ماهانه",
+      "applyMethod": "app",
+      "id": "j10",
+      "title": "آشپز (غذاهای افغانی)",
+      "companyId": "co6",
+      "categoryId": "c13",
+      "type": "تمام‌وقت",
+      "salaryMin": 15000,
+      "salaryMax": 20000,
+      "expMin": 3,
+      "expMax": 10,
+      "city": "هرات",
+      "area": "",
+      "address": "هرات",
+      "lat": 34.34,
+      "lng": 62.2,
+      "phone": "0701555666",
+      "email": "info@ariana.af",
+      "postedAt": 1790501284151,
+      "deadline": 1791710884151,
+      "duties": [
+        "پخت غذاهای افغانی (قابلی، کرایی، کباب)",
+        "مدیریت آشپزخانه و نظافت",
+        "کنترل کیفیت مواد"
+      ],
+      "requirements": [
+        "۳ سال تجربه آشپزی رستوران",
+        "سرعت و نظافت",
+        "کارت صحی معتبر"
+      ],
+      "skills": [
+        "آشپزی",
+        "غذاهای افغانی"
+      ],
+      "telegram": "0701555666",
+      "whatsapp": "0701555666"
+    },
+    {
+      "views": 521,
+      "status": "active",
+      "urgent": false,
+      "remote": false,
+      "negotiable": false,
+      "gender": "هر دو",
+      "level": "عالی",
+      "benefits": "پرداخت مرحله‌ای، امکان همکاری دائمی",
+      "applyMethod": "app",
+      "id": "j11",
+      "title": "توسعه‌دهنده موبایل (Flutter)",
+      "companyId": "co2",
+      "categoryId": "c5",
+      "type": "پروژه‌ای",
+      "salaryMin": 30000,
+      "salaryMax": 50000,
+      "expMin": 3,
+      "expMax": 7,
+      "city": "هرات",
+      "area": "",
+      "address": "هرات",
+      "lat": 34.34,
+      "lng": 62.2,
+      "phone": "0701234567",
+      "email": "jobs@roshan-tech.af",
+      "postedAt": 1790414884151,
+      "deadline": 1792229284151,
+      "duties": [
+        "توسعه اپلیکیشن فروشگاه آنلاین با Flutter",
+        "اتصال به REST API",
+        "انتشار در Google Play و App Store"
+      ],
+      "requirements": [
+        "۳ سال تجربه Flutter",
+        "نمونه‌کار منتشرشده",
+        "تسلط به State Management"
+      ],
+      "skills": [
+        "Flutter",
+        "Dart",
+        "REST API",
+        "Firebase"
+      ],
+      "telegram": "0701234567",
+      "whatsapp": "0701234567"
+    },
+    {
+      "views": 143,
+      "status": "active",
+      "urgent": false,
+      "remote": false,
+      "negotiable": false,
+      "gender": "هر دو",
+      "level": "متوسط",
+      "benefits": "حق‌السفر، بیمه",
+      "applyMethod": "app",
+      "id": "j12",
+      "title": "راننده (موتر باربری)",
+      "companyId": "co1",
+      "categoryId": "c12",
+      "type": "تمام‌وقت",
+      "salaryMin": 12000,
+      "salaryMax": 15000,
+      "expMin": 2,
+      "expMax": 10,
+      "city": "هرات",
+      "area": "",
+      "address": "هرات",
+      "lat": 34.34,
+      "lng": 62.2,
+      "phone": "0799123456",
+      "email": "hr@pamir.af",
+      "postedAt": 1790328484151,
+      "deadline": 1791451684151,
+      "duties": [
+        "انتقال اموال بین هرات و کندهار",
+        "نگهداری و نظافت موتر"
+      ],
+      "requirements": [
+        "جواز رانندگی درجه ۲",
+        "۲ سال تجربه رانندگی بین‌شهری",
+        "صحت کامل"
+      ],
+      "skills": [
+        "رانندگی",
+        "مسیرهای بین‌شهری"
+      ],
+      "telegram": "0799123456",
+      "whatsapp": "0799123456"
+    },
+    {
+      "views": 98,
+      "status": "expired",
+      "urgent": false,
+      "remote": false,
+      "negotiable": false,
+      "gender": "هر دو",
+      "level": "متوسط",
+      "benefits": "ابزار کار از شرکت",
+      "applyMethod": "app",
+      "id": "j13",
+      "title": "تخنیکر برق ساختمان",
+      "companyId": "co5",
+      "categoryId": "c14",
+      "type": "قراردادی",
+      "salaryMin": 14000,
+      "salaryMax": 18000,
+      "expMin": 2,
+      "expMax": 6,
+      "city": "هرات",
+      "area": "",
+      "address": "هرات",
+      "lat": 34.34,
+      "lng": 62.2,
+      "phone": "0799333444",
+      "email": "hr@bahar.af",
+      "postedAt": 1790242084151,
+      "deadline": 1790933284151,
+      "duties": [
+        "سیم‌کشی ساختمان‌های پروژه",
+        "نصب سیستم روشنایی"
+      ],
+      "requirements": [
+        "۲ سال تجربه برق ساختمان",
+        "آشنایی با نقشه برق"
+      ],
+      "skills": [
+        "برق ساختمان",
+        "سیم‌کشی"
+      ],
+      "telegram": "0799333444",
+      "whatsapp": "0799333444"
+    },
+    {
+      "views": 267,
+      "status": "active",
+      "urgent": false,
+      "remote": false,
+      "negotiable": false,
+      "gender": "هر دو",
+      "level": "عالی",
+      "benefits": "بیمه، پاداش سالانه",
+      "applyMethod": "app",
+      "id": "j14",
+      "title": "مدیر منابع انسانی (HR)",
+      "companyId": "co8",
+      "categoryId": "c10",
+      "type": "تمام‌وقت",
+      "salaryMin": 25000,
+      "salaryMax": 35000,
+      "expMin": 4,
+      "expMax": 9,
+      "city": "هرات",
+      "area": "",
+      "address": "هرات",
+      "lat": 34.34,
+      "lng": 62.2,
+      "phone": "0701999000",
+      "email": "career@etemad.af",
+      "postedAt": 1790155684151,
+      "deadline": 1792402084151,
+      "duties": [
+        "استخدام و مصاحبه کارمندان جدید",
+        "مدیریت حاضری و معاشات",
+        "حل اختلافات کاری"
+      ],
+      "requirements": [
+        "لیسانس مرتبط",
+        "۴ سال تجربه HR",
+        "تسلط به قوانین کار"
+      ],
+      "skills": [
+        "استخدام",
+        "مدیریت منابع انسانی",
+        "مصاحبه"
+      ],
+      "telegram": "0701999000",
+      "whatsapp": "0701999000"
+    },
+    {
+      "views": 189,
+      "status": "active",
+      "urgent": false,
+      "remote": false,
+      "negotiable": false,
+      "gender": "هر دو",
+      "level": "متوسط",
+      "benefits": "لباس، غذای شب",
+      "applyMethod": "app",
+      "id": "j15",
+      "title": "نگهبان امنیتی",
+      "companyId": "co3",
+      "categoryId": "c17",
+      "type": "تمام‌وقت",
+      "salaryMin": 10000,
+      "salaryMax": 13000,
+      "expMin": 1,
+      "expMax": 5,
+      "city": "هرات",
+      "area": "جاده لیلامی",
+      "address": "هرات، شفاخانه صحت‌مند",
+      "lat": 34.34,
+      "lng": 62.2,
+      "phone": "0799654321",
+      "email": "hr@sehhatmand.af",
+      "postedAt": 1790069284151,
+      "deadline": 1791365284151,
+      "duties": [
+        "کنترل ورود و خروج",
+        "گشت شبانه",
+        "گزارش حوادث"
+      ],
+      "requirements": [
+        "قد بالای ۱۷۵",
+        "سابقه امنیتی ترجیح داده می‌شود"
+      ],
+      "skills": [
+        "امنیت",
+        "گشت"
+      ],
+      "telegram": "0799654321",
+      "whatsapp": "0799654321"
+    }
+  ],
+  "professionals": [
+    {
+      "id": "p1",
+      "name": "احمد نوری",
+      "title": "مدیر مالی",
+      "cat": "حسابداری و مالی",
+      "exp": 10,
+      "expMin": 28000,
+      "expMax": 35000,
+      "neg": true,
+      "city": "هرات",
+      "skills": [
+        "مدیریت مالی",
+        "حسابداری",
+        "Excel",
+        "بودجه‌بندی",
+        "QuickBooks"
+      ],
+      "edu": "ماستر مدیریت مالی — پوهنتون هرات",
+      "langs": [
+        "دری",
+        "پشتو",
+        "انگلیسی"
+      ],
+      "bio": "۱۰ سال تجربه مدیریت مالی در شرکت‌های تجارتی هرات. متخصص بودجه‌بندی، کنترل داخلی و گزارش‌دهی مالی.",
+      "rating": 4.8,
+      "rcount": 24,
+      "badges": [],
+      "avail": "آماده استخدام فوری",
+      "phone": "0799000111",
+      "email": "ahmad.n@example.af",
+      "color": 1,
+      "hist": [
+        {
+          "t": "مدیر مالی — گروپ تجارتی بهار (۱۳۹۹-۱۴۰۴)",
+          "d": "مدیریت تیم ۵ نفره و بودجه سالانه"
+        },
+        {
+          "t": "حسابدار ارشد — صرافی خراسان (۱۳۹۴-۱۳۹۹)",
+          "d": "امور حسابداری و حواله‌جات"
+        }
+      ],
+      "telegram": "0799000111",
+      "whatsapp": "0799000111"
+    },
+    {
+      "id": "p2",
+      "name": "مریم کریمی",
+      "title": "گرافیک دیزاینر ارشد",
+      "cat": "طراحی گرافیک",
+      "exp": 6,
+      "expMin": 20000,
+      "expMax": 25000,
+      "neg": true,
+      "city": "هرات",
+      "skills": [
+        "Photoshop",
+        "Illustrator",
+        "UI Design",
+        "برندینگ"
+      ],
+      "edu": "لیسانس هنرهای زیبا — پوهنتون هرات",
+      "langs": [
+        "دری",
+        "انگلیسی"
+      ],
+      "bio": "۶ سال تجربه طراحی برای برندهای معتبر. متخصص هویت بصری و طراحی سوشیال میدیا.",
+      "rating": 4.9,
+      "rcount": 31,
+      "badges": [],
+      "avail": "آماده همکاری",
+      "phone": "0799000222",
+      "email": "maryam.k@example.af",
+      "color": 5,
+      "hist": [
+        {
+          "t": "دیزاینر ارشد — آژانس نگار (۱۴۰۰-۱۴۰۴)",
+          "d": "طراحی کمپین‌های تبلیغاتی"
+        }
+      ],
+      "telegram": "0799000222",
+      "whatsapp": "0799000222"
+    },
+    {
+      "id": "p3",
+      "name": "عبدالله محمدی",
+      "title": "توسعه‌دهنده ارشد نرم‌افزار",
+      "cat": "برنامه‌نویسی",
+      "exp": 8,
+      "expMin": 40000,
+      "expMax": 55000,
+      "neg": false,
+      "city": "هرات",
+      "skills": [
+        "React",
+        "Node.js",
+        "Flutter",
+        "PostgreSQL",
+        "AWS"
+      ],
+      "edu": "لیسانس کمپیوترساینس — پوهنتون کابل",
+      "langs": [
+        "دری",
+        "پشتو",
+        "انگلیسی"
+      ],
+      "bio": "۸ سال تجربه فول‌استک. بیش از ۲۰ پروژه موفق داخلی و خارجی. آماده همکاری تمام‌وقت.",
+      "rating": 5,
+      "rcount": 42,
+      "badges": [],
+      "avail": "آماده همکاری",
+      "phone": "0700111222",
+      "email": "abdullah.m@example.af",
+      "color": 2,
+      "hist": [
+        {
+          "t": "ارشیتکت نرم‌افزار — تکنالوژی روشن (۱۳۹۸-۱۴۰۴)",
+          "d": "رهبری تیم ۸ نفره توسعه"
+        }
+      ],
+      "telegram": "0700111222",
+      "whatsapp": "0700111222"
+    },
+    {
+      "id": "p4",
+      "name": "فاطمه احمدی",
+      "title": "استاد زبان و مترجم",
+      "cat": "آموزش",
+      "exp": 12,
+      "expMin": 18000,
+      "expMax": 24000,
+      "neg": true,
+      "city": "هرات",
+      "skills": [
+        "IELTS",
+        "ترجمه",
+        "تدریس آنلاین"
+      ],
+      "edu": "ماستر ادبیات انگلیسی",
+      "langs": [
+        "دری",
+        "انگلیسی",
+        "عربی"
+      ],
+      "bio": "۱۲ سال تدریس زبان انگلیسی و ترجمه رسمی اسناد. نمره IELTS ۸.",
+      "rating": 4.7,
+      "rcount": 19,
+      "badges": [],
+      "avail": "آماده استخدام",
+      "phone": "0799000333",
+      "email": "fatima.a@example.af",
+      "color": 3,
+      "hist": [
+        {
+          "t": "استاد ارشد — کورس آکسفورد هرات (۱۳۹۲-۱۴۰۴)",
+          "d": "تدریس IELTS و تافل"
+        }
+      ],
+      "telegram": "0799000333",
+      "whatsapp": "0799000333"
+    },
+    {
+      "id": "p5",
+      "name": "حبیب‌الله رحیمی",
+      "title": "انجنیر ارشد ساختمان",
+      "cat": "مهندسی",
+      "exp": 15,
+      "expMin": 45000,
+      "expMax": 60000,
+      "neg": false,
+      "city": "هرات",
+      "skills": [
+        "AutoCAD",
+        "مدیریت پروژه",
+        "نظارت ساختمان",
+        "Primavera"
+      ],
+      "edu": "ماستر انجنیری سیول",
+      "langs": [
+        "دری",
+        "پشتو",
+        "انگلیسی",
+        "ازبکی"
+      ],
+      "bio": "۱۵ سال تجربه در پروژه‌های بزرگ زیربنایی شمال افغانستان. عضو انجمن انجنیران.",
+      "rating": 4.9,
+      "rcount": 37,
+      "badges": [],
+      "avail": "قراردادی / پروژه‌ای",
+      "phone": "0799000444",
+      "email": "habib.r@example.af",
+      "color": 7,
+      "hist": [
+        {
+          "t": "مدیر پروژه — سرک حلقوی بلخ (۱۳۹۵-۱۴۰۴)",
+          "d": "مدیریت پروژه ۵۰ میلیون دالری"
+        }
+      ],
+      "telegram": "0799000444",
+      "whatsapp": "0799000444",
+      "views": 1
+    },
+    {
+      "id": "p6",
+      "name": "سارا عثمانی",
+      "title": "متخصص دیجیتال مارکتینگ",
+      "cat": "فروش و بازاریابی",
+      "exp": 4,
+      "expMin": 16000,
+      "expMax": 20000,
+      "neg": true,
+      "city": "هرات",
+      "skills": [
+        "سوشیال میدیا",
+        "تبلیغات متا",
+        "SEO",
+        "تولید محتوا"
+      ],
+      "edu": "لیسانس بازاریابی",
+      "langs": [
+        "دری",
+        "انگلیسی"
+      ],
+      "bio": "۴ سال تجربه رشد پیج‌های تجارتی. متخصص تبلیغات هدفمند و کمپین‌های فروش.",
+      "rating": 4.6,
+      "rcount": 15,
+      "badges": [],
+      "avail": "آماده همکاری",
+      "phone": "0799000555",
+      "email": "sara.o@example.af",
+      "color": 0,
+      "hist": [
+        {
+          "t": "مارکتر — فروشگاه آنلاین هرات‌بازار (۱۴۰۱-۱۴۰۴)",
+          "d": "رشد فروش ۳ برابری"
+        }
+      ],
+      "telegram": "0799000555",
+      "whatsapp": "0799000555"
+    }
+  ],
+  "users": [
+    {
+      "id": "u_admin",
+      "name": "مدیر سیستم",
+      "email": "nabavi",
+      "phone": "nabavi",
+      "pass": "nabavi",
+      "role": "admin",
+      "city": "هرات",
+      "avatar": 2,
+      "verified": true,
+      "joined": 1783243684151
+    }
+  ],
+  "applications": [],
+  "saved": [],
+  "favPros": [],
+  "notifications": [
+    {
+      "id": "n0",
+      "aud": "all",
+      "title": "به کارجوی هرات خوش آمدید",
+      "body": "کاریابی ولایت هرات — هزاران فرصت شغلی در دستان شما",
+      "type": "system",
+      "ts": 1790846884151,
+      "reads": []
+    }
+  ],
+  "reports": [],
+  "searchLog": [],
+  "readSys": {},
+  "discounts": [
+    {
+      "id": "d1",
+      "title": "گوشی Galaxy A55 — حافظه ۲۵۶GB",
+      "img": "data:image/jpeg;base64,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",
+      "specs": "حافظه داخلی ۲۵۶GB\nرم ۸GB\nگارانتی ۱ ساله شرکتی\nشارژر و کاور رایگان",
+      "oldPrice": 32000,
+      "newPrice": 16000,
+      "phone": "0799123456",
+      "active": true,
+      "ts": 1790933284152,
+      "color": 1,
+      "views": 2
+    },
+    {
+      "id": "d2",
+      "title": "لپتاپ HP Pavilion — مدل Core i7",
+      "img": "data:image/jpeg;base64,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",
+      "specs": "پردازنده Core i7 نسل ۱۳\nرم ۱۶GB — حافظه SSD ۵۱۲GB\nصفحه نمایش ۱۵.۶ اینچ\nویندوز اورجینال",
+      "oldPrice": 65000,
+      "newPrice": 52000,
+      "phone": "0701234567",
+      "active": true,
+      "ts": 1790760484152,
+      "color": 0
+    },
+    {
+      "id": "d3",
+      "title": "ساعت هوشمند Ultra",
+      "img": "data:image/jpeg;base64,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",
+      "specs": "صفحه نمایش AMOLED\nضد آب IP68\n۷ روز شارژدهی\nبند اضافه رایگان",
+      "oldPrice": 8000,
+      "newPrice": 4000,
+      "phone": "0799111222",
+      "active": true,
+      "ts": 1790587684152,
+      "color": 3,
+      "views": 1
+    }
+  ],
+  "homeBanner": {
+    "image": "@@KARJO_DEFAULT_HOME_BANNER@@",
+    "active": true,
+    "description": "این بنر تبلیغاتی برای معرفی خدمات، محصولات و فرصت‌های ویژه در کارجو در نظر گرفته شده است.\nکسب‌وکارها و فروشگاه‌های معتبر هرات می‌توانند خدمات خود را در این بخش معرفی کنند.\nهدف ما ایجاد ارتباط آسان‌تر میان مشتریان و ارائه‌دهندگان خدمات محلی است.\nمحتوای این بنر می‌تواند شامل معرفی فروشگاه، محصول، تخفیف یا یک رویداد ویژه باشد.\nاطلاعات تبلیغاتی باید واضح، دقیق و مطابق با قوانین و ارزش‌های جامعه باشد.\nپیش از هرگونه خرید یا همکاری، جزئیات و شرایط را مستقیماً از آگهی‌دهنده بررسی کنید.\nکارجو مسئولیت معامله مستقیم میان کاربران و آگهی‌دهندگان را بر عهده نمی‌گیرد.\nبرای ثبت تبلیغ، تصویر باکیفیت و توضیحات کامل خود را آماده نمایید.\nنمایش بنر به کسب‌وکار شما کمک می‌کند تا توسط کاربران بیشتری در ولایت هرات دیده شود.\nبرای معلومات بیشتر و ثبت بنر تبلیغاتی، با مدیریت کارجو در تماس شوید.",
+    "media": "@@KARJO_DEFAULT_HOME_BANNER@@",
+    "mediaType": "image",
+    "slides": [
+      {
+        "media": "@@KARJO_DEFAULT_HOME_BANNER@@",
+        "mediaType": "image",
+        "link": "",
+        "desc": "این بنر تبلیغاتی برای معرفی خدمات، محصولات و فرصت‌های ویژه در کارجو در نظر گرفته شده است.\nکسب‌وکارها و فروشگاه‌های معتبر هرات می‌توانند خدمات خود را در این بخش معرفی کنند.\nهدف ما ایجاد ارتباط آسان‌تر میان مشتریان و ارائه‌دهندگان خدمات محلی است.\nمحتوای این بنر می‌تواند شامل معرفی فروشگاه، محصول، تخفیف یا یک رویداد ویژه باشد.\nاطلاعات تبلیغاتی باید واضح، دقیق و مطابق با قوانین و ارزش‌های جامعه باشد.\nپیش از هرگونه خرید یا همکاری، جزئیات و شرایط را مستقیماً از آگهی‌دهنده بررسی کنید.\nکارجو مسئولیت معامله مستقیم میان کاربران و آگهی‌دهندگان را بر عهده نمی‌گیرد.\nبرای ثبت تبلیغ، تصویر باکیفیت و توضیحات کامل خود را آماده نمایید.\nنمایش بنر به کسب‌وکار شما کمک می‌کند تا توسط کاربران بیشتری در ولایت هرات دیده شود.\nبرای معلومات بیشتر و ثبت بنر تبلیغاتی، با مدیریت کارجو در تماس شوید.",
+        "phone": "",
+        "whatsapp": "",
+        "telegram": ""
+      }
+    ],
+    "autoplay": true,
+    "interval": 5
+  },
+  "challengeBanner": {
+    "image": "@@KARJO_DEFAULT_CHALLENGE_BANNER@@",
+    "media": "@@KARJO_DEFAULT_CHALLENGE_BANNER@@",
+    "mediaType": "image",
+    "active": true,
+    "description": ""
+  },
+  "discountTelegramLink": "https://t.me/Graphicbox2024",
+  "contact": {
+    "phone": "0728201250",
+    "whatsapp": "0728201250",
+    "telegram": "@Graphicbox2024"
+  },
+  "places": [
+    {
+      "id": "pl4",
+      "cat": "hospital",
+      "name": "شفاخانهٔ حوزوی هرات (شفاخانهٔ ملکی)",
+      "address": "جادهٔ لیلامی، مقابل پارک ترقی",
+      "phone": "",
+      "desc": "بزرگ‌ترین شفاخانهٔ دولتی غرب کشور با بخش عاجل ۲۴ ساعته، جراحی، داخله و اطفال.",
+      "lat": 34.3404,
+      "lng": 62.2156
+    },
+    {
+      "id": "pl5",
+      "cat": "hospital",
+      "name": "شفاخانهٔ کودکان هرات",
+      "address": "جادهٔ لیلامی، جوار شفاخانهٔ حوزوی",
+      "phone": "",
+      "desc": "خدمات تخصصی اطفال و نوزادان.",
+      "lat": 34.3398,
+      "lng": 62.2148
+    },
+    {
+      "id": "pl6",
+      "cat": "hospital",
+      "name": "شفاخانهٔ نسایی‌ولادی هرات",
+      "address": "جادهٔ لیلامی، شهر هرات",
+      "phone": "",
+      "desc": "خدمات ولادی، نسایی و مراقبت مادران.",
+      "lat": 34.341,
+      "lng": 62.214
+    },
+    {
+      "id": "pl7",
+      "cat": "hospital",
+      "name": "شفاخانهٔ امراض ساری هرات",
+      "address": "شهرک، جادهٔ فرقه",
+      "phone": "",
+      "desc": "مرکز امراض ساری، واکسین و تشخیص.",
+      "lat": 34.36,
+      "lng": 62.19
+    },
+    {
+      "id": "pl15",
+      "cat": "bank",
+      "name": "د افغانستان بانک — شعبهٔ هرات",
+      "address": "چوک گلها، جادهٔ بانک",
+      "phone": "",
+      "desc": "بانک مرکزی؛ نرخ رسمی ارز و خدمات بین‌بانکی.",
+      "lat": 34.3448,
+      "lng": 62.1975
+    },
+    {
+      "id": "pl16",
+      "cat": "bank",
+      "name": "عزیزی بانک — شعبهٔ مرکزی هرات",
+      "address": "جادهٔ ولایت، مقابل مسجد جامع",
+      "phone": "",
+      "desc": "حساب بانکی، حواله و صرافی.",
+      "lat": 34.344,
+      "lng": 62.199
+    },
+    {
+      "id": "pl17",
+      "cat": "bank",
+      "name": "بانک ملی افغان — هرات",
+      "address": "چوک گلها، شهر هرات",
+      "phone": "",
+      "desc": "خدمات بانکی دولتی و پرداخت معاشات.",
+      "lat": 34.3452,
+      "lng": 62.1968
+    },
+    {
+      "id": "pl18",
+      "cat": "bank",
+      "name": "سرای صرافی هرات",
+      "address": "بازار قدیم، نزدیک چهارسوق",
+      "phone": "",
+      "desc": "مرکز اصلی تبادلهٔ ارز و حواله در هرات.",
+      "lat": 34.3425,
+      "lng": 62.195
+    },
+    {
+      "id": "pl19",
+      "cat": "edu",
+      "name": "دانشگاه (پوهنتون) هرات",
+      "address": "جادهٔ دانشگاه، جوار باغ آزادی",
+      "phone": "",
+      "desc": "بزرگ‌ترین دانشگاه دولتی غرب کشور.",
+      "lat": 34.3565,
+      "lng": 62.175
+    },
+    {
+      "id": "pl20",
+      "cat": "edu",
+      "name": "انستیتوت تخنیکی و مسلکی هرات",
+      "address": "جادهٔ فرقه، شهر هرات",
+      "phone": "",
+      "desc": "آموزش فنی و حرفه‌ای (برق، مکانیک، کمپیوتر).",
+      "lat": 34.335,
+      "lng": 62.215
+    },
+    {
+      "id": "pl21",
+      "cat": "edu",
+      "name": "ریاست معارف هرات",
+      "address": "جادهٔ ولایت، جوار مقام ولایت",
+      "phone": "",
+      "desc": "امور مکاتب، شهادت‌نامه و تأییدی اسناد تعلیمی.",
+      "lat": 34.348,
+      "lng": 62.2005
+    },
+    {
+      "id": "pl22",
+      "cat": "edu",
+      "name": "کتابخانهٔ عامهٔ هرات",
+      "address": "جادهٔ بهزاد، شهر هرات",
+      "phone": "",
+      "desc": "مطالعه، کتاب و منابع آموزشی رایگان.",
+      "lat": 34.3445,
+      "lng": 62.1965
+    },
+    {
+      "id": "pl26",
+      "cat": "company",
+      "name": "بازار قدیم و چهارسوق هرات",
+      "address": "مرکز شهر، جوار مسجد جامع",
+      "phone": "",
+      "desc": "بازار تاریخی لباس، پارچه، طلا، صنایع دستی و مواد غذایی.",
+      "lat": 34.343,
+      "lng": 62.1955
+    },
+    {
+      "id": "pl27",
+      "cat": "company",
+      "name": "مارکیت‌های تجارتی شهر نو",
+      "address": "جادهٔ ولایت، شهر نو",
+      "phone": "",
+      "desc": "موبایل، الکترونیک، پوشاک و لوازم خانگی.",
+      "lat": 34.349,
+      "lng": 62.203
+    },
+    {
+      "id": "pl28",
+      "cat": "company",
+      "name": "منده‌ی میوه و سبزی هرات",
+      "address": "جادهٔ اسلام‌قلعه، دروازهٔ عراق",
+      "phone": "",
+      "desc": "عمده‌فروشی میوه، سبزیجات و مواد خوراکی.",
+      "lat": 34.338,
+      "lng": 62.19
+    },
+    {
+      "id": "pl29",
+      "cat": "company",
+      "name": "مارکیت موبایل و کمپیوتر چوک گلها",
+      "address": "چوک گلها، شهر هرات",
+      "phone": "",
+      "desc": "خرید و ترمیم موبایل، لپ‌تاپ و لوازم جانبی.",
+      "lat": 34.345,
+      "lng": 62.1972
+    },
+    {
+      "id": "pl30",
+      "cat": "company",
+      "name": "مارکیت مواد ساختمانی جادهٔ فرقه",
+      "address": "جادهٔ فرقه، شهر هرات",
+      "phone": "",
+      "desc": "سمنت، آهن، رنگ و لوازم برقی و صحی.",
+      "lat": 34.333,
+      "lng": 62.213
+    },
+    {
+      "id": "pl31",
+      "cat": "transport",
+      "name": "میدان هوایی بین‌المللی هرات",
+      "address": "۱۰ کیلومتری جنوب شهر، جادهٔ کندهار",
+      "phone": "",
+      "desc": "پروازهای داخلی و خارجی.",
+      "lat": 34.21,
+      "lng": 62.2283
+    },
+    {
+      "id": "pl32",
+      "cat": "transport",
+      "name": "ترمینال (اډه) کابل — هرات",
+      "address": "جادهٔ کابل، دروازهٔ خوش",
+      "phone": "",
+      "desc": "موترهای مسافربری به کابل، مزار و کندهار.",
+      "lat": 34.342,
+      "lng": 62.23
+    },
+    {
+      "id": "pl33",
+      "cat": "transport",
+      "name": "ترمینال اسلام‌قلعه و تورغندی",
+      "address": "دروازهٔ عراق، جادهٔ اسلام‌قلعه",
+      "phone": "",
+      "desc": "موترهای مسافربری به مرز ایران (اسلام‌قلعه) و ترکمنستان (تورغندی).",
+      "lat": 34.337,
+      "lng": 62.188
+    },
+    {
+      "id": "pl46",
+      "cat": "transport",
+      "name": "دفاتر تکت فروشی هوایی (آریانا، کام‌ایر)",
+      "address": "جادهٔ ولایت و چوک گلها",
+      "phone": "",
+      "desc": "فروش تکت پروازهای داخلی و خارجی.",
+      "lat": 34.3455,
+      "lng": 62.199
+    },
+    {
+      "id": "pl47",
+      "cat": "transport",
+      "name": "دفاتر تکت بس‌های مسافربری (احمد شاه ابدالی، بابا مراد)",
+      "address": "دروازهٔ خوش، جادهٔ کابل",
+      "phone": "",
+      "desc": "تکت بس به کابل، کندهار و مزار شریف.",
+      "lat": 34.3425,
+      "lng": 62.229
+    },
+    {
+      "id": "pl54",
+      "cat": "restaurant",
+      "name": "رستورانت‌های جادهٔ ولایت (مرکز شهر)",
+      "address": "جادهٔ ولایت، شهر نو",
+      "phone": "",
+      "desc": "کباب، قابلی، منتو و غذاهای سنتی هراتی و افغانی.",
+      "lat": 34.347,
+      "lng": 62.2015
+    },
+    {
+      "id": "pl55",
+      "cat": "restaurant",
+      "name": "رستورانت‌های جادهٔ دانشگاه",
+      "address": "جادهٔ دانشگاه، نزدیک پوهنتون هرات",
+      "phone": "",
+      "desc": "فست‌فود، پیتزا، برگر و کافه‌های دانشجویی.",
+      "lat": 34.3545,
+      "lng": 62.179
+    },
+    {
+      "id": "pl56",
+      "cat": "restaurant",
+      "name": "رستورانت‌های تخت سفر",
+      "address": "تخت سفر، شمال شهر",
+      "phone": "",
+      "desc": "رستورانت‌های خانوادگی با فضای باز و منظرهٔ شهر.",
+      "lat": 34.376,
+      "lng": 62.202
+    },
+    {
+      "id": "pl57",
+      "cat": "restaurant",
+      "name": "رستورانت‌های گازرگاه",
+      "address": "گازرگاه، شمال‌شرق شهر",
+      "phone": "",
+      "desc": "غذاهای محلی و تفریح خانوادگی در کنار زیارت گازرگاه.",
+      "lat": 34.3705,
+      "lng": 62.228
+    },
+    {
+      "id": "pl58",
+      "cat": "restaurant",
+      "name": "کباب‌سراهای بازار قدیم و چهارسوق",
+      "address": "مرکز شهر، جوار مسجد جامع",
+      "phone": "",
+      "desc": "کباب سنتی هراتی، شور نخود و نان تنوری.",
+      "lat": 34.3432,
+      "lng": 62.1958
+    },
+    {
+      "id": "pl59",
+      "cat": "restaurant",
+      "name": "کافه و شیرینی‌فروشی‌های چوک گلها",
+      "address": "چوک گلها، شهر هرات",
+      "phone": "",
+      "desc": "قهوه، چای، شیرینی و بستنی.",
+      "lat": 34.3452,
+      "lng": 62.197
+    },
+    {
+      "id": "pl60",
+      "cat": "restaurant",
+      "name": "تالارهای عروسی جادهٔ فرقه",
+      "address": "جادهٔ فرقه، شهر هرات",
+      "phone": "",
+      "desc": "تالارهای بزرگ عروسی و محافل با ظرفیت بالا.",
+      "lat": 34.333,
+      "lng": 62.214
+    },
+    {
+      "id": "pl61",
+      "cat": "restaurant",
+      "name": "تالارهای عروسی جادهٔ کابل (دروازهٔ خوش)",
+      "address": "جادهٔ کابل، دروازهٔ خوش",
+      "phone": "",
+      "desc": "تالارهای مجلل برای عروسی، نامزدی و محافل خانوادگی.",
+      "lat": 34.343,
+      "lng": 62.228
+    },
+    {
+      "id": "pl62",
+      "cat": "restaurant",
+      "name": "تالارهای جادهٔ جبرئیل",
+      "address": "جادهٔ جبرئیل، شهر هرات",
+      "phone": "",
+      "desc": "تالارهای عروسی و سالن‌های کنفرانس.",
+      "lat": 34.355,
+      "lng": 62.185
+    },
+    {
+      "id": "pl63",
+      "cat": "restaurant",
+      "name": "تالارهای شهر نو و جادهٔ ولایت",
+      "address": "شهر نو، جادهٔ ولایت",
+      "phone": "",
+      "desc": "تالارهای متوسط برای محافل رسمی، ختم و مراسم خانوادگی.",
+      "lat": 34.3485,
+      "lng": 62.2025
+    },
+    {
+      "id": "pl48",
+      "cat": "company",
+      "name": "شهرک صنعتی هرات",
+      "address": "جادهٔ اسلام‌قلعه، ۷ کیلومتری غرب شهر",
+      "phone": "",
+      "desc": "مرکز فابریکه‌ها و شرکت‌های تولیدی هرات.",
+      "lat": 34.32,
+      "lng": 62.175
+    },
+    {
+      "id": "pl49",
+      "cat": "company",
+      "name": "اتاق تجارت و سرمایه‌گذاری هرات",
+      "address": "جادهٔ ولایت، ساختمان اتاق تجارت",
+      "phone": "",
+      "desc": "ثبت شرکت، جواز تجارتی و ارتباط با شرکت‌ها.",
+      "lat": 34.3462,
+      "lng": 62.202
+    },
+    {
+      "id": "pl50",
+      "cat": "company",
+      "name": "دفاتر مخابراتی (روشن، اتصالات، AWCC، MTN)",
+      "address": "چوک گلها و جادهٔ ولایت",
+      "phone": "",
+      "desc": "خدمات سیم‌کارت، انترنت و مشتریان.",
+      "lat": 34.3455,
+      "lng": 62.198
+    },
+    {
+      "id": "pl51",
+      "cat": "company",
+      "name": "شرکت برشنا (برق) هرات",
+      "address": "جادهٔ فرقه، شهر هرات",
+      "phone": "",
+      "desc": "بل برق، میتر جدید و گزارش قطع برق.",
+      "lat": 34.334,
+      "lng": 62.21
+    },
+    {
+      "id": "pl52",
+      "cat": "company",
+      "name": "شرکت آب‌رسانی و کانالیزاسیون هرات",
+      "address": "جادهٔ جبرئیل، شهر هرات",
+      "phone": "",
+      "desc": "اتصال آب، بل آب و گزارش نشتی.",
+      "lat": 34.354,
+      "lng": 62.186
+    },
+    {
+      "id": "pl53",
+      "cat": "company",
+      "name": "شرکت‌های حمل‌ونقل و ترانزیت (گمرک هرات)",
+      "address": "جادهٔ اسلام‌قلعه، شهرک صنعتی",
+      "phone": "",
+      "desc": "شرکت‌های باربری، ترانزیت و ترخیص گمرکی.",
+      "lat": 34.32,
+      "lng": 62.17
+    },
+    {
+      "id": "pl34",
+      "cat": "transport",
+      "name": "گمرک هرات",
+      "address": "جادهٔ اسلام‌قلعه، شهرک صنعتی",
+      "phone": "",
+      "desc": "ترخیص اموال تجارتی و امور گمرکی.",
+      "lat": 34.32,
+      "lng": 62.17
+    }
+  ],
+  "appLogo": {
+    "image": ""
+  },
+  "challenges": [
+    {
+      "id": "chmus6vku0kykq",
+      "title": "چالش فوتبال: کدام تیم برنده می‌شود؟",
+      "details": "در این چالش باید حدس بزنید کدام تیم در بازی پیش‌رو برنده می‌شود.\n\n۱) با نام، تخلص و نام پدر ثبت‌نام کنید و کد رفرال یکتا بگیرید.\n۲) یکی از دو گزینهٔ «قدرت» یا «پیشرو» را تیک بزنید.\n۳) کامنت کوتاه خود را بنویسید و ثبت کنید.\n\nهر کد رفرال فقط یک کامنت در این چالش می‌تواند بدهد و پس از ثبت قابل تغییر نیست. نتیجه پس از پایان بازی در همین صفحه و در اعلان‌ها منتشر می‌شود.",
+      "prize": "۵۰۰۰ افغانی + بستهٔ اینترنت یک‌ماهه",
+      "winnersCount": 1,
+      "options": [
+        {
+          "id": "omus6vku07jeq",
+          "label": "تیم قدرت",
+          "icon": "zap"
+        },
+        {
+          "id": "omus6vku03we9",
+          "label": "تیم پیشرو",
+          "icon": "star"
+        }
+      ],
+      "status": "open",
+      "active": true,
+      "banner": "",
+      "bannerType": "image",
+      "bannerActive": true,
+      "startsAt": null,
+      "endsAt": 1791624484152,
+      "winnerOptionId": null,
+      "createdAt": 1791019684152,
+      "color": 3
+    }
+  ],
+  "participants": [],
+  "usedCodes": [],
+  "chSettings": {
+    "minComment": 5,
+    "maxComment": 600,
+    "requirePhone": false,
+    "showLive": true,
+    "maxDailyDevices": 5,
+    "maxDailyVotes": 1,
+    "followFacebook": true,
+    "followInstagram": true,
+    "facebookLink": "https://facebook.com/karjoo.herat",
+    "instagramLink": "https://instagram.com/karjoo.herat"
+  },
+  "tgSources": [
+    {
+      "name": "کاریابی تلگرام",
+      "user": "Heratstudents",
+      "url": "https://t.me/Heratstudents"
+    }
+  ],
+  "exSources": [
+    {
+      "name": "نرخ یاب خراسان مارکت",
+      "user": "nerkhYabkhorasanMarket",
+      "url": "https://t.me/nerkhYabkhorasanMarket"
+    }
   ]
 }

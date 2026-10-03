@@ -2159,7 +2159,6 @@ function vMenu(){
   <button class="mi" onclick="A.adRequest('کاریابی')"><span class="mic" style="background:${grad(0)}">${icon('case',18)}</span>ثبت آگهی کاریابی<span class="go">${icon('back',18)}</span></button>
   <button class="mi" onclick="A.openDiscountTelegram()"><span class="mic" style="background:${grad(3)}">${icon('tag',18)}</span>ثبت آگهی تخفیف<span class="go">${icon('back',18)}</span></button>
   <button class="mi" onclick="A.go('placeadd')"><span class="mic" style="background:${grad(5)}">${icon('pin',18)}</span>ثبت آدرس جدید<span class="go">${icon('back',18)}</span></button>
-  <button class="mi" onclick="A.go('contact')"><span class="mic" style="background:${grad(1)}">${icon('phone',18)}</span>راه‌های ارتباطی<span class="go">${icon('back',18)}</span></button>
   ${isAdm?`<button class="mi" onclick="A.go('admin')"><span class="mic" style="background:${grad(2)}">${icon('shield',18)}</span>پنل مدیریت<span class="go">${icon('back',18)}</span></button>
   <button class="mi danger" onclick="A.logout()"><span class="mic" style="background:${grad(4)}">${icon('out',18)}</span>خروج مدیر<span class="go">${icon('back',18)}</span></button>`
   :''}
@@ -2179,6 +2178,8 @@ function vPlaceAdd(){
  </div>`;
 }
 function vContact(){
+ const me=ME();
+ if(!me||me.role!=='admin'){setTimeout(()=>A.go('home'),0);return `<div class="empty"><p class="mut">این بخش در دسترس نیست.</p></div>`;}
  const ct=appContact();
  const row=(ic,label,val,href,color)=>val?`<a class="card" ${href?`href="${href}" target="_blank" rel="noopener"`:''} style="display:flex;align-items:center;gap:11px;padding:14px;margin-bottom:10px;text-decoration:none;color:inherit"><span style="width:42px;height:42px;border-radius:13px;flex:none;background:${color};color:#fff;display:flex;align-items:center;justify-content:center">${icon(ic,20)}</span><span style="flex:1;min-width:0"><b style="display:block;font-size:13px">${label}</b><span style="display:block;margin-top:3px;font-size:14px;font-weight:800;color:var(--p);direction:ltr;text-align:right;word-break:break-all">${esc(val)}</span></span>${icon('back',18)}</a>`:'';
  return `
@@ -2527,7 +2528,7 @@ function admContact(){
  const ct=appContact();
  return `<div class="card" style="padding:16px">
   <b style="font-size:15px;display:flex;align-items:center;gap:7px">${icon('phone',18)} راه‌های ارتباطی</b>
-  <p class="mut" style="line-height:1.9;margin:5px 0 12px">این اطلاعات در منوی برنامه، بخش «راه‌های ارتباطی» به کاربران نشان داده می‌شود.</p>
+  <p class="mut" style="line-height:1.9;margin:5px 0 12px">فقط شما به‌عنوان مدیر این شماره‌ها را می‌بینید و تغییر می‌دهید. برای عموم قابل ویرایش نیست و از منوی کاربران حذف شده است.</p>
   <div class="fg"><label>شماره واتساپ</label><input class="inp" id="ct_whatsapp" value="${esc(ct.whatsapp)}" inputmode="numeric" dir="ltr" style="text-align:left" placeholder="0728201250"></div>
   <div class="fg"><label>آی‌دی تلگرام</label><input class="inp" id="ct_telegram" value="${esc(ct.telegram)}" dir="ltr" style="text-align:left" placeholder="@Graphicbox2024"></div>
   <div class="fg"><label>شماره تماس</label><input class="inp" id="ct_phone" value="${esc(ct.phone)}" inputmode="numeric" dir="ltr" style="text-align:left" placeholder="0728201250"></div>
@@ -3377,8 +3378,8 @@ const A={
  openDiscountTelegram:()=>{window.location.href=discountTelegramUrl();},
  discountTelegramTest:()=>{const url=String($('#discount_tg_link')?.value||discountTelegramUrl()).trim();if(!/^https?:\/\/(?:www\.)?t\.me\/[A-Za-z0-9_+\/-]+(?:\?.*)?$/i.test(url)){toast('لینک معتبر تلگرام وارد کنید؛ مثال: https://t.me/Graphicbox2024','err');return;}window.open(url,'_blank','noopener');},
  discountTelegramSave:()=>{const url=String($('#discount_tg_link')?.value||'').trim();if(!/^https?:\/\/(?:www\.)?t\.me\/[A-Za-z0-9_+\/-]+(?:\?.*)?$/i.test(url)){toast('لینک معتبر تلگرام وارد کنید؛ مثال: https://t.me/Graphicbox2024','err');return;}D.discountTelegramLink=url;saveDB();render();toast('لینک ثبت آگهی تخفیف ذخیره شد','ok');},
- contactSave:()=>{const ph=String($('#ct_phone')?.value||'').trim(),wa=String($('#ct_whatsapp')?.value||'').trim(),tg=String($('#ct_telegram')?.value||'').trim();if(!ph&&!wa&&!tg){toast('حداقل یک راه ارتباطی وارد کنید','err');return;}D.contact={phone:ph,whatsapp:wa,telegram:tg};saveDB();render();toast('راه‌های ارتباطی ذخیره شد','ok');},
- contactReset:()=>{D.contact={...DEFAULT_CONTACT};saveDB();render();toast('مقادیر پیش‌فرض بازگردانده شد','ok');},
+ contactSave:()=>{const me=ME();if(!me||me.role!=='admin'){toast('دسترسی محدود','err');return;}const ph=String($('#ct_phone')?.value||'').trim(),wa=String($('#ct_whatsapp')?.value||'').trim(),tg=String($('#ct_telegram')?.value||'').trim();if(!ph&&!wa&&!tg){toast('حداقل یک راه ارتباطی وارد کنید','err');return;}D.contact={phone:ph,whatsapp:wa,telegram:tg};saveDB();render();toast('راه‌های ارتباطی ذخیره شد','ok');},
+ contactReset:()=>{const me=ME();if(!me||me.role!=='admin'){toast('دسترسی محدود','err');return;}D.contact={...DEFAULT_CONTACT};saveDB();render();toast('مقادیر پیش‌فرض بازگردانده شد','ok');},
  discountTelegramReset:()=>{D.discountTelegramLink=DEFAULT_DISCOUNT_TELEGRAM;saveDB();render();toast('لینک پیش‌فرض دوباره فعال شد','ok');},
  adRequestJobGo:async()=>{
   const g=id=>document.querySelector('#arj_'+id)?.value??'';
