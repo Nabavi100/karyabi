@@ -2159,7 +2159,8 @@ function vMenu(){
   <button class="mi" onclick="A.adRequest('کاریابی')"><span class="mic" style="background:${grad(0)}">${icon('case',18)}</span>ثبت آگهی کاریابی<span class="go">${icon('back',18)}</span></button>
   <button class="mi" onclick="A.openDiscountTelegram()"><span class="mic" style="background:${grad(3)}">${icon('tag',18)}</span>ثبت آگهی تخفیف<span class="go">${icon('back',18)}</span></button>
   <button class="mi" onclick="A.go('placeadd')"><span class="mic" style="background:${grad(5)}">${icon('pin',18)}</span>ثبت آدرس جدید<span class="go">${icon('back',18)}</span></button>
-  ${isAdm?`<button class="mi" onclick="A.go('admin')"><span class="mic" style="background:${grad(2)}">${icon('shield',18)}</span>پنل مدیریت<span class="go">${icon('back',18)}</span></button>
+  ${isAdm?`<div class="card" style="padding:15px;margin-bottom:14px"><b style="font-size:13.5px;display:flex;align-items:center;gap:7px">${icon('download',16)} بکاپ JSON</b><p class="mut" style="font-size:11px;margin:4px 0 11px">ذخیره یا ورود همهٔ داده‌های برنامه از فایل JSON.</p><button class="btn btn-pri btn-block" onclick="A.backupSaveFile()">ذخیره در karjo-db.json</button><button class="btn btn-sec btn-block mt" onclick="A.backupDownload()">دانلود بکاپ JSON</button><label class="btn btn-ghost btn-block mt" style="display:flex;justify-content:center;cursor:pointer">ورود از JSON<input type="file" accept="application/json,.json" style="display:none" onchange="A.backupImport(this)"></label></div>
+  <button class="mi" onclick="A.go('admin')"><span class="mic" style="background:${grad(2)}">${icon('shield',18)}</span>پنل مدیریت<span class="go">${icon('back',18)}</span></button>
   <button class="mi danger" onclick="A.logout()"><span class="mic" style="background:${grad(4)}">${icon('out',18)}</span>خروج مدیر<span class="go">${icon('back',18)}</span></button>`
   :''}
  </div>`;
@@ -2203,7 +2204,7 @@ function vAdmin(){
  const me=ME();
  if(!me||me.role!=='admin')return needAdmin();
  const t=S.adminTab;
- const tabs=[['dash','داشبورد','chart'],['jobs','آگهی‌ها','case'],['tgjobs','نرخ ارز','wallet'],['pros','متخصصین','users'],['disc','تخفیف‌ها','tag'],['places','آدرس‌های مهم','pin'],['contact','راه‌های ارتباطی','phone'],['banner','بنر خانه','cam'],['logo','لوگو','cam'],['cats','دسته‌ها','dots'],['cos','شرکت‌ها','bldg'],['notif','اعلان','send'],['challenges','چالش‌ها','award'],['reports','گزارش‌ها','flag']];
+ const tabs=[['dash','داشبورد','chart'],['jobs','آگهی‌ها','case'],['tgjobs','نرخ ارز','wallet'],['pros','متخصصین','users'],['disc','تخفیف‌ها','tag'],['places','آدرس‌های مهم','pin'],['contact','راه‌های ارتباطی','phone'],['banner','بنر خانه','cam'],['logo','لوگو','cam'],['cats','دسته‌ها','dots'],['cos','شرکت‌ها','bldg'],['notif','اعلان','send'],['challenges','چالش‌ها','award'],['reports','گزارش‌ها','flag'],['backup','بکاپ JSON','download']];
  let body='';
  if(t==='dash')body=admDash();
  if(t==='jobs')body=admJobs();
@@ -2226,6 +2227,7 @@ function vAdmin(){
  if(t==='chform')body=admChForm();
  if(t==='chwinners')body=admChWinners(S.chWinCh);
  if(t==='reports')body=admReports();
+ if(t==='backup')body=admBackup();
  return `<div class="adm-tab-shell">
  <button class="adm-nav adm-nav-right" title="حرکت به راست" onclick="A.adminScroll(1)" style="transform:rotate(180deg)">${icon('back',16)}</button>
  <div class="adm-tabs" onscroll="S.adminTabScroll=this.scrollLeft">${tabs.map(x=>`<button class="atab ${t===x[0]||(t==='jobform'&&x[0]==='jobs')||(t==='proform'&&x[0]==='pros')||(t==='coform'&&x[0]==='cos'||t==='discform'&&x[0]==='disc'||t==='placeform'&&x[0]==='places')?'on':''}" onclick="A.adminGo('${x[0]}')">${x[1]}</button>`).join('')}</div>
@@ -2236,6 +2238,28 @@ function vAdmin(){
  ${(t==='cos')?`<button class="fab" onclick="A.coNew()">${icon('plus',24)}</button>`:''}
  ${(t==='disc')?`<button class="fab" onclick="A.discNew()">${icon('plus',24)}</button>`:''}`;
 }
+
+function admBackup(){
+ const nCo=(D.companies||[]).length, nJob=(D.jobs||[]).length, nPl=(D.places||[]).length, nPr=(D.professionals||[]).length, nD=(D.discounts||[]).length;
+ return `<div class="card" style="padding:16px">
+  <b style="font-size:15px;display:flex;align-items:center;gap:7px">${icon('download',18)} پشتیبان JSON</b>
+  <p class="mut" style="line-height:1.9;margin:6px 0 12px">همهٔ داده‌های برنامه (کارفرمایان، آگهی‌ها، آدرس‌ها، متخصصین، تخفیف‌ها و راه‌های ارتباطی) در فایل <b>karjo-db.json</b> کنار برنامه ذخیره می‌شود. با هر بار باز شدن، همین فایل خوانده می‌شود.</p>
+  <div class="stat-grid" style="margin-bottom:12px">
+   <div class="stat"><span>کارفرما</span><b>${fa(nCo)}</b></div>
+   <div class="stat"><span>آگهی</span><b>${fa(nJob)}</b></div>
+   <div class="stat"><span>آدرس</span><b>${fa(nPl)}</b></div>
+   <div class="stat"><span>متخصص</span><b>${fa(nPr)}</b></div>
+  </div>
+  <button class="btn btn-pri btn-block" onclick="A.backupSaveFile()">${icon('check',17)} ذخیره در karjo-db.json</button>
+  <button class="btn btn-sec btn-block mt" onclick="A.backupDownload()">${icon('download',17)} دانلود فایل بکاپ JSON</button>
+  <label class="btn btn-ghost btn-block mt" style="display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer">
+   ${icon('file',17)} ورود اطلاعات از JSON
+   <input type="file" accept="application/json,.json" style="display:none" onchange="A.backupImport(this)">
+  </label>
+  <p class="mut" style="font-size:11px;margin-top:10px;line-height:1.8">ورود JSON داده‌های فعلی را با فایل انتخاب‌شده عوض می‌کند و همان لحظه روی karjo-db.json ذخیره می‌شود.</p>
+ </div>`;
+}
+
 function admDash(){
  const act=D.jobs.filter(j=>j.status==='active').length,exp=D.jobs.filter(j=>j.status==='expired').length,dis=D.jobs.filter(j=>j.status==='disabled').length,pen=D.jobs.filter(j=>j.status==='pending').length;
  
@@ -3378,6 +3402,54 @@ const A={
  openDiscountTelegram:()=>{window.location.href=discountTelegramUrl();},
  discountTelegramTest:()=>{const url=String($('#discount_tg_link')?.value||discountTelegramUrl()).trim();if(!/^https?:\/\/(?:www\.)?t\.me\/[A-Za-z0-9_+\/-]+(?:\?.*)?$/i.test(url)){toast('لینک معتبر تلگرام وارد کنید؛ مثال: https://t.me/Graphicbox2024','err');return;}window.open(url,'_blank','noopener');},
  discountTelegramSave:()=>{const url=String($('#discount_tg_link')?.value||'').trim();if(!/^https?:\/\/(?:www\.)?t\.me\/[A-Za-z0-9_+\/-]+(?:\?.*)?$/i.test(url)){toast('لینک معتبر تلگرام وارد کنید؛ مثال: https://t.me/Graphicbox2024','err');return;}D.discountTelegramLink=url;saveDB();render();toast('لینک ثبت آگهی تخفیف ذخیره شد','ok');},
+ backupDownload:()=>{
+  const me=ME();if(!me||me.role!=='admin'){toast('دسترسی محدود','err');return;}
+  try{
+    const raw=serializeDB();
+    const blob=new Blob([raw],{type:'application/json;charset=utf-8'});
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download='karjo-db.json';
+    document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href),1500);
+    toast('فایل بکاپ دانلود شد','ok');
+  }catch(e){toast('دانلود بکاپ ممکن نشد','err');}
+ },
+ backupSaveFile:async()=>{
+  const me=ME();if(!me||me.role!=='admin'){toast('دسترسی محدود','err');return;}
+  const raw=serializeDB();
+  LS.setItem(DB_KEY,raw);
+  try{
+    const r=await fetch('/api/db',{method:'POST',headers:{'Content-Type':'application/json'},body:raw});
+    if(!r.ok) throw new Error('save failed');
+    toast('در karjo-db.json ذخیره شد','ok');
+  }catch(e){
+    toast('سرور فایل در دسترس نیست — فایل JSON را دانلود کنید','err');
+  }
+ },
+ backupImport:fileEl=>{
+  const me=ME();if(!me||me.role!=='admin'){toast('دسترسی محدود','err');return;}
+  const f=fileEl&&fileEl.files&&fileEl.files[0];
+  if(!f){toast('فایل انتخاب نشد','err');return;}
+  const reader=new FileReader();
+  reader.onload=async()=>{
+    try{
+      const parsed=JSON.parse(String(reader.result||''));
+      if(!parsed||typeof parsed!=='object'||Array.isArray(parsed)){toast('فایل JSON نامعتبر است','err');return;}
+      const keys=['companies','jobs','professionals','discounts','places','challenges','categories','homeBanner','appLogo','contact','users','notifications','applications'];
+      keys.forEach(k=>{ if(parsed[k]!=null) D[k]=parsed[k]; });
+      if(parsed.discountTelegramLink!=null) D.discountTelegramLink=parsed.discountTelegramLink;
+      LS.setItem(DB_KEY, serializeDB());
+      loadDB();
+      saveDB();
+      try{ await fetch('/api/db',{method:'POST',headers:{'Content-Type':'application/json'},body:serializeDB()}); }catch(_){}
+      render();
+      toast('اطلاعات JSON وارد و ذخیره شد','ok');
+    }catch(e){toast('خواندن JSON ناموفق بود','err');}
+    if(fileEl) fileEl.value='';
+  };
+  reader.readAsText(f,'utf-8');
+ },
  contactSave:()=>{const me=ME();if(!me||me.role!=='admin'){toast('دسترسی محدود','err');return;}const ph=String($('#ct_phone')?.value||'').trim(),wa=String($('#ct_whatsapp')?.value||'').trim(),tg=String($('#ct_telegram')?.value||'').trim();if(!ph&&!wa&&!tg){toast('حداقل یک راه ارتباطی وارد کنید','err');return;}D.contact={phone:ph,whatsapp:wa,telegram:tg};saveDB();render();toast('راه‌های ارتباطی ذخیره شد','ok');},
  contactReset:()=>{const me=ME();if(!me||me.role!=='admin'){toast('دسترسی محدود','err');return;}D.contact={...DEFAULT_CONTACT};saveDB();render();toast('مقادیر پیش‌فرض بازگردانده شد','ok');},
  discountTelegramReset:()=>{D.discountTelegramLink=DEFAULT_DISCOUNT_TELEGRAM;saveDB();render();toast('لینک پیش‌فرض دوباره فعال شد','ok');},
