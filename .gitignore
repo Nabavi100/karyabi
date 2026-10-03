@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+karjo-db.json.bak
+karjo-db.json.tmp
+.DS_Store
