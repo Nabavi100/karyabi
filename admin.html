@@ -102,6 +102,10 @@
             <h1>ورود مدیر</h1>
             <p>این صفحه مال کاربران نیست. فقط برای ذخیره و به‌روز کردن فایل JSON برنامه است.</p>
           </div>
+          <div id="load-err" class="card hidden" style="border:1px solid #fecaca;background:#fef2f2">
+            <b style="color:#b91c1c">فایل JSON خوانده نشد</b>
+            <p class="note" id="load-err-txt" style="color:#7f1d1d">اگر فایل را مستقیم از پوشه باز کرده‌اید، برنامه را با <code>python3 server.py</code> اجرا کنید یا از دکمهٔ ورود JSON استفاده کنید.</p>
+          </div>
           <div class="card">
             <label>رمز عبور</label>
             <input id="pass" type="password" placeholder="رمز مدیر" />
@@ -113,6 +117,7 @@
           <div class="hero">
             <h1>مدیریت داده‌ها</h1>
             <p>هر ذخیره روی <b>karjo-db.json</b> نوشته می‌شود. برنامهٔ اصلی همان فایل را هنگام باز شدن می‌خواند؛ بقیهٔ داده‌ها پاک نمی‌شوند.</p>
+            <p id="load-status" style="margin:10px 0 0;font-size:12px;opacity:.95"></p>
           </div>
 
           <div class="card">
@@ -185,34 +190,101 @@
     <script>
       const PASS = "nabavi";
       let db = {};
+      let loadFrom = "";
 
       const $ = (id) => document.getElementById(id);
       const toast = (msg) => {
         const el = $("toast");
         el.textContent = msg;
         el.classList.add("show");
-        setTimeout(() => el.classList.remove("show"), 2200);
+        setTimeout(() => el.classList.remove("show"), 2400);
       };
 
+      function setStatus(ok, text) {
+        const st = $("load-status");
+        if (st) st.textContent = text || "";
+        const box = $("load-err");
+        if (!box) return;
+        if (ok) box.classList.add("hidden");
+        else {
+          box.classList.remove("hidden");
+          const t = $("load-err-txt");
+          if (t && text) t.textContent = text;
+        }
+      }
+
+      function normalizeDb(obj) {
+        const next = obj && typeof obj === "object" && !Array.isArray(obj) ? obj : {};
+        if (!Array.isArray(next.companies)) next.companies = [];
+        if (!next.contact || typeof next.contact !== "object") {
+          next.contact = { phone: "", whatsapp: "", telegram: "" };
+        }
+        return next;
+      }
+
+      async function fetchJson(url) {
+        const r = await fetch(url, { cache: "no-store" });
+        if (!r.ok) throw new Error("http " + r.status);
+        const ct = (r.headers.get("content-type") || "").toLowerCase();
+        const text = await r.text();
+        if (!text || !text.trim() || text.trim().charAt(0) === "<") throw new Error("not json");
+        const j = JSON.parse(text);
+        if (!j || typeof j !== "object" || Array.isArray(j)) throw new Error("bad json");
+        if (ct.includes("html")) throw new Error("html");
+        return j;
+      }
+
       async function loadDb() {
-        const r = await fetch("/api/db?t=" + Date.now(), { cache: "no-store" });
-        db = r.ok ? await r.json() : {};
-        if (!db || typeof db !== "object") db = {};
-        if (!Array.isArray(db.companies)) db.companies = [];
-        if (!db.contact) db.contact = { phone: "", whatsapp: "", telegram: "" };
+        const urls = ["karjo-db.json?t=" + Date.now(), "./karjo-db.json?t=" + Date.now(), "/api/db?t=" + Date.now(), "api/db?t=" + Date.now()];
+        let lastErr = null;
+        for (const u of urls) {
+          try {
+            const j = await fetchJson(u);
+            db = normalizeDb(j);
+            loadFrom = u.split("?")[0];
+            setStatus(true, "فایل JSON خوانده شد از " + loadFrom);
+            return true;
+          } catch (e) {
+            lastErr = e;
+          }
+        }
+        db = normalizeDb(db);
+        setStatus(
+          false,
+          "فایل JSON بارگذاری نشد. صفحه را با python3 server.py باز کنید (نه با دابل‌کلیک روی فایل)، یا از دکمهٔ «ورود از JSON» همان karjo-db.json را انتخاب کنید."
+        );
+        return false;
       }
 
       async function saveMerge(patch, replace) {
+        if (replace) db = normalizeDb(patch);
+        else db = normalizeDb(Object.assign({}, db, patch));
         const body = replace ? Object.assign({ _replace: true }, patch) : patch;
-        const r = await fetch("/api/db", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body),
-        });
-        const j = await r.json().catch(() => ({}));
-        if (!r.ok || j.ok === false) throw new Error(j.error || "ذخیره نشد");
-        await loadDb();
-        return j;
+        const raw = JSON.stringify(body);
+        const posts = ["/api/db", "api/db"];
+        for (const u of posts) {
+          try {
+            const r = await fetch(u, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: raw,
+            });
+            const j = await r.json().catch(() => ({}));
+            if (!r.ok || j.ok === false) continue;
+            await loadDb();
+            return j;
+          } catch (e) {}
+        }
+        downloadDb("karjo-db.json");
+        throw new Error("سرور ذخیره در دسترس نیست؛ فایل JSON دانلود شد تا جایگزین karjo-db.json کنید");
+      }
+
+      function downloadDb(name) {
+        const blob = new Blob([JSON.stringify(db, null, 2)], { type: "application/json" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = name || "karjo-db.json";
+        a.click();
       }
 
       function fillContact() {
@@ -264,16 +336,12 @@
           return;
         }
         sessionStorage.setItem("karjo_admin_ok", "1");
-        try {
-          await loadDb();
-        } catch (e) {
-          toast("خواندن JSON ناموفق بود");
-          return;
-        }
+        const ok = await loadDb();
         $("login-view").classList.add("hidden");
         $("app-view").classList.remove("hidden");
         fillContact();
         renderCompanies();
+        toast(ok ? "ورود شد" : "وارد شدید؛ JSON را از فایل وارد کنید");
       };
 
       $("btn-save-contact").onclick = async () => {
@@ -287,7 +355,7 @@
           });
           toast("تماس‌ها در JSON ذخیره شد");
         } catch (e) {
-          toast("ذخیره نشد — سرور را روشن نگه دارید");
+          toast(e.message || "ذخیره نشد");
         }
       };
 
@@ -356,11 +424,7 @@
       };
 
       $("btn-download").onclick = () => {
-        const blob = new Blob([JSON.stringify(db, null, 2)], { type: "application/json" });
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = "karjo-db.json";
-        a.click();
+        downloadDb("karjo-db.json");
         toast("دانلود شد");
       };
 
@@ -370,11 +434,15 @@
         try {
           const parsed = JSON.parse(await f.text());
           if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) throw new Error("bad");
-          const full = parsed.jobs || parsed.places || parsed.categories;
-          await saveMerge(parsed, !!full);
+          const full = !!(parsed.jobs || parsed.places || parsed.categories);
+          try {
+            await saveMerge(parsed, full);
+          } catch (e) {
+            db = full ? normalizeDb(parsed) : normalizeDb(Object.assign({}, db, parsed));
+          }
           fillContact();
           renderCompanies();
-          toast(full ? "بکاپ کامل وارد شد" : "اطلاعات وارد و با فایل فعلی ادغام شد");
+          toast(full ? "بکاپ کامل وارد شد" : "اطلاعات وارد شد");
         } catch (err) {
           toast("فایل JSON نامعتبر است");
         }
