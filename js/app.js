@@ -156,26 +156,31 @@
   function render() {
     const list = filtered();
     const savedCount = loadSaved().length;
-    $("#saved-count").textContent = faNum(savedCount);
-    $("#saved-count").style.display = savedCount ? "grid" : "none";
-    $("#stat-jobs").textContent = faNum(jobs.length);
-    $("#stat-new").textContent = faNum(jobs.filter((j) => j.isNew).length);
-    $("#stat-cos").textContent = faNum(new Set(jobs.map((j) => j.company)).size);
-    $("#stat-views").textContent = faInt(jobs.reduce((s, j) => s + j.views, 0));
-    $("#result-count").textContent = `${faNum(list.length)} آگهی`;
+    if ($("#saved-count")) {
+      $("#saved-count").textContent = faNum(savedCount);
+      $("#saved-count").style.display = savedCount ? "grid" : "none";
+    }
+    if ($("#stat-jobs")) $("#stat-jobs").textContent = faNum(jobs.length);
+    if ($("#stat-new")) $("#stat-new").textContent = faNum(jobs.filter((j) => j.isNew).length);
+    if ($("#stat-cos")) $("#stat-cos").textContent = faNum(new Set(jobs.map((j) => j.company)).size);
+    if ($("#stat-views")) $("#stat-views").textContent = faInt(jobs.reduce((s, j) => s + j.views, 0));
+    if ($("#result-count")) $("#result-count").textContent = `${faNum(list.length)} آگهی`;
 
     const feed = $("#feed");
-    if (!list.length) {
-      feed.innerHTML = `<div class="empty">آگهی‌ای با این جستجو پیدا نشد.<br>فیلتر را پاک کنید و دوباره تلاش نمایید.</div>`;
-    } else {
-      let html = "";
-      groupByDate(list).forEach((items, date) => {
-        html += `<section class="date-group"><div class="date-label">${date}</div>${items.map(jobCard).join("")}</section>`;
-      });
-      feed.innerHTML = html;
+    if (feed) {
+      if (!list.length) {
+        feed.innerHTML = `<div class="empty">آگهی‌ای با این جستجو پیدا نشد.<br>فیلتر را پاک کنید و دوباره تلاش نمایید.</div>`;
+      } else {
+        let html = "";
+        groupByDate(list).forEach((items, date) => {
+          html += `<section class="date-group"><div class="date-label">${date}</div>${items.map(jobCard).join("")}</section>`;
+        });
+        feed.innerHTML = html;
+      }
     }
 
     const savedJobs = jobs.filter((j) => isSaved(j.id));
+    if (!$("#saved-list")) return;
     $("#saved-list").innerHTML = savedJobs.length
       ? savedJobs
           .map(
@@ -190,23 +195,28 @@
       if (el.value !== q) el.value = q;
       el.closest(".search")?.classList.toggle("has-query", !!q);
     });
-    renderBanner();
+    if ($("#banner-img")) renderBanner();
     renderFilterChips();
   }
 
   function renderFilterChips() {
+    const el = $("#cat-chips");
+    if (!el) return;
     const cats = ["", ...new Set(jobs.map((j) => j.category))];
-    $("#cat-chips").innerHTML = cats
+    el.innerHTML = cats
       .map((c) => `<button class="chip ${state.category === c ? "on" : ""}" data-cat="${c}">${c || "همه"}</button>`)
       .join("");
   }
 
   function fillSelects() {
+    const catEl = $("#filter-cat");
+    const typeEl = $("#filter-type");
+    if (!catEl || !typeEl) return;
     const cats = [...new Set(jobs.map((j) => j.category))];
     const types = [...new Set(jobs.map((j) => j.type))];
-    $("#filter-cat").innerHTML =
+    catEl.innerHTML =
       `<option value="">همه دسته‌ها</option>` + cats.map((c) => `<option>${c}</option>`).join("");
-    $("#filter-type").innerHTML =
+    typeEl.innerHTML =
       `<option value="">همه نوع‌ها</option>` + types.map((c) => `<option>${c}</option>`).join("");
   }
 
@@ -248,6 +258,10 @@
       }
       const o = e.target.closest("[data-open]");
       if (o) {
+        if (!$("#feed")) {
+          location.href = "agahi.html?open=" + encodeURIComponent(o.dataset.open);
+          return;
+        }
         state.openId = o.dataset.open;
         setSaved(false);
         render();
@@ -269,41 +283,60 @@
       });
     });
 
-    $("#btn-filter").addEventListener("click", () => setDrawer(true));
-    $("#close-drawer").addEventListener("click", () => setDrawer(false));
-    $("#apply-filter").addEventListener("click", () => {
+    $("#btn-filter")?.addEventListener("click", () => setDrawer(true));
+    $("#close-drawer")?.addEventListener("click", () => setDrawer(false));
+    $("#apply-filter")?.addEventListener("click", () => {
       state.category = $("#filter-cat").value;
       state.type = $("#filter-type").value;
       state.onlyNew = $("#filter-new").checked;
       setDrawer(false);
       render();
     });
-    $("#reset-filter").addEventListener("click", () => {
+    $("#reset-filter")?.addEventListener("click", () => {
       state.category = "";
       state.type = "";
       state.onlyNew = false;
       state.query = "";
-      $("#filter-new").checked = false;
-      $("#filter-cat").value = "";
-      $("#filter-type").value = "";
+      if ($("#filter-new")) $("#filter-new").checked = false;
+      if ($("#filter-cat")) $("#filter-cat").value = "";
+      if ($("#filter-type")) $("#filter-type").value = "";
       setDrawer(false);
       render();
     });
-    $("#btn-saved").addEventListener("click", () => setSaved(true));
-    $("#close-saved").addEventListener("click", () => setSaved(false));
-    $("#drawer-bg").addEventListener("click", () => {
+    $("#btn-saved")?.addEventListener("click", () => setSaved(true));
+    $("#close-saved")?.addEventListener("click", () => setSaved(false));
+    $("#drawer-bg")?.addEventListener("click", () => {
       setDrawer(false);
       setSaved(false);
     });
 
-    setInterval(() => {
-      state.banner = (state.banner + 1) % banners.length;
-      renderBanner();
-    }, 6500);
+    if ($("#banner-img")) {
+      setInterval(() => {
+        state.banner = (state.banner + 1) % banners.length;
+        renderBanner();
+      }, 6500);
+    }
   }
+
+  function renderBannerSafe() {
+    if ($("#banner-img")) renderBanner();
+  }
+
+  const params = new URLSearchParams(location.search);
+  if (params.get("cat")) state.category = params.get("cat");
+  if (params.get("q")) state.query = params.get("q");
+  if (params.get("company")) state.query = params.get("company");
+  if (params.get("open")) state.openId = params.get("open");
 
   fillSelects();
   bind();
-  render();
-  document.title = site.name + " | " + site.tagline;
+  if ($("#feed")) render();
+  else {
+    const n = loadSaved().length;
+    if ($("#saved-count")) {
+      $("#saved-count").textContent = faNum(n);
+      $("#saved-count").style.display = n ? "grid" : "none";
+    }
+  }
+  renderBannerSafe();
 })();

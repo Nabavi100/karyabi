@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>آگهی‌ها | کارجوی هرات</title>
+    <link rel="icon" href="assets/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body data-page="jobs">
+    <main class="wrap">
+      <div class="page-hero">
+        <h1>همه آگهی‌های استخدام</h1>
+        <p>فهرست کامل فرصت‌های شغلی ولایت هرات. با فیلتر دسته، نوع قرارداد و جستجو، آگهی مناسب خود را پیدا کنید.</p>
+      </div>
+      <div class="mobile-search">
+        <input data-search type="search" placeholder="جستجوی شغل، شرکت یا مهارت…" aria-label="جستجو" />
+      </div>
+      <div class="section-head">
+        <h1>آگهی‌ها <small id="result-count"></small></h1>
+        <button class="chip" data-clear type="button">پاک کردن جستجو</button>
+      </div>
+      <div class="chips" id="cat-chips"></div>
+      <div id="feed"></div>
+    </main>
+    <script src="js/data.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

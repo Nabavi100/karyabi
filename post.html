@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ثبت آگهی | کارجوی هرات</title>
+    <link rel="icon" href="assets/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body data-page="post">
+    <main class="wrap">
+      <div class="page-hero">
+        <h1>ثبت آگهی استخدام</h1>
+        <p>اگر کارفرما هستید، فرصت شغلی خود را میان کارجویان هرات منتشر کنید.</p>
+      </div>
+      <form class="form-card" id="post-form">
+        <div class="row">
+          <div>
+            <label>عنوان آگهی</label>
+            <input name="title" required placeholder="مثلاً حسابدار ارشد" />
+          </div>
+          <div>
+            <label>نام شرکت</label>
+            <input name="company" required placeholder="نام نهاد یا شرکت" />
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label>دسته‌بندی</label>
+            <select name="category" required>
+              <option value="">انتخاب کنید</option>
+              <option>حسابداری و مالی</option>
+              <option>برنامه‌نویسی</option>
+              <option>طراحی گرافیک</option>
+              <option>آموزش</option>
+              <option>پزشکی و صحت</option>
+              <option>ساختمان و عمران</option>
+              <option>فروش و بازاریابی</option>
+              <option>اداری</option>
+              <option>خدمات</option>
+              <option>رانندگی</option>
+              <option>منابع انسانی</option>
+              <option>امنیت</option>
+            </select>
+          </div>
+          <div>
+            <label>نوع قرارداد</label>
+            <select name="type" required>
+              <option>تمام‌وقت</option>
+              <option>پاره‌وقت</option>
+              <option>قراردادی</option>
+              <option>پروژه‌ای</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label>تجربه موردنیاز</label>
+            <input name="experience" placeholder="مثلاً ۲ تا ۵ سال" />
+          </div>
+          <div>
+            <label>شماره تماس</label>
+            <input name="phone" required placeholder="07xxxxxxxx" />
+          </div>
+        </div>
+        <label>آدرس محل کار</label>
+        <input name="address" placeholder="هرات، ..." />
+        <label>شرح وظایف</label>
+        <textarea name="duties" required placeholder="هر وظیفه در یک خط"></textarea>
+        <label>شرایط استخدام</label>
+        <textarea name="requirements" placeholder="شرایط لازم"></textarea>
+        <label>مزایا</label>
+        <input name="benefits" placeholder="بیمه، ترانسپورت، ..." />
+        <button type="submit">ارسال آگهی</button>
+        <p class="note">پس از بررسی مدیریت، آگهی در فهرست منتشر می‌شود.</p>
+      </form>
+    </main>
+    <script src="js/data.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/pages.js"></script>
+  </body>
+</html>
