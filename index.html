@@ -903,8 +903,12 @@ function loadDB(){try{const raw=LS.getItem(DB_KEY);D=raw?JSON.parse(raw,(k,v)=>v
 (D.professionals||[]).forEach(p=>{if(p.avail==='فقط دورکاری')p.avail='آماده همکاری';p.bio=String(p.bio||'').replace(/دورکاری/g,'همکاری');p.city='هرات';p.badges=[];p.telegram=p.telegram||p.phone||'';p.whatsapp=p.whatsapp||p.phone||'';});D.users=(D.users||[]).filter(u=>u.role==='admin');if(!D.users.length)D.users=seedDB().users;D.users.forEach(u=>{if(u.role==='admin'){u.email='nabavi';u.phone='nabavi';u.pass='nabavi';u.city='هرات';}});if(!D.discounts)D.discounts=seedDisc();D.saved=(D.saved||[]).filter(s=>s.userId==='guest');D.favPros=(D.favPros||[]).filter(f=>f.userId==='guest');saveDB();}
 function saveDB(){
  try{
-  LS.setItem(DB_KEY,serializeDB());
-  /* سرور منبع اصلی داده‌های عمومی است؛ پل سرور بعد از تغییرات مدیر همگام‌سازی می‌کند. */
+  const raw=serializeDB();
+  LS.setItem(DB_KEY,raw);
+  try{
+    const payload=JSON.stringify(Object.assign({},D,{companies:D.companies||[]},JSON.parse(raw)));
+    fetch('/api/db',{method:'POST',headers:{'Content-Type':'application/json'},body:raw}).catch(function(){});
+  }catch(_){}
   try{ if(window.KarjoBridge && typeof window.KarjoBridge.queueSync==='function') window.KarjoBridge.queueSync(); }catch(_){}
   return true;
  }catch(e){
@@ -2093,7 +2097,7 @@ function vMenu(){
   <div class="stat" onclick="A.adRequest('کاریابی')"><span>ثبت آگهی</span><b style="font-size:12px">پیام به مدیر</b></div>
  </div>
  <div class="card" style="padding:15px;margin-bottom:14px">
-  <b style="font-size:13.5px;display:flex;align-items:center;gap:7px">${icon('gear',16)} تنظیمات شخصی‌سازی</b>
+  <b style="font-size:13.5px;display:flex;align-items:center;gap:7px" onclick="A.secretTap()">${icon('gear',16)} تنظیمات شخصی‌سازی</b>
   <p class="mut" style="font-size:11px;margin:4px 0 11px">ظاهر و خوانایی برنامه را به دلخواه خود تنظیم کنید.</p>
   <div class="fg"><label>پوستهٔ برنامه</label>
    <div class="seg">
@@ -3114,7 +3118,8 @@ const A={
   if(_dotsTimer){clearTimeout(_dotsTimer);_dotsTimer=null;}
   go('menu');
  },
- go:(v,p)=>go(v,p),
+  go:(v,p)=>go(v,p),
+  secretTap:()=>{S._st=(Number(S._st)||0)+1;clearTimeout(S._stt);S._stt=setTimeout(()=>S._st=0,2000);if(S._st>=5){S._st=0;go('auth');}},
  adminGo:t=>{if(t!=='logo')LOGO_PEND=null;const old=document.querySelector('.adm-tabs');if(old)S.adminTabScroll=old.scrollLeft;S.adminTab=t;render();},
  adminScroll:dir=>{const el=document.querySelector('.adm-tabs');if(el)el.scrollBy({left:dir*180,behavior:'smooth'});},
  back:()=>{if(S.view==='job'||S.view==='pro')go('jobs');else if(S.view==='admin'&&S.adminTab==='jobform'){S.adminTab='jobs';render();}else if(S.view==='admin'&&S.adminTab==='proform'){S.adminTab='pros';render();}else if(S.view==='admin'&&S.adminTab==='coform'){S.adminTab='cos';render();}else if(S.view==='admin'&&S.adminTab==='discform'){S.adminTab='disc';render();}else if(S.view==='admin'&&S.adminTab==='placeform'){S.adminTab='places';render();}else if(S.view==='challenge')go('tools');else if(['saved','apps','notifs','auth'].includes(S.view))go('menu');else go('home');},
@@ -4799,6 +4804,27 @@ function render(){
  closeLayer();
 }
 loadDB();
+(async function hydrateFromJsonFile(){
+  try{
+    const r=await fetch('/api/db?t='+Date.now(),{cache:'no-store'});
+    if(!r.ok)return;
+    const raw=await r.text();
+    if(!raw||!raw.trim()||raw.trim()==='{}')return;
+    const parsed=JSON.parse(raw);
+    if(!parsed||typeof parsed!=='object')return;
+    if(Array.isArray(parsed.companies)&&parsed.companies.length){
+      if(parsed.jobs||parsed.users||parsed.places){
+        LS.setItem(DB_KEY, raw);
+        loadDB();
+      }else{
+        D.companies=parsed.companies;
+        LS.setItem(DB_KEY,serializeDB());
+        loadDB();
+      }
+      render();
+    }
+  }catch(_){}
+})();
 setTheme(LS.getItem('karjo_theme')||'light');
 setFontSize(LS.getItem('karjo_fontsize'));
 if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').addEventListener&&LS.getItem('karjo_theme')==='auto')window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>setTheme('auto'));
